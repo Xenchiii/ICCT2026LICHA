@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- page title shown on the browser tab -->
+  <title>Agusan del Norte — Caraga Region XIII</title>
+  <!-- linking back to the shared stylesheet one folder up -->
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+
+<!-- ============================================================
+     LOADING SCREEN
+     same loading intro as the homepage but with "AGUSAN DEL NORTE"
+     text instead — gives each province page its own identity
+============================================================ -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">AGUSAN</div>
+  <div class="loader-sub">DEL NORTE · CARAGA</div>
+</div>
+
+
+<!-- ============================================================
+     BACK TO TOP BUTTON
+     floats at the bottom-right corner, appears after scrolling down
+============================================================ -->
+<div id="back-top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+
+<!-- ============================================================
+     NAVBAR
+     same navbar as the homepage but with relative paths going
+     one folder up (../index.html) since we're inside /provinces/
+     the "Provinces" dropdown item has the "active" class here
+     because we're currently on a province page
+============================================================ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- brand logo — links back to the main homepage -->
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+
+      <!-- main navigation links -->
+      <ul class="nav-menu">
+        <li><a href="../index.html#home"    class="nav-link">Home</a></li>
+        <li><a href="../index.html#about"   class="nav-link">About</a></li>
+        <li><a href="../index.html#history" class="nav-link">History</a></li>
+
+        <!-- provinces dropdown — "active" since we're on a province sub-page -->
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle active">
+            Provinces
+            <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <!-- dropdown list of all 5 provinces —
+               Agusan del Norte dot is pink to highlight the current page -->
+          <ul class="dropdown-menu">
+            <li><a href="agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot" style="background:#E4509A"></span>Agusan del Norte</a></li>
+            <li><a href="agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+            <li><a href="surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+            <li><a href="dinagat.html"       class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+
+        <li><a href="../pages/tourist-spots.html"  class="nav-link">Tourist Spots</a></li>
+        <li><a href="../pages/culture-events.html" class="nav-link">Culture &amp; Events</a></li>
+        <li><a href="../pages/contact.html"        class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- hamburger icon for mobile — toggles the slide-in menu -->
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     PROVINCE HERO SECTION
+     full-width hero banner specific to Agusan del Norte
+     background is a gradient + the province photo layered on top
+     contains the breadcrumb trail, province name, tagline,
+     and a row of quick stats (area, population, municipalities, history)
+============================================================ -->
+<div class="province-hero" style="min-height:70vh;">
+
+  <!-- background layer: gradient with the province photo on top -->
+  <div class="province-hero-bg" style="background:linear-gradient(135deg,#004d4a,#008581,#4C9C8B);background-image:url('../images/province-agusan-norte.jpg');background-size:cover;background-position:center;"></div>
+
+  <!-- dark overlay so the white text stays readable over the photo -->
+  <div class="province-hero-overlay"></div>
+
+  <div class="container" style="position:relative;z-index:2;padding-bottom:60px;">
+    <div class="province-hero-content" style="padding:0;">
+
+      <!-- breadcrumb trail: Home → Provinces → Agusan del Norte -->
+      <div class="province-breadcrumb">
+        <a href="../index.html">Home</a> → <a href="../index.html#provinces">Provinces</a> → Agusan del Norte
+      </div>
+
+      <!-- main province title and subtitle -->
+      <h1>Agusan del Norte</h1>
+      <p class="province-hero-sub">The Political Heart of Caraga &amp; Gateway to Ancient Philippine History</p>
+
+      <!-- quick stats strip — area, population, number of municipalities, oldest known date -->
+      <div class="province-hero-stats">
+        <div><div class="ph-stat-num">2,733</div><div class="ph-stat-lbl">km² Area</div></div>
+        <div><div class="ph-stat-num">407K+</div><div class="ph-stat-lbl">Population</div></div>
+        <div><div class="ph-stat-num">10</div><div class="ph-stat-lbl">Municipalities</div></div>
+        <div><div class="ph-stat-num">~320 AD</div><div class="ph-stat-lbl">Known History</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PROVINCE OVERVIEW SECTION
+     two-column layout:
+       left  — descriptive paragraphs about the province
+       right — a grid of quick-fact tiles (capital, river, festival, etc.)
+============================================================ -->
+<section style="background:#fff;padding:64px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+
+      <!-- LEFT: overview text — history, significance, and what to expect -->
+      <div class="fade-up">
+        <span class="section-label">Province Overview</span>
+        <h2>The Historical Capital of Caraga</h2>
+        <div class="divider" style="margin:14px 0 20px;"></div>
+        <p>Agusan del Norte is the political, cultural, and economic capital of Caraga Region. It is home to two cities: Butuan — the Regional Center and one of the most historically significant cities in the Philippines — and Cabadbaran, the provincial capital. The province sits at the mouth of the Agusan River, the second-longest river in the Philippines, which drains an enormous watershed from the mountains of Bukidnon all the way to Butuan Bay.</p>
+        <p style="margin-top:12px;">Butuan City is where Philippine history was literally buried in the riverbanks — the ancient Balanghai boats discovered at Libertad in 1976 rewrote the timeline of Philippine civilisation, proving a sophisticated seafaring culture existed here since at least 320 AD. The Balanghai Ethnological Museum and the National Museum branch in Butuan house the world's finest collection of pre-colonial Philippine artefacts.</p>
+        <p style="margin-top:12px;">Beyond history, the province offers natural attractions including Masao Beach along Butuan Bay, the Bood Promontory Eco-Park, and easy access to the Agusan River system — the lifeblood of Caraga.</p>
+      </div>
+
+      <!-- RIGHT: quick-fact info card grid — 6 tiles with key province details -->
+      <div class="fade-up">
+        <div style="background:linear-gradient(135deg,#e8f7f5,#c5e8e4);border-radius:20px;padding:28px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- each tile is a small white card with a label and value -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Provincial Capital</div>
+              <div style="font-weight:600;font-size:0.9rem;">Cabadbaran City</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Regional Center</div>
+              <div style="font-weight:600;font-size:0.9rem;">Butuan City (HUC)</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Historic Site</div>
+              <div style="font-weight:600;font-size:0.9rem;">Balanghai Boats ~320 AD</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">River</div>
+              <div style="font-weight:600;font-size:0.9rem;">Agusan River (2nd longest PH)</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Festival</div>
+              <div style="font-weight:600;font-size:0.9rem;">Balanghai (Aug) &amp; Kahimunan (Oct)</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Airport</div>
+              <div style="font-weight:600;font-size:0.9rem;">Bancasi Airport, Butuan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TOURIST SPOTS SECTION
+     a responsive grid of detailed spot cards for this province
+     each card has: a photo/gradient bg, a category badge,
+     a Google Maps link button, a description, tags, and location info
+============================================================ -->
+<section style="background:var(--off-white);padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Destinations</span>
+      <h2>Tourist Spots in Agusan del Norte</h2>
+      <div class="divider"></div>
+      <p>Journey through 1,700 years of history — from the ancient Balanghai boats to Spanish-era churches, natural beaches and the great Agusan River.</p>
+    </div>
+
+    <!-- grid of province spot cards — each one is a self-contained info block -->
+    <div class="province-spots-grid">
+
+      <!-- SPOT CARD: Balanghai Ethnological Museum & Boat Shrine -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#3d2000,#7a4000);">
+          <!-- spot photo — hides itself if the image file is missing -->
+          <img src="../images/spot-balanghai.jpg" alt="Balanghai Museum" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <!-- category badge shown on the top-left of the card image -->
+          <span class="psc-badge"> Heritage</span>
+          <!-- Google Maps button — opens directly in a new tab -->
+          <a href="https://maps.google.com/maps?q=Balanghai+Ethnological+Museum+Butuan+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Balanghai Ethnological Museum &amp; Boat Shrine</h3>
+          <p>The crown jewel of Butuan City's heritage — the Balanghai Boat Shrine in Libertad houses the actual excavated ancient boats in their original burial positions, preserved in a climate-controlled structure. Over ten boats have been recovered from the site, carbon-dated to as far back as 320 AD. They represent some of the oldest watercraft found in Southeast Asia. The adjacent Balanghai Ethnological Museum displays gold artefacts, burial jars, Chinese trade ceramics, and jewellery recovered from the site — a treasury of pre-colonial Philippine civilisation that rivals any museum in Manila.</p>
+          <!-- activity/category tags for this spot -->
+          <div class="psc-tags">
+            <span class="psc-tag">History</span>
+            <span class="psc-tag">Museum</span>
+            <span class="psc-tag">Archaeology</span>
+            <span class="psc-tag">UNESCO</span>
+          </div>
+          <!-- location and hours info line at the bottom of the card -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Libertad, Butuan City • Open Tue–Sun
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: National Museum of the Philippines — Butuan Branch -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#2c2c4a,#4a4a7a);">
+          <img src="../images/spot-national-museum-butuan.jpg" alt="National Museum Butuan" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Museum</span>
+          <a href="https://maps.google.com/maps?q=National+Museum+Butuan+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>National Museum of the Philippines — Butuan Branch</h3>
+          <p>The Butuan branch of the National Museum of the Philippines houses an extraordinary collection of artefacts recovered from archaeological excavations across Caraga — Butuan gold masks, the famous Butuan Silver Paleograph, pre-colonial pottery, trade goods from China and Southeast Asia, and ethnographic items from Caraga's indigenous peoples. The museum tells the complete story of Caraga's civilisation across 2,000 years. Admission is free. The building itself is situated near Butuan City Hall in the centre of the city.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Museum</span>
+            <span class="psc-tag">Gold Artefacts</span>
+            <span class="psc-tag">Free Entry</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Butuan City • Free admission
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Masao Beach — Butuan's nearest beach destination -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#00567a,#0098c8);">
+          <img src="../images/spot-masao.jpg" alt="Masao Beach" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Beach</span>
+          <a href="https://maps.google.com/maps?q=Masao+Beach+Butuan+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Masao Beach</h3>
+          <p>Butuan City's nearest beach destination, located along Butuan Bay in the Masao district. Masao is a long, grey-sand beach backed by coconut palms and casuarina trees, popular with locals especially on weekends and holidays. The beach has calmer waters than the open Pacific and is ideal for swimming, beach picnics, and watching spectacular sunsets over the bay. Several beachfront resorts, restaurants, and cottages line the shore. It's easily accessible by tricycle from Butuan City centre in about 20 minutes.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Swimming</span>
+            <span class="psc-tag">Sunset</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Masao, Butuan City • 20 min from city
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Bood Promontory Eco-Park — where Legazpi planted Mindanao's first cross -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a3a10,#2d6a1a);">
+          <img src="../images/spot-bood.jpg" alt="Bood Promontory" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Eco-Park</span>
+          <a href="https://maps.google.com/maps?q=Bood+Promontory+Agusan+del+Norte+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Bood Promontory Eco-Park</h3>
+          <p>A forested hill rising from the coastline of Buenavista municipality, offering panoramic views of Butuan Bay and the surrounding lowlands. The Bood Promontory has been developed into a community eco-park with nature trails, picnic areas, and tree planting zones. The area is also historically significant — it is believed to be the site where Spanish explorer Miguel Lopez de Legazpi planted the first cross in Mindanao during his 1565 expedition, establishing the first Spanish colonial settlement in the island. A cross monument marks the historic spot.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Eco-Park</span>
+            <span class="psc-tag">History</span>
+            <span class="psc-tag">Panoramic Views</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Buenavista, Agusan del Norte
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Cathedral of Saint Joseph — Butuan's diocesan cathedral -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#3d3000,#7a6000);">
+          <img src="../images/spot-butuan-cathedral.jpg" alt="Butuan Cathedral" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Heritage Church</span>
+          <a href="https://maps.google.com/maps?q=Cathedral+of+Saint+Joseph+Butuan+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Cathedral of Saint Joseph — Butuan</h3>
+          <p>The Cathedral of Saint Joseph is the seat of the Roman Catholic Diocese of Butuan and the spiritual heart of the city. The current structure, with its distinctive twin towers, stands on the site of an earlier church established by Augustinian missionaries in the 17th century. It is the venue of the annual Kahimunan Festival procession and the Balanghai Festival's fluvial Mass. The cathedral's interior houses notable religious art and a historic collection of devotional objects. The surrounding Butuan City Plaza is the social and civic centre of the city.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Church</span>
+            <span class="psc-tag">Heritage</span>
+            <span class="psc-tag">Architecture</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Butuan City centre
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Agusan River — the lifeblood of the entire Caraga region -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d20,#006040);">
+          <img src="../images/spot-agusan-river.jpg" alt="Agusan River" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> River Tour</span>
+          <a href="https://maps.google.com/maps?q=Agusan+River+Butuan+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Agusan River — The Great River of Caraga</h3>
+          <p>The Agusan River is the lifeblood of the entire Caraga region — the second-longest river in the Philippines at 390 kilometres, draining a watershed of over 10,000 km². At Butuan City, the river widens into a broad, navigable waterway lined with stilt houses, bangka boats, and river communities. Guided boat tours along the Agusan River offer a fascinating glimpse into river life, riverside communities, and the lush riparian ecosystem. The river is the backdrop for both the Balanghai Festival's spectacular fluvial parade and the Kahimunan procession every year.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">River</span>
+            <span class="psc-tag">Boat Tour</span>
+            <span class="psc-tag">Nature</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Butuan City — runs through all Caraga
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Nasipit Port & Butuan Bay coastline -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#004060,#0076a8);">
+          <img src="../images/spot-nasipit.jpg" alt="Nasipit Port" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Gateway Port</span>
+          <a href="https://maps.google.com/maps?q=Nasipit+Port+Agusan+del+Norte+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Nasipit &amp; Butuan Bay Coastline</h3>
+          <p>Nasipit is Caraga's main seaport, handling cargo and inter-island passenger ferries connecting Caraga to Cebu, Manila, and other major ports. The municipality sits on Butuan Bay and has a peaceful waterfront promenade popular for early morning walks. The bay itself offers scenic views at sunrise and sunset, and traditional fishing boats can be seen departing before dawn. The nearby Kinabigtasan Beach in Nasipit is a quiet getaway for swimming and relaxation with a local atmosphere free from tourist commercialism.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Seaport</span>
+            <span class="psc-tag">Bay Views</span>
+            <span class="psc-tag">Local Life</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Nasipit, Agusan del Norte
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Butuan City food scene, markets, and cultural life -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a1a40,#303080);">
+          <img src="../images/spot-butuan-market.jpg" alt="Butuan Market" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Food &amp; Culture</span>
+          <a href="https://maps.google.com/maps?q=Butuan+City+Public+Market+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Butuan City — Food, Markets &amp; Culture</h3>
+          <p>As Caraga's largest city and regional centre, Butuan offers the region's best food scene. The Butuan Central Market (Pamilhan) is a lively hub where fresh produce, dried fish, local delicacies, and everyday goods are traded daily. The city's famous kinalas (pork noodle soup) stalls along the riverside are a must-try, operating from early morning. Several heritage restaurants serve traditional Butuanon cuisine. The thriving arts scene — centred around the Butuan Cultural Center — hosts events, exhibitions, and performances year-round celebrating Caraga's rich cultural heritage.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Food</span>
+            <span class="psc-tag">Markets</span>
+            <span class="psc-tag">Culture</span>
+            <span class="psc-tag">Nightlife</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Butuan City
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     INTERACTIVE MAP SECTION
+     an embedded Google Maps iframe with tab buttons above it
+     clicking each tab calls switchProvMap() which swaps the iframe src
+     to zoom in on a specific location within the province
+============================================================ -->
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Location</span>
+      <h2>Agusan del Norte on the Map</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- tab buttons — each one changes the map view when clicked -->
+    <div class="map-tabs fade-up">
+      <button class="map-tab active"  onclick="switchProvMap('an-main',this)">Province View</button>
+      <button class="map-tab"         onclick="switchProvMap('butuan',this)">Butuan City</button>
+      <button class="map-tab"         onclick="switchProvMap('balanghai',this)">Balanghai Site</button>
+      <button class="map-tab"         onclick="switchProvMap('masao',this)">Masao Beach</button>
+      <button class="map-tab"         onclick="switchProvMap('nasipit',this)">Nasipit Port</button>
+    </div>
+
+    <!-- the map iframe — its src is swapped by switchProvMap() in the JS below -->
+    <div class="province-gmap-frame fade-up">
+      <iframe id="provMapFrame"
+        src="https://maps.google.com/maps?q=Agusan+del+Norte+Philippines&output=embed&z=10"
+        width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy"
+        title="Agusan del Norte Map">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW TO GET THERE SECTION
+     four travel method cards: by air, by sea, by bus, and getting around
+     each card has an emoji icon, a title, and travel details
+============================================================ -->
+<section style="background:var(--off-white);padding:64px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Travel Guide</span>
+      <h2>How to Get to Agusan del Norte</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- auto-fit grid so it stacks nicely on mobile -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;" class="fade-up">
+
+      <!-- travel card: By Air — Bancasi Airport -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;">️</div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Air</h3>
+        <p style="font-size:0.84rem;">Bancasi Airport (BXU) in Butuan City is served by Cebu Pacific, Philippine Airlines, and AirAsia with multiple daily flights from Manila and Cebu. Flight time from Manila is approximately 1.5 hours. The airport is 10 minutes from the city centre by taxi or tricycle.</p>
+      </div>
+
+      <!-- travel card: By Sea — Nasipit Port -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Sea</h3>
+        <p style="font-size:0.84rem;">Nasipit Port in Agusan del Norte serves RORO and passenger vessels from Cebu (Pier 1), Manila, and other major ports. Shipping lines include Cokaliong, Lorenzo, and SuperFerry. The journey from Cebu to Nasipit takes approximately 8–10 hours.</p>
+      </div>
+
+      <!-- travel card: By Bus — Butuan as the main hub -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Bus</h3>
+        <p style="font-size:0.84rem;">Butuan serves as the main bus hub for all of Caraga. Air-conditioned buses connect Butuan to Davao City (~4 hrs), Cagayan de Oro (~3 hrs), Surigao City (~2.5 hrs), and Tandag City (~4 hrs). Bachelor Express and Philtranco are major operators.</p>
+      </div>
+
+      <!-- travel card: Getting around Butuan City -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">Around Butuan</h3>
+        <p style="font-size:0.84rem;">Taxis, tricycles, and e-bikes are abundant in Butuan City. Jeepneys run major routes. For the Balanghai Boat Shrine and Masao Beach, tricycles are the easiest option. For provincial tours, renting a car or van with a driver is recommended. GrabCar service is available in Butuan City.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FESTIVAL HIGHLIGHT SECTION
+     a two-column dark teal banner spotlighting both major festivals
+     left  — descriptive text about the Balanghai and Kahimunan festivals
+     right — a glass-card panel listing all three festival/event items
+============================================================ -->
+<section style="background:linear-gradient(135deg,#004d4a,#008581);padding:80px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- LEFT: festival descriptions -->
+      <div class="fade-up" style="color:#fff;">
+        <!-- pill label at the top -->
+        <span style="display:inline-block;background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.85);font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:30px;margin-bottom:16px;">Festivals</span>
+        <h2 style="color:#fff;margin-bottom:16px;">Balanghai &amp; Kahimunan Festivals</h2>
+        <!-- festival descriptions — bold green text highlights festival names -->
+        <p style="color:rgba(255,255,255,0.78);">Butuan City celebrates two of Caraga's most spectacular festivals. The <strong style="color:#96E4B0;">Balanghai Festival</strong> (August) features a grand fluvial parade on the Agusan River with decorated bancas, street dancing in elaborate ancient-themed costumes, cultural showcases, and trade fairs — all honouring the city's pre-colonial seafaring heritage.</p>
+        <p style="color:rgba(255,255,255,0.72);margin-top:12px;">The <strong style="color:#96E4B0;">Kahimunan Festival</strong> (October) is a deeply religious celebration in honour of the Virgen de los Remedios — Butuan's patroness. Colourful processions, traditional Butuanon street dances, novena masses, and a week of cultural pride mark this annual fiesta.</p>
+        <!-- link to the full culture & events page -->
+        <a href="../pages/culture-events.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;background:rgba(255,255,255,0.15);color:#fff;padding:11px 26px;border-radius:8px;font-weight:600;font-size:0.88rem;border:1.5px solid rgba(255,255,255,0.3);transition:all 0.3s ease;">View All Events →</a>
+      </div>
+
+      <!-- RIGHT: glass-card panel with all three event entries -->
+      <div class="fade-up">
+        <!-- frosted glass card — uses backdrop-filter blur for the glass effect -->
+        <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:28px;">
+
+          <!-- event entry 1: Balanghai Festival -->
+          <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.12);">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:var(--summer-green);letter-spacing:1.5px;margin-bottom:6px;">August Festival</div>
+            <div style="color:#fff;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Balanghai Festival</div>
+            <div style="color:rgba(255,255,255,0.6);font-size:0.83rem;">Fluvial parade · Street dancing · Cultural shows · Trade fair</div>
+          </div>
+
+          <!-- event entry 2: Kahimunan Festival -->
+          <div style="margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.12);">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:var(--summer-green);letter-spacing:1.5px;margin-bottom:6px;">October Festival</div>
+            <div style="color:#fff;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Kahimunan Festival</div>
+            <div style="color:rgba(255,255,255,0.6);font-size:0.83rem;">Religious procession · Street dancing · Novena masses · Fiesta</div>
+          </div>
+
+          <!-- event entry 3: Year-round heritage programming -->
+          <div>
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:var(--summer-green);letter-spacing:1.5px;margin-bottom:6px;">Year-round</div>
+            <div style="color:#fff;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Butuan Heritage Month</div>
+            <div style="color:rgba(255,255,255,0.6);font-size:0.83rem;">Museum events · Archaeological tours · Cultural programs</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     simplified footer compared to the homepage —
+     four columns: brand info, provinces list, top sites, quick links
+     current province (Agusan del Norte) is highlighted in green
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- brand column -->
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, Region XIII — Land of Promise, northeastern Mindanao, Philippines.</p>
+      </div>
+
+      <!-- provinces column — Agusan del Norte is highlighted since we're on that page -->
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="agusan-norte.html"  class="footer-link" style="color:var(--summer-green);">Agusan del Norte</a>
+          <a href="agusan-sur.html"    class="footer-link">Agusan del Sur</a>
+          <a href="surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <a href="surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="dinagat.html"       class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+
+      <!-- top sites column — anchor links that could scroll to the spots section -->
+      <div class="footer-col">
+        <h4>Top Sites</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Balanghai Museum</a>
+          <a href="#" class="footer-link">National Museum</a>
+          <a href="#" class="footer-link">Masao Beach</a>
+          <a href="#" class="footer-link">Agusan River</a>
+        </div>
+      </div>
+
+      <!-- quick links column -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html"                   class="footer-link">Home</a>
+          <a href="../pages/tourist-spots.html"     class="footer-link">Tourist Spots</a>
+          <a href="../pages/contact.html"           class="footer-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- bottom bar: copyright and the little heart tagline -->
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition.</div>
+      <div class="footer-made-by">Made with <span></span> for Caraga, Region XIII</div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- loading the shared main JS (handles loader, navbar scroll, fade-in, etc.) -->
+<script src="../js/main.js"></script>
+
+<!-- ============================================================
+     PROVINCE MAP SWITCHER SCRIPT
+     this small script powers the map tab buttons above the iframe
+     provMapUrls holds all the Google Maps embed URLs for each location
+     switchProvMap() swaps the iframe src and updates the active tab style
+============================================================ -->
+<script>
+  // all the Google Maps embed URLs for each tab — keyed by a short ID
+  const provMapUrls = {
+    'an-main':   'https://maps.google.com/maps?q=Agusan+del+Norte+Philippines&output=embed&z=10',
+    'butuan':    'https://maps.google.com/maps?q=Butuan+City+Philippines&output=embed&z=13',
+    'balanghai': 'https://maps.google.com/maps?q=Balanghai+Boat+Shrine+Butuan+City+Philippines&output=embed&z=15',
+    'masao':     'https://maps.google.com/maps?q=Masao+Beach+Butuan+City+Philippines&output=embed&z=14',
+    'nasipit':   'https://maps.google.com/maps?q=Nasipit+Port+Agusan+del+Norte+Philippines&output=embed&z=13'
+  };
+
+  // called when a map tab button is clicked
+  // swaps the iframe to the correct map and moves the "active" highlight
+  function switchProvMap(key, btn) {
+    const f = document.getElementById('provMapFrame');
+    // fall back to the province overview if the key isn't found
+    if (f) f.src = provMapUrls[key] || provMapUrls['an-main'];
+    // remove active class from all tabs then add it to the one that was clicked
+    document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+    btn?.classList.add('active');
+  }
+</script>
+
+
+</body>
+</html>

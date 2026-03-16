@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- page title shown on the browser tab -->
+  <title>Surigao del Norte — Caraga Region XIII</title>
+  <!-- linking back to the shared stylesheet one folder up -->
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+
+<!-- ============================================================
+     LOADING SCREEN
+     shows "SURIGAO DEL NORTE · CARAGA" during the intro animation
+     each province gets its own loading text for a personal touch
+============================================================ -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">SURIGAO</div>
+  <div class="loader-sub">DEL NORTE · CARAGA</div>
+</div>
+
+
+<!-- ============================================================
+     BACK TO TOP BUTTON
+     fixed arrow in the corner — tooltip says "Back to top"
+     appears after the user scrolls down the page
+============================================================ -->
+<div id="back-top" title="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+
+<!-- ============================================================
+     NAVBAR
+     shared navbar used across all province pages
+     all paths use ../ since this file lives inside /provinces/
+     "Provinces" dropdown is marked active (we're on a province page)
+     Surigao del Norte's dot is pink to mark it as the current page
+============================================================ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- brand logo — links back to the main homepage -->
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+
+      <!-- desktop nav links -->
+      <ul class="nav-menu">
+        <li><a href="../index.html#home"    class="nav-link">Home</a></li>
+        <li><a href="../index.html#about"   class="nav-link">About</a></li>
+        <li><a href="../index.html#history" class="nav-link">History</a></li>
+
+        <!-- provinces dropdown — active because we're currently on a province page -->
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle active">
+            Provinces
+            <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <!-- Surigao del Norte's dot is pink (#E4509A) — marks this as the current page -->
+          <ul class="dropdown-menu">
+            <li><a href="agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+            <li><a href="agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="surigao-norte.html" class="dropdown-item"><span class="dropdown-dot" style="background:#E4509A"></span>Surigao del Norte</a></li>
+            <li><a href="surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+            <li><a href="dinagat.html"       class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+
+        <!-- this page has more nav links than the others — includes Delicacies -->
+        <li><a href="../pages/tourist-spots.html"  class="nav-link">Tourist Spots</a></li>
+        <li><a href="../pages/culture-events.html" class="nav-link">Culture &amp; Events</a></li>
+        <li><a href="../pages/delicacies.html"     class="nav-link">Delicacies</a></li>
+        <li><a href="../pages/contact.html"        class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- hamburger button — only visible on mobile, opens the slide-in menu -->
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     PROVINCE HERO SECTION
+     full-width banner for Surigao del Norte
+     uses a deep ocean-blue gradient — fitting for a province
+     whose identity is built around the sea and Siargao Island
+     layered with the actual province photo on top
+     contains: breadcrumb, title, tagline, and 4 quick stats
+============================================================ -->
+<div class="province-hero" style="min-height:70vh;">
+
+  <!-- background: blue gradient base + province photo layered on top of it -->
+  <div class="province-hero-bg" style="background:linear-gradient(135deg,#003d60,#006b8e,#009ec2);background-image:url('../images/province-surigao-norte.jpg');background-size:cover;background-position:center;"></div>
+
+  <!-- semi-transparent dark overlay so the white text reads clearly -->
+  <div class="province-hero-overlay"></div>
+
+  <div class="container" style="position:relative;z-index:2;padding-bottom:60px;">
+    <div class="province-hero-content" style="padding:0;">
+
+      <!-- breadcrumb navigation trail -->
+      <div class="province-breadcrumb">
+        <a href="../index.html">Home</a> → <a href="../index.html#provinces">Provinces</a> → Surigao del Norte
+      </div>
+
+      <!-- main province title and tagline -->
+      <h1>Surigao del Norte</h1>
+      <p class="province-hero-sub">Where World-Class Waves Meet Pristine Island Paradise</p>
+
+      <!-- quick stats strip: area, population, municipalities, and the province's one HUC city -->
+      <div class="province-hero-stats">
+        <div><div class="ph-stat-num">1,672</div><div class="ph-stat-lbl">km² Area</div></div>
+        <div><div class="ph-stat-num">551K+</div><div class="ph-stat-lbl">Population</div></div>
+        <div><div class="ph-stat-num">27</div><div class="ph-stat-lbl">Municipalities</div></div>
+        <!-- Surigao City is a Highly Urbanized City — hence HUC in the label -->
+        <div><div class="ph-stat-num">1 City</div><div class="ph-stat-lbl">Surigao City (HUC)</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PROVINCE OVERVIEW SECTION
+     two-column layout:
+       left  — descriptive paragraphs about the province's fame,
+               history (Magellan landing!), and what to expect
+       right — 6 quick-fact tiles in a mini grid (capital, founded,
+               known for, festival, best season, surf season)
+============================================================ -->
+<section style="background:#fff;padding:60px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- LEFT: overview text — Siargao fame, Magellan history, and Surigao City -->
+      <div class="fade-up">
+        <span class="section-label">Province Overview</span>
+        <h2>The Surfing Capital of the Philippines</h2>
+        <!-- text-align:left overrides the centered default from the section header -->
+        <div class="divider" style="margin:14px 0 20px;text-align:left;"></div>
+        <p>Surigao del Norte occupies the northeastern tip of Mindanao and encompasses hundreds of islands scattered across the Philippine Sea and Mindanao Sea. The province is internationally renowned for Siargao Island — crowned "Best Island in the World" by Condé Nast Traveler in 2021 — and its legendary Cloud 9 surf break.</p>
+        <p style="margin-top:12px;">The province is also historically significant: Homonhon Island, part of Surigao del Norte, is where Ferdinand Magellan's fleet made the Philippines' very first European contact on March 17, 1521. Beyond Siargao, the province hides extraordinary natural treasures including Lake Mainit, Mabua Pebble Beach, Bucas Grande Island, and the Sohoton Cove of Bucas Grande (distinct from Dinagat's Sohoton).</p>
+        <p style="margin-top:12px;">The provincial capital, Surigao City, is a bustling port city with heritage churches, a vibrant market, and the famous Mabua Pebble Beach. It serves as the main gateway for travelers heading to Siargao Island.</p>
+      </div>
+
+      <!-- RIGHT: quick-fact grid — 6 info tiles, light blue background panel -->
+      <div class="fade-up">
+        <div style="background:linear-gradient(135deg,#e8f4f8,#c5e8f5);border-radius:20px;padding:28px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- each tile is a small white card with a teal label and bold value -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Capital</div>
+              <div style="font-weight:600;color:#162928;">Surigao City (HUC)</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Founded</div>
+              <div style="font-weight:600;color:#162928;">1768 (Surigao Town)</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Known For</div>
+              <div style="font-weight:600;color:#162928;">Siargao, Cloud 9, Surfing</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Festival</div>
+              <div style="font-weight:600;color:#162928;">Bonok-Bonok Maradjao</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Best Season</div>
+              <div style="font-weight:600;color:#162928;">Mar–Oct (Dry Season)</div>
+            </div>
+            <!-- surf season is separate from general best season — important for surfers -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid #cde8e6;">
+              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#008581;margin-bottom:4px;">Surf Season</div>
+              <div style="font-weight:600;color:#162928;">Sep–Nov (Best Waves)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TOURIST SPOTS SECTION
+     the largest spot grid of all province pages — 12 cards total
+     covers everything from Cloud 9 surf to Homonhon's history
+     each card: photo/gradient bg, badge, Google Maps link,
+     description, activity tags, and a location/access line
+============================================================ -->
+<section style="background:var(--off-white);padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Destinations</span>
+      <h2>Tourist Spots in Surigao del Norte</h2>
+      <div class="divider"></div>
+      <p>From world-famous surf breaks to hidden lagoons and historic islands — explore everything Surigao del Norte has to offer.</p>
+    </div>
+
+    <div class="province-spots-grid">
+
+      <!-- SPOT CARD: Cloud 9 — the world-famous surf break, the reason Siargao is on the map -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#005a8e,#0088cc);">
+          <!-- photo hides itself gracefully if the image file isn't present -->
+          <img src="../images/spot-cloud9.jpg" alt="Cloud 9 Siargao" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <!-- category badge on the top-left of the image -->
+          <span class="psc-badge"> Surfing</span>
+          <!-- opens directly in Google Maps in a new tab -->
+          <a href="https://maps.google.com/maps?q=Cloud+9+Siargao+Island+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Cloud 9 — The World's Best Wave</h3>
+          <p>The centrepiece of Siargao Island and one of the finest surf breaks in Asia. Cloud 9 is a powerful, hollow right-hand reef break that barrels over shallow coral, producing the kind of waves that feature on surf magazine covers. During the annual Siargao Surfing Cup in September, professional surfers from around the globe compete here. The iconic wooden boardwalk extending over the reef is one of Siargao's most photographed spots. Even non-surfers love watching the action from the viewing deck.</p>
+          <!-- activity tags for quick category scanning -->
+          <div class="psc-tags">
+            <span class="psc-tag">Surfing</span>
+            <span class="psc-tag">Photography</span>
+            <span class="psc-tag">Spectator</span>
+          </div>
+          <!-- best season note is especially useful for surf trip planning -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            General Luna, Siargao Island • Best Sept–Nov
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Sugba Lagoon — emerald lagoon only reachable by boat through mangroves -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d60,#0077b6);">
+          <img src="../images/spot-sugba.jpg" alt="Sugba Lagoon" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Lagoon</span>
+          <a href="https://maps.google.com/maps?q=Sugba+Lagoon+Siargao+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Sugba Lagoon</h3>
+          <p>A breathtaking emerald-green lagoon on Socorro municipality, accessible only by a 45-minute boat ride through mangrove tunnels. The lagoon's exceptionally clear, warm water is ideal for kayaking, stand-up paddleboarding, and snorkeling. A floating wooden platform in the middle provides a jumping point. The surrounding mangroves shelter rich birdlife. Sugba Lagoon is now one of Siargao's most visited attractions — mornings are recommended for quieter conditions.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Lagoon</span>
+            <span class="psc-tag">Kayaking</span>
+            <span class="psc-tag">SUP</span>
+            <span class="psc-tag">Snorkeling</span>
+          </div>
+          <!-- "Boat required" is critical info — you can't walk to this lagoon -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Socorro, Siargao Island • Boat required
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Magpupungko Rock Pools — tidal pools that only appear at low tide -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a4060,#2d7db8);">
+          <img src="../images/spot-magpupungko.jpg" alt="Magpupungko" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Tidal Pools</span>
+          <a href="https://maps.google.com/maps?q=Magpupungko+Rock+Pools+Siargao+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Magpupungko Rock Pools</h3>
+          <p>One of Siargao's most unique natural wonders — a series of jagged black volcanic rock formations along the shoreline that create natural swimming pools during low tide. The pools fill with crystal-clear sea water and are perfect for swimming and snorkeling. At high tide the area transforms dramatically, with powerful waves crashing over the rocks. Arrive at low tide (check tide charts before visiting). The surrounding rocky coast is also great for photography and short hikes.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Tidal Pools</span>
+            <span class="psc-tag">Swimming</span>
+            <span class="psc-tag">Photography</span>
+          </div>
+          <!-- tide warning — visiting at the wrong time means no pools to swim in -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Pilar, Siargao Island • Visit at low tide only
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Naked Island, Daku & Guyam — the classic Siargao island-hopping trio -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#005a8e,#00a8d6);">
+          <img src="../images/spot-siargao-islands.jpg" alt="Siargao Islands" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Island Hopping</span>
+          <a href="https://maps.google.com/maps?q=Naked+Island+Siargao+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Naked Island, Daku &amp; Guyam</h3>
+          <p>The classic Siargao island-hopping route visits three iconic islands: Naked Island — a pure white sandbar with no vegetation, barely above sea level; Daku Island — the largest of the three with coconut palms, hammocks, and local restaurants serving fresh seafood; and Guyam Island — a tiny, picture-perfect island ringed by white sand and turquoise water with a single coconut grove. The boat tour takes roughly a full day and is one of Siargao's must-do experiences.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Island Hop</span>
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Sandbar</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            General Luna, Siargao • Full-day boat tour
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Sohoton Cove Bucas Grande — NOT the same as Dinagat's Sohoton -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1c2f60,#2e5fac);">
+          <img src="../images/spot-sohoton-bucas.jpg" alt="Sohoton Bucas Grande" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Jellyfish Cove</span>
+          <a href="https://maps.google.com/maps?q=Sohoton+Cove+Bucas+Grande+Surigao+del+Norte+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Sohoton Cove — Bucas Grande</h3>
+          <!-- description opens by clarifying this is a DIFFERENT Sohoton from Dinagat's -->
+          <p>Not to be confused with Dinagat's Sohoton, this is a different and equally spectacular natural wonder on Bucas Grande Island in Surigao del Norte. The cove features massive limestone formations, hidden caves, and lagoons accessible only through narrow tidal passages. The famous stingless jellyfish sanctuary allows visitors to swim among thousands of harmless moon jellyfish in an enclosed lagoon. The caves also contain ancient cave paintings. Access is tidal — only possible at low tide. Located off Socorro municipality.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Cove</span>
+            <span class="psc-tag">Jellyfish</span>
+            <span class="psc-tag">Caves</span>
+            <span class="psc-tag">Adventure</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Socorro / Bucas Grande • Tidal access only
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Lake Mainit — shared with Agusan del Sur, famous for its warm springs -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a3a0f,#2d6b1a);">
+          <img src="../images/spot-mainit.jpg" alt="Lake Mainit" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Lake</span>
+          <a href="https://maps.google.com/maps?q=Lake+Mainit+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Lake Mainit</h3>
+          <p>The fourth-largest lake in the Philippines, straddling the borders of Surigao del Norte and Agusan del Sur. Lake Mainit is named from the Filipino word for "hot," owing to the warm waters fed by geothermal springs. The lake is famous for its sardines (tulingan) and the surrounding communities support traditional fishing livelihoods. Mountain scenery rings the lake, and boat tours offer peaceful views. The lake is also rich in freshwater biodiversity, including endemic species.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Lake</span>
+            <span class="psc-tag">Fishing</span>
+            <span class="psc-tag">Nature</span>
+            <span class="psc-tag">Birdwatching</span>
+          </div>
+          <!-- shared province note — same lake card appears in the Agusan del Sur page -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Mainit / Jabonga • Shared with Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Mabua Pebble Beach — the only pebble beach in Caraga -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#4a3000,#8b6000);">
+          <img src="../images/spot-mabua.jpg" alt="Mabua Pebble Beach" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Pebble Beach</span>
+          <a href="https://maps.google.com/maps?q=Mabua+Pebble+Beach+Surigao+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Mabua Pebble Beach</h3>
+          <p>Unlike any beach in Caraga, Mabua's shoreline is covered entirely by smooth, multicoloured pebbles instead of sand, stretching for nearly 2 kilometers near Surigao City. The characteristic "clinking" sound as waves roll across the pebbles is unique to this destination. The clear blue water and the unusual texture underfoot make it a photographer's favourite. Accessible by tricycle from Surigao City, it's an easy half-day trip from the port city. Best visited in the early morning for calm water and soft light.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Unique Beach</span>
+            <span class="psc-tag">Photography</span>
+            <span class="psc-tag">Swimming</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Mabua, near Surigao City • Easy day trip
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Homonhon Island — where Magellan first set foot in the Philippines -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#2c3e50,#4a6680);">
+          <img src="../images/spot-homonhon.jpg" alt="Homonhon Island" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Historical</span>
+          <a href="https://maps.google.com/maps?q=Homonhon+Island+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Homonhon Island — Magellan's First Landing</h3>
+          <p>One of the most historically significant islands in all of Southeast Asia — Homonhon Island in Surigao del Norte is where Ferdinand Magellan's fleet made the Philippines' very first European contact on March 17, 1521. After 99 days crossing the Pacific Ocean, the weary Spanish fleet anchored here, rested, and first met the Philippine people. A historical marker commemorates the event. The island itself has beautiful white-sand beaches, clear waters, and a peaceful atmosphere — a pilgrimage site for history enthusiasts.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">History</span>
+            <span class="psc-tag">Heritage</span>
+            <span class="psc-tag">Beach</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Guiuan, Eastern Samar–Surigao border • Boat required
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Hikdop Island — quick 30-min boat from Surigao City, great for families -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d30,#007a5c);">
+          <img src="../images/spot-hikdop.jpg" alt="Hikdop Island" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Island</span>
+          <a href="https://maps.google.com/maps?q=Hikdop+Island+Surigao+del+Norte+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Hikdop Island</h3>
+          <p>A stunning small island just off Surigao City, easily accessible by bangka (outrigger boat) in under 30 minutes. Hikdop is a popular day trip for locals and tourists alike, offering pristine white-sand beaches, coral reefs ideal for snorkeling, and calm, clear waters. The island has basic facilities including cottages and a small restaurant. It offers a more peaceful alternative to the Siargao crowds and is ideal for families and snorkeling enthusiasts seeking an accessible island getaway.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Day Trip</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Off Surigao City • 30-min boat ride
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Del Carmen Mangrove Estuary — firefly night tours through the largest mangrove in PH -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a3a10,#2e6020);">
+          <img src="../images/spot-siargao-mangrove.jpg" alt="Siargao Mangrove" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Eco-Tourism</span>
+          <a href="https://maps.google.com/maps?q=Siargao+Mangrove+Forest+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Siargao Mangrove Estuary</h3>
+          <p>Siargao Island has one of the most extensive mangrove ecosystems in Mindanao. Guided boat tours through the mangrove estuary near Del Carmen reveal a world of fireflies, kingfishers, herons, and endemic wildlife. The Del Carmen mangrove reserve is one of the largest in the Philippines, covering over 5,000 hectares. Night tours to see fireflies twinkling among the mangroves are a uniquely magical experience. Paddle boat and kayak tours are available through the winding waterways.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Mangrove</span>
+            <span class="psc-tag">Eco-Tour</span>
+            <span class="psc-tag">Birdwatching</span>
+            <span class="psc-tag">Fireflies</span>
+          </div>
+          <!-- night tours are a selling point — worth calling out in the location line -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Del Carmen, Siargao Island • Night tours available
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Delight Island — quieter off-the-beaten-path alternative near Burgos -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#004d80,#0080cc);">
+          <img src="../images/spot-delight-island.jpg" alt="Delight Island" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Beach</span>
+          <a href="https://maps.google.com/maps?q=Delight+Island+Siargao+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Delight Island</h3>
+          <p>A smaller and less crowded alternative to the main Siargao island-hopping circuit, Delight Island near Burgos features excellent snorkeling with vibrant coral reefs, clear turquoise water, and a pristine white-sand beach shaded by coconut palms. The coral garden around the island shelters a rich variety of marine life including sea turtles, reef fish, and occasional sea snakes. An ideal escape for travellers seeking quieter, off-the-beaten-path beauty in northern Siargao.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Hidden Gem</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Burgos, Siargao Island
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Surigao City Heritage Trail — worth exploring before catching the Siargao ferry -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#3d2800,#7a5000);">
+          <img src="../images/spot-surigao-city.jpg" alt="Surigao City" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> City</span>
+          <a href="https://maps.google.com/maps?q=Surigao+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Surigao City Heritage Trail</h3>
+          <p>The provincial capital and gateway to Siargao has its own heritage attractions worth exploring before catching the ferry. The Saint John the Baptist Cathedral (circa 1864) is the centrepiece of the city's colonial heritage. The Surigao City Hall Bantayan (watchtower) dates from the Spanish era. The busy public market at the pier offers the freshest seafood in the province. The city's vibrant waterfront promenade makes for a pleasant evening stroll with views of the Surigao Strait.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Heritage</span>
+            <span class="psc-tag">Church</span>
+            <span class="psc-tag">Markets</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Surigao City (HUC)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     INTERACTIVE MAP SECTION
+     Google Maps iframe with 6 tab buttons above it
+     this province has more tabs than the others — reflecting how
+     many distinct destinations are spread across its islands
+     tabs cover: whole province, Siargao, Cloud 9, Sugba Lagoon,
+     Surigao City, and Lake Mainit
+============================================================ -->
+<section class="province-map-section" style="padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Location</span>
+      <h2>Surigao del Norte on the Map</h2>
+      <div class="divider"></div>
+      <p>Explore the province's geography, islands, and key tourist destinations.</p>
+    </div>
+
+    <!-- tab buttons — justify-content:flex-start aligns them left instead of centered -->
+    <div class="map-tabs fade-up" style="justify-content:flex-start;">
+      <button class="map-tab active" onclick="switchProvMap('sn-main', this)">Province View</button>
+      <button class="map-tab"        onclick="switchProvMap('siargao', this)">Siargao Island</button>
+      <button class="map-tab"        onclick="switchProvMap('cloud9', this)">Cloud 9</button>
+      <button class="map-tab"        onclick="switchProvMap('sugba', this)">Sugba Lagoon</button>
+      <button class="map-tab"        onclick="switchProvMap('surigao-city', this)">Surigao City</button>
+      <button class="map-tab"        onclick="switchProvMap('mainit', this)">Lake Mainit</button>
+    </div>
+
+    <!-- the iframe — default shows the full province, each tab swaps the src -->
+    <div class="province-gmap-frame fade-up">
+      <iframe id="provMapFrame"
+        src="https://maps.google.com/maps?q=Surigao+del+Norte+Philippines&output=embed&z=10"
+        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+        title="Surigao del Norte Map">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW TO GET THERE SECTION
+     four travel tip cards in a responsive auto-fit grid
+     Surigao del Norte has TWO airports (Surigao City + Siargao's
+     Sayak Airport) — both are called out in the By Air card
+     covers: by air, by sea, by bus, and getting around Siargao
+============================================================ -->
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Travel Guide</span>
+      <h2>How to Get to Surigao del Norte</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- responsive grid — collapses to fewer columns on smaller screens -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;" class="fade-up">
+
+      <!-- travel card: by air — two airports serve this province -->
+      <div style="background:var(--off-white);border-radius:16px;padding:24px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:12px;">️</div>
+        <h3 style="margin-bottom:8px;">By Air</h3>
+        <p>Surigao Airport (SUG) is served by Cebu Pacific and Philippine Airlines with daily flights from Manila and Cebu. Siargao also has its own airport (Sayak Airport, IAO) with direct flights from Manila, Cebu, and Clark.</p>
+      </div>
+
+      <!-- travel card: by sea — ferries connect Surigao City to multiple ports -->
+      <div style="background:var(--off-white);border-radius:16px;padding:24px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:12px;"></div>
+        <h3 style="margin-bottom:8px;">By Sea</h3>
+        <p>RORO ferries operate from Cebu, Nasipit (Agusan del Norte), and Liloan (Southern Leyte) to Surigao City port. Fast crafts run regularly from Surigao City to Siargao (Dapa Port) — approximately 1 hour.</p>
+      </div>
+
+      <!-- travel card: by bus — from Butuan City which is Caraga's main land hub -->
+      <div style="background:var(--off-white);border-radius:16px;padding:24px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:12px;"></div>
+        <h3 style="margin-bottom:8px;">By Bus</h3>
+        <p>Air-conditioned buses connect Butuan City (Agusan del Norte) to Surigao City in approximately 2.5 hours via the Butuan-Surigao highway. Several bus lines operate this route daily.</p>
+      </div>
+
+      <!-- travel card: getting around Siargao once you're on the island -->
+      <div style="background:var(--off-white);border-radius:16px;padding:24px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:12px;"></div>
+        <h3 style="margin-bottom:8px;">Around Siargao</h3>
+        <p>Habal-habal (motorcycle taxis) are the primary transport on Siargao Island. Motorcycles and scooters can be rented at General Luna. Electric trikes operate around the town proper. Bangka boats are available at the port for island tours.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FESTIVAL HIGHLIGHT BANNER
+     a full-width teal-blue banner spotlighting the province's
+     main festival — the Bonok-Bonok Maradjao Kataw in Surigao City
+     uses a centred text layout, simpler than the other province pages
+     which had two-column layouts for this section
+============================================================ -->
+<section style="background:linear-gradient(135deg,#003d60,#006b8e);padding:80px 0;">
+  <div class="container">
+    <div style="text-align:center;max-width:700px;margin:0 auto;" class="fade-up">
+
+      <!-- pill label above the festival title -->
+      <span style="display:inline-block;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:30px;margin-bottom:16px;">Annual Celebration</span>
+
+      <!-- festival name -->
+      <h2 style="color:#fff;margin-bottom:16px;">Bonok-Bonok Maradjao Kataw Festival</h2>
+
+      <!-- festival description -->
+      <p style="color:rgba(255,255,255,0.72);font-size:1rem;margin-bottom:32px;">Celebrated every September in Surigao City, this beloved festival is a spectacular showcase of maritime culture and Surigaonon heritage. The highlight is a fluvial parade of decorated boats on the bay, followed by street dancing, cultural performances, and the coronation of the Kataw Queen. The festival honours the sea as the lifeblood of Surigao's people and celebrates the region's rich fishing and seafaring tradition.</p>
+
+      <!-- link to the full culture & events page -->
+      <a href="../pages/culture-events.html" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:2px solid rgba(255,255,255,0.35);">View All Festivals</a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     four-column layout — same structure as all province pages
+     Surigao del Norte is highlighted green in the provinces column
+     this page also has a longer tourist spots column than the others
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- brand column -->
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines.</p>
+      </div>
+
+      <!-- provinces list — Surigao del Norte highlighted green (current page) -->
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="agusan-norte.html"  class="footer-link">Agusan del Norte</a>
+          <a href="agusan-sur.html"    class="footer-link">Agusan del Sur</a>
+          <a href="surigao-norte.html" class="footer-link" style="color:var(--summer-green);">Surigao del Norte</a>
+          <a href="surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="dinagat.html"       class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+
+      <!-- top tourist spots specific to this province -->
+      <div class="footer-col">
+        <h4>Tourist Spots</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Cloud 9, Siargao</a>
+          <a href="#" class="footer-link">Sugba Lagoon</a>
+          <a href="#" class="footer-link">Magpupungko</a>
+          <a href="#" class="footer-link">Sohoton Cove</a>
+          <a href="#" class="footer-link">Mabua Beach</a>
+        </div>
+      </div>
+
+      <!-- quick links — includes an Events link that the other province pages don't have -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html"               class="footer-link">Home</a>
+          <a href="../pages/tourist-spots.html" class="footer-link">All Tourist Spots</a>
+          <a href="../pages/culture-events.html" class="footer-link">Events</a>
+          <a href="../pages/contact.html"       class="footer-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- copyright bar at the very bottom -->
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
+      <div class="footer-made-by">Made with <span></span> for Caraga, Region XIII</div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- loading the shared JS file — handles loader, navbar scroll, and fade-in animations -->
+<script src="../js/main.js"></script>
+
+<!-- ============================================================
+     PROVINCE MAP SWITCHER SCRIPT
+     same pattern as all other province pages
+     provMapUrls stores one embed URL per tab
+     switchProvMap() swaps the iframe src and moves the active tab
+     this province has 6 tabs — the most of any province page
+============================================================ -->
+<script>
+  // all Google Maps embed URLs keyed by the tab's string ID
+  const provMapUrls = {
+    'sn-main':      'https://maps.google.com/maps?q=Surigao+del+Norte+Philippines&output=embed&z=10',
+    'siargao':      'https://maps.google.com/maps?q=Siargao+Island+Philippines&output=embed&z=12',
+    'cloud9':       'https://maps.google.com/maps?q=Cloud+9+Siargao+Island+Philippines&output=embed&z=14',
+    'sugba':        'https://maps.google.com/maps?q=Sugba+Lagoon+Siargao+Philippines&output=embed&z=13',
+    'surigao-city': 'https://maps.google.com/maps?q=Surigao+City+Philippines&output=embed&z=13',
+    'mainit':       'https://maps.google.com/maps?q=Lake+Mainit+Philippines&output=embed&z=12'
+  };
+
+  // fires when a map tab is clicked
+  // updates the iframe src and moves the active highlight to the clicked tab
+  function switchProvMap(key, btn) {
+    const frame = document.getElementById('provMapFrame');
+    // falls back to the full province view if the key doesn't match anything
+    if (frame) frame.src = provMapUrls[key] || provMapUrls['sn-main'];
+    // clear active from all tabs, then apply it only to the one that was clicked
+    document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+    btn?.classList.add('active');
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- page title shown on the browser tab -->
+  <title>Dinagat Islands — Caraga Region XIII</title>
+  <!-- linking back to the shared stylesheet one folder up -->
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+
+<!-- ============================================================
+     LOADING SCREEN
+     shows "DINAGAT ISLANDS · CARAGA" to give this page
+     its own identity during the intro animation
+============================================================ -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">DINAGAT</div>
+  <div class="loader-sub">ISLANDS · CARAGA</div>
+</div>
+
+
+<!-- ============================================================
+     BACK TO TOP BUTTON
+     fixed arrow that appears after scrolling — snaps back to top
+============================================================ -->
+<div id="back-top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+
+<!-- ============================================================
+     NAVBAR
+     same shared navbar used on all province pages
+     paths use ../ since we're inside the /provinces/ folder
+     "Provinces" dropdown is marked active (we're on a province page)
+     Dinagat Islands' dot is pink to show it's the current page
+============================================================ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- brand logo — links back to the main homepage -->
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+
+      <!-- desktop nav links -->
+      <ul class="nav-menu">
+        <li><a href="../index.html#home"    class="nav-link">Home</a></li>
+        <li><a href="../index.html#about"   class="nav-link">About</a></li>
+        <li><a href="../index.html#history" class="nav-link">History</a></li>
+
+        <!-- provinces dropdown — "active" highlights the parent since we're on a sub-page -->
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle active">
+            Provinces
+            <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <!-- Dinagat Islands dot is pink (#E4509A) to mark it as the current page -->
+          <ul class="dropdown-menu">
+            <li><a href="agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+            <li><a href="agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+            <li><a href="surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+            <li><a href="dinagat.html"       class="dropdown-item"><span class="dropdown-dot" style="background:#E4509A"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+
+        <li><a href="../pages/tourist-spots.html"  class="nav-link">Tourist Spots</a></li>
+        <li><a href="../pages/culture-events.html" class="nav-link">Culture &amp; Events</a></li>
+        <li><a href="../pages/contact.html"        class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- hamburger button — only shows on mobile, toggles the slide-in menu -->
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     PROVINCE HERO SECTION
+     full-width banner for the Dinagat Islands
+     uses an ocean-blue gradient (fitting for an island province)
+     layered with the actual province photo on top
+     contains: breadcrumb, province name, tagline, and 4 quick stats
+============================================================ -->
+<div class="province-hero" style="min-height:70vh;">
+
+  <!-- background: deep blue ocean gradient + province photo layered on top -->
+  <div class="province-hero-bg" style="background:linear-gradient(135deg,#00304d,#005a8e,#0090d0);background-image:url('../images/province-dinagat.jpg');background-size:cover;background-position:center;"></div>
+
+  <!-- dark overlay so the white text stays readable over the photo -->
+  <div class="province-hero-overlay"></div>
+
+  <div class="container" style="position:relative;z-index:2;padding-bottom:60px;">
+    <div class="province-hero-content" style="padding:0;">
+
+      <!-- breadcrumb navigation trail -->
+      <div class="province-breadcrumb">
+        <a href="../index.html">Home</a> &rarr; <a href="../index.html#provinces">Provinces</a> &rarr; Dinagat Islands
+      </div>
+
+      <!-- main province title and tagline -->
+      <h1>Dinagat Islands</h1>
+      <p class="province-hero-sub">Caraga's Island Province — Cathedral Caves, Bioluminescence and Wild Pacific Shores</p>
+
+      <!-- quick stats strip: area, population, municipalities, and year established -->
+      <div class="province-hero-stats">
+        <div><div class="ph-stat-num">1,036</div><div class="ph-stat-lbl">km² Area</div></div>
+        <div><div class="ph-stat-num">135K+</div><div class="ph-stat-lbl">Population</div></div>
+        <div><div class="ph-stat-num">7</div><div class="ph-stat-lbl">Municipalities</div></div>
+        <!-- 2013 is when it was formally reconstituted as a province after legal challenges -->
+        <div><div class="ph-stat-num">2013</div><div class="ph-stat-lbl">Province Established</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PROVINCE OVERVIEW SECTION
+     two-column layout:
+       left  — three paragraphs describing the islands and what makes them special
+       right — a 6-tile quick-fact info grid (capital, top spot, access, season, etc.)
+============================================================ -->
+<section style="background:#fff;padding:64px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+
+      <!-- LEFT: overview text — province history, Sohoton, bioluminescence, and tourism potential -->
+      <div class="fade-up">
+        <span class="section-label">Province Overview</span>
+        <h2>The Newest Province in Caraga</h2>
+        <div class="divider" style="margin:14px 0 20px;"></div>
+        <p>The Dinagat Islands form Caraga's youngest and smallest province, officially established in 2013 after a prolonged effort to separate from Surigao del Norte. The province is composed of the main Dinagat Island and several surrounding smaller islands scattered across the Dinagat Sound — the channel separating Mindanao from the open Pacific.</p>
+        <p style="margin-top:12px;">Despite its modest size, the province harbours extraordinary natural attractions. The Sohoton Cove system at Bucas Grande features towering limestone cathedral arches, hidden lagoons, sea caves, and a stingless jellyfish sanctuary unlike almost anywhere else on earth. The island's coastline offers pristine beaches, dramatic rock formations, and bioluminescent plankton displays at night in certain bays.</p>
+        <p style="margin-top:12px;">San Jose serves as the provincial capital. The province is rich in nickel and chromite deposits, though natural attractions and sustainable eco-tourism are increasingly recognised as the islands' most enduring economic assets. The Dinagat Islands remain one of the least-visited island destinations in the Philippines — a frontier for travellers who prefer discovery over crowds.</p>
+      </div>
+
+      <!-- RIGHT: quick-fact card grid — 6 tiles with key details at a glance -->
+      <div class="fade-up">
+        <!-- soft blue gradient background fitting for a sea/island province -->
+        <div style="background:linear-gradient(135deg,#e8f3fa,#c5dff0);border-radius:20px;padding:28px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- each tile is a small white rounded card -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Capital</div>
+              <div style="font-weight:600;font-size:0.9rem;">San Jose</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Established</div>
+              <div style="font-weight:600;font-size:0.9rem;">2013</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Top Spot</div>
+              <div style="font-weight:600;font-size:0.9rem;">Sohoton Cove</div>
+            </div>
+            <!-- jellyfish + caves + bioluminescence — three things this province is famous for -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Known For</div>
+              <div style="font-weight:600;font-size:0.9rem;">Jellyfish, Caves, Bio-luminescence</div>
+            </div>
+            <!-- no direct flights — visitors must go through Surigao City first -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Access</div>
+              <div style="font-weight:600;font-size:0.9rem;">Via Surigao City</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Best Season</div>
+              <div style="font-weight:600;font-size:0.9rem;">Mar–May</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TOURIST SPOTS SECTION
+     a responsive grid of 7 spot cards for the Dinagat Islands
+     heavy on unique natural experiences — caves, jellyfish, bioluminescence
+     each card: photo/gradient bg, category badge, Google Maps link,
+     description, activity tags, and a location/access note
+============================================================ -->
+<section style="background:var(--off-white);padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Destinations</span>
+      <h2>Tourist Spots in the Dinagat Islands</h2>
+      <div class="divider"></div>
+      <p>Cathedral caves, bioluminescent lagoons, stingless jellyfish, and wild Pacific coastlines — Dinagat Islands is Caraga's hidden gem waiting to be discovered.</p>
+    </div>
+
+    <div class="province-spots-grid">
+
+      <!-- SPOT CARD: Sohoton Cove — the crown jewel, tidal cathedral formations -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003050,#005888);">
+          <!-- spot photo — hides itself gracefully if the image file is missing -->
+          <img src="../images/spot-sohoton-dinagat.jpg" alt="Sohoton Cove" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <!-- category badge shown top-left on the card image -->
+          <span class="psc-badge">Cathedral Caves</span>
+          <!-- opens Google Maps in a new tab -->
+          <a href="https://maps.google.com/maps?q=Sohoton+Cove+Bucas+Grande+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Sohoton Cove — Cathedral Rock System</h3>
+          <p>The Sohoton Cove system is the crown jewel of the Dinagat Islands — a series of towering limestone arches, sea caves, and hidden lagoons accessible only by navigating narrow tidal passages by boat. The Cathedral formation consists of vast cathedral-like chambers open to the sky, their walls draped in moss and stalactites, their floors filled with clear turquoise water. The passages through the rock can only be entered at low to mid tide, making every visit feel like a privileged secret. Ancient cave paintings found on the walls suggest the site has been sacred to human communities for thousands of years.</p>
+          <!-- activity tags for quick category scanning -->
+          <div class="psc-tags">
+            <span class="psc-tag">Caves</span>
+            <span class="psc-tag">Limestone</span>
+            <span class="psc-tag">Tidal Access</span>
+            <span class="psc-tag">Ancient Art</span>
+          </div>
+          <!-- access note is important here — can only enter at specific tides -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bucas Grande Island, Dinagat Islands — tidal access only
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Stingless Jellyfish Lagoon — one of the rarest experiences in PH -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d5a,#006e9a);">
+          <img src="../images/spot-jellyfish-lagoon.jpg" alt="Stingless Jellyfish Lagoon" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Jellyfish Sanctuary</span>
+          <a href="https://maps.google.com/maps?q=Stingless+jellyfish+Sohoton+Cove+Dinagat+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Stingless Jellyfish Lagoon</h3>
+          <p>Tucked within the Sohoton Cove limestone formation lies one of the Philippines' most extraordinary natural experiences — a sheltered lagoon filled with thousands of stingless jellyfish that can be touched and handled without harm. Isolated from the open sea by rock barriers over millennia, these jellyfish have evolved to lose their stinging cells entirely. Swimming or snorkelling among them — the golden globes drifting silently through clear water — is surreal and unforgettable. The lagoon is accessible only at specific tidal windows and requires a guided boat to navigate the cave passages that lead to it.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Marine Life</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Unique Experience</span>
+          </div>
+          <!-- guided tour is required — important practical info for travellers -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sohoton Cove, Bucas Grande — guided tour required
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Basilisa Bioluminescent Bay — best on dark, moonless nights -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#001a4d,#0040a0);">
+          <!-- dark blue gradient is intentional — the spot is best experienced at night -->
+          <img src="../images/spot-basilisa-bio.jpg" alt="Bioluminescence Basilisa" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Bioluminescence</span>
+          <a href="https://maps.google.com/maps?q=Basilisa+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Basilisa Bioluminescent Bay</h3>
+          <p>The bays around Basilisa municipality are among the few places in the Philippines where bioluminescent plankton can be reliably observed on calm, moonless nights. When disturbed by movement — a paddle stroke, a swimming hand, a fish breaking the surface — the water ignites with ghostly blue-green light, each ripple trailing fire. Night kayaking tours operated by local boatmen are the best way to experience this phenomenon. The effect is most dramatic from February through April and is invisible during periods of bright moonlight. No artificial lighting should be brought onto the water.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Bioluminescence</span>
+            <span class="psc-tag">Night Tour</span>
+            <span class="psc-tag">Kayaking</span>
+          </div>
+          <!-- seasonal and timing note — the phenomenon disappears on bright moonlit nights -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Basilisa, Dinagat Islands — night tours, Feb–Apr best
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Bitaug Beach — quiet, undeveloped white-sand beach in Loreto -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003828,#006848);">
+          <img src="../images/spot-bitaug.jpg" alt="Bitaug Beach" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">White Sand Beach</span>
+          <a href="https://maps.google.com/maps?q=Bitaug+Beach+Loreto+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Bitaug Beach — Loreto</h3>
+          <p>A pristine white-sand beach on the eastern shore of Dinagat Island in the municipality of Loreto — calm, undeveloped, and lined with coconut palms and indigenous trees reaching to the sand's edge. The water is clear and warm for swimming, and the offshore reef provides snorkelling over relatively intact coral gardens. Bitaug Beach is best reached by habal-habal motorcycle from the Loreto town centre. Overnight stays can be arranged through local homestays, making it an ideal base for exploring the quieter eastern coast of the main island away from the provincial capital.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Swimming</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Secluded</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Loreto, Dinagat Islands
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Hagakhak Rock Formation — wave-sculpted limestone arches by the sea -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a1a2e,#2e2e5e);">
+          <img src="../images/spot-hagakhak.jpg" alt="Hagakhak Rock Formation" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Rock Formation</span>
+          <a href="https://maps.google.com/maps?q=Hagakhak+Rock+Formation+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Hagakhak Rock Formation</h3>
+          <p>A dramatic coastal rock formation on Dinagat Island's shoreline — a series of wave-sculpted limestone pinnacles and arches rising directly from the sea, their bases pounded by Pacific swells. The Hagakhak name is said to derive from a local word for the sound of laughter, referencing the unusual sounds the wind makes passing through the carved rock passages. At low tide, it is possible to walk among the formations and enter several shallow sea caves. The surrounding waters offer excellent snorkelling with diverse reef fish and hard coral formations close to the cliff base.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Rock Formation</span>
+            <span class="psc-tag">Coastal</span>
+            <span class="psc-tag">Snorkeling</span>
+          </div>
+          <!-- tidal timing note — formations are walkable only at low tide -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Dinagat Island — accessible at low tide
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Lake Bababu — hidden crater lake, 2-hour trek from the road -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003030,#005858);">
+          <img src="../images/spot-lake-bababu.jpg" alt="Lake Bababu" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Crater Lake</span>
+          <a href="https://maps.google.com/maps?q=Lake+Bababu+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Lake Bababu</h3>
+          <p>A small, forest-rimmed crater lake in the interior of Dinagat Island — calm, reflective, and surrounded by dense secondary forest alive with birdlife. Lake Bababu is rarely visited and requires a forest trek of roughly two hours from the nearest road, making it an experience for committed nature travellers. The lake's still surface mirrors the surrounding canopy and sky, and endemic birds including the Dinagat bushy-tailed cloud rat's associated habitat makes the forest around the lake of ecological interest. Community guides from nearby barangays lead treks to the lake and maintain the trails.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Crater Lake</span>
+            <span class="psc-tag">Trekking</span>
+            <span class="psc-tag">Birdwatching</span>
+          </div>
+          <!-- 2-hour trek warning so visitors know what they're getting into -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Interior, Dinagat Island — 2-hour forest trek
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: San Jose provincial capital — the main ferry arrival point -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#2a1a00,#5a3800);">
+          <img src="../images/spot-dinagat-heritage.jpg" alt="Dinagat Heritage" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Mining Heritage</span>
+          <a href="https://maps.google.com/maps?q=San+Jose+Dinagat+Islands+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>San Jose and Dinagat Heritage</h3>
+          <p>The provincial capital San Jose is a compact waterfront town with a pleasant baywalk, the provincial capitol building, and a modest heritage district. The town's proximity to the Dinagat Sound offers views across to Surigao City on clear days. The island's history of nickel and chromite mining from the mid-20th century onward is documented in local heritage displays, and the tension between extraction and conservation is central to the province's current identity. The San Jose port is the main arrival point from Surigao City ferries, and the baywalk is the social heart of the capital.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Heritage</span>
+            <span class="psc-tag">Waterfront</span>
+            <span class="psc-tag">Provincial Capital</span>
+          </div>
+          <!-- "main arrival point" note is useful for first-time visitors -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            San Jose, Dinagat Islands — main arrival point
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     INTERACTIVE MAP SECTION
+     embedded Google Maps iframe with tab buttons
+     clicking a tab calls switchProvMap() to zoom in on a specific
+     location — covers the whole province, Sohoton, Basilisa,
+     San Jose (capital), and Loreto where Bitaug Beach is
+============================================================ -->
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Location</span>
+      <h2>Dinagat Islands on the Map</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- tab buttons — each swaps the iframe src to zoom into a different location -->
+    <div class="map-tabs fade-up">
+      <button class="map-tab active" onclick="switchProvMap('di-main',this)">Province View</button>
+      <button class="map-tab"        onclick="switchProvMap('sohoton',this)">Sohoton Cove</button>
+      <button class="map-tab"        onclick="switchProvMap('basilisa',this)">Basilisa</button>
+      <button class="map-tab"        onclick="switchProvMap('san-jose',this)">San Jose</button>
+      <button class="map-tab"        onclick="switchProvMap('loreto',this)">Loreto / Bitaug</button>
+    </div>
+
+    <!-- the map iframe — default shows the full province, tabs swap the src -->
+    <div class="province-gmap-frame fade-up">
+      <iframe id="provMapFrame"
+        src="https://maps.google.com/maps?q=Dinagat+Islands+Province+Philippines&output=embed&z=10"
+        width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy"
+        title="Dinagat Islands Map">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW TO GET THERE SECTION
+     four travel tip cards in a responsive auto-fit grid
+     covers: flying to Surigao, taking the ferry to San Jose,
+     getting around the island, and important planning notes
+     (tides, cash, guides) specific to Dinagat's remote nature
+============================================================ -->
+<section style="background:var(--off-white);padding:64px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Travel Guide</span>
+      <h2>How to Get to the Dinagat Islands</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- responsive grid — collapses to single column on mobile -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;" class="fade-up">
+
+      <!-- travel card: fly to Surigao City — the only realistic first step -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Fly to Surigao City</h3>
+        <p style="font-size:0.84rem;">The primary access point is Surigao City, served by Cebu Pacific and Philippine Airlines from Manila and Cebu. The Surigao Airport (SUG) is 10 minutes from the Surigao City ferry terminal. No direct flights to Dinagat Islands exist.</p>
+      </div>
+
+      <!-- travel card: the ferry crossing from Surigao to San Jose -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Ferry to San Jose</h3>
+        <p style="font-size:0.84rem;">Regular passenger ferries and motorized bangkas depart from Surigao City's San Roque Wharf to San Jose, Dinagat Islands. Journey time is 1 to 1.5 hours depending on vessel and sea conditions. Ferries run several times daily. Sea conditions can be rough during the habagat season (June–October).</p>
+      </div>
+
+      <!-- travel card: getting around once you're on the island -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Getting Around the Island</h3>
+        <p style="font-size:0.84rem;">Habal-habal motorcycles are the main transport within Dinagat Island. Roads connect the main municipalities but are not always paved. For Sohoton Cove and Basilisa bay, bangka boats are essential — local operators in San Jose and Basilisa arrange tours. The island is small enough to circumnavigate by boat in a single day.</p>
+      </div>
+
+      <!-- travel card: important planning notes — tides, cash, and booking guides early -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Planning Advice</h3>
+        <p style="font-size:0.84rem;">Sohoton Cove can only be entered at specific tidal windows — plan around tide tables. Coordinate Sohoton and jellyfish lagoon tours through the Dinagat Islands Tourism Office or accredited local guides. Bring cash; ATM availability on the island is limited. Best weather is March through May.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     four-column layout — same structure as all province pages
+     Dinagat Islands is highlighted in green in the provinces column
+     since that's the page currently being viewed
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- brand column -->
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, Region XIII — Land of Promise, northeastern Mindanao, Philippines.</p>
+      </div>
+
+      <!-- provinces list — Dinagat Islands is highlighted green (we're on this page) -->
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="agusan-norte.html"  class="footer-link">Agusan del Norte</a>
+          <a href="agusan-sur.html"    class="footer-link">Agusan del Sur</a>
+          <a href="surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <a href="surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="dinagat.html"       class="footer-link" style="color:var(--summer-green);">Dinagat Islands</a>
+        </div>
+      </div>
+
+      <!-- top spots specific to Dinagat Islands -->
+      <div class="footer-col">
+        <h4>Top Spots</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Sohoton Cove</a>
+          <a href="#" class="footer-link">Stingless Jellyfish</a>
+          <a href="#" class="footer-link">Basilisa Bioluminescence</a>
+          <a href="#" class="footer-link">Bitaug Beach</a>
+        </div>
+      </div>
+
+      <!-- quick links column -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html"               class="footer-link">Home</a>
+          <a href="../pages/tourist-spots.html" class="footer-link">Tourist Spots</a>
+          <a href="../pages/contact.html"       class="footer-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- copyright bar at the very bottom -->
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2025 Vertex XIII &middot; WEBster ICT Strand Competition.</div>
+      <div class="footer-made-by">Made with <span>&hearts;</span> for Caraga, Region XIII</div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- loading the shared JS file — handles loader, navbar scroll, and fade-in animations -->
+<script src="../js/main.js"></script>
+
+<!-- ============================================================
+     PROVINCE MAP SWITCHER SCRIPT
+     provMapUrls holds the Google Maps embed URL for each tab
+     switchProvMap() swaps the iframe src and updates the active tab
+     the fallback always returns to the full province overview
+============================================================ -->
+<script>
+  // all Google Maps embed URLs for this province — keyed by the tab's string ID
+  const provMapUrls = {
+    'di-main':  'https://maps.google.com/maps?q=Dinagat+Islands+Province+Philippines&output=embed&z=10',
+    'sohoton':  'https://maps.google.com/maps?q=Sohoton+Cove+Bucas+Grande+Philippines&output=embed&z=13',
+    'basilisa': 'https://maps.google.com/maps?q=Basilisa+Dinagat+Islands+Philippines&output=embed&z=13',
+    'san-jose': 'https://maps.google.com/maps?q=San+Jose+Dinagat+Islands+Philippines&output=embed&z=13',
+    'loreto':   'https://maps.google.com/maps?q=Loreto+Dinagat+Islands+Philippines&output=embed&z=13'
+  };
+
+  // called when a map tab button is clicked
+  // swaps the iframe to the matching URL and moves the active highlight
+  function switchProvMap(key, btn) {
+    const f = document.getElementById('provMapFrame');
+    // falls back to the province overview if the key isn't in the object
+    if (f) f.src = provMapUrls[key] || provMapUrls['di-main'];
+    // remove active from every tab, then re-add it only to the one clicked
+    document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1323 @@
+/* import the Poppins font from Google Fonts - we use weights 300 to 800 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* ─── these are our global color and spacing variables ───────────────────────
+   defining them here once means we can reuse them everywhere in the file
+   and if we ever need to change a color, we only change it in one place */
+:root {
+  --deep-cyan:    #008581;    /* main brand color, used for buttons and headings */
+  --med-green:    #4C9C8B;    /* softer version of the main color */
+  --summer-green: #96E4B0;    /* bright mint, used for glowing accents */
+  --mimi-pink:    #FFDAE8;    /* light pink, mostly backgrounds */
+  --amy:          #FE99CB;    /* mid pink accent */
+  --dark-hot-pink:#E4509A;    /* strong pink used on CTAs and highlights */
+  --white:        #ffffff;
+  --off-white:    #F6FFFE;    /* the main page background, slightly tinted */
+  --text-dark:    #162928;    /* for headings and important text */
+  --text-mid:     #3a5654;    /* for normal body paragraphs */
+  --text-light:   #688a88;    /* for captions, labels, secondary info */
+  --border:       #cde8e6;    /* subtle border color used on cards and inputs */
+  --shadow-sm:    0 2px 14px rgba(0,133,129,0.07);   /* barely visible shadow */
+  --shadow-md:    0 8px 32px rgba(0,133,129,0.13);   /* medium card shadow */
+  --shadow-lg:    0 20px 60px rgba(0,133,129,0.17);  /* dramatic lifted shadow */
+  --transition:   0.3s ease;  /* standard hover animation speed used site-wide */
+  --radius-sm:    6px;        /* small rounding for buttons */
+  --radius-md:    12px;       /* medium rounding for cards */
+  --radius-lg:    20px;       /* large rounding for big containers */
+}
+
+
+/* ─── basic reset ────────────────────────────────────────────────────────────
+   browsers add their own default margins and paddings which look different
+   across Chrome, Firefox, Safari etc. - we wipe them all here to start fresh
+   box-sizing: border-box means padding is included in the element's total
+   width/height so layout math is much easier to work with */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* smooth scrolling so clicking nav links glides instead of jumping */
+html  { scroll-behavior: smooth; font-size: 16px; }
+
+/* main body defaults - font, background, prevent horizontal scroll */
+body  {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  background: var(--off-white);
+  line-height: 1.7;
+  overflow-x: hidden; /* stops any accidental horizontal scrollbar from appearing */
+}
+
+/* images should never be wider than their container */
+img { max-width: 100%; display: block; }
+
+/* remove the blue underline from all links by default */
+a   { text-decoration: none; color: inherit; }
+
+/* remove bullet points from all lists */
+ul  { list-style: none; }
+
+/* every section gets comfortable breathing room top and bottom */
+section { padding: 84px 0; }
+
+/* custom scrollbar styling so even the scrollbar matches the brand */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--off-white); }
+::-webkit-scrollbar-thumb { background: var(--med-green); border-radius: 3px; }
+
+
+/* ─── typography ─────────────────────────────────────────────────────────────
+   clamp() lets the font size scale fluidly with the screen width
+   for example h1 will be 2.4rem on small screens and grow up to 4.2rem
+   on big screens - no media queries needed just for font sizes */
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.1; }
+h2 { font-size: clamp(1.7rem, 2.8vw, 2.4rem); font-weight: 700; line-height: 1.25; }
+h3 { font-size: 1.08rem; font-weight: 600; line-height: 1.35; }
+p  { font-size: 0.965rem; color: var(--text-mid); line-height: 1.8; }
+
+/* this wrapper centers content and keeps it from stretching too wide on
+   large monitors - used on nearly every section */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+
+/* ─── hero slideshow ─────────────────────────────────────────────────────────
+   the hero fills the full screen height, each slide is stacked on top of
+   the others using position absolute - only the .active one is visible */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  min-height: 600px; /* prevents it from becoming too squished on short screens */
+  overflow: hidden;
+  padding: 0; /* override the default section padding since hero is full screen */
+}
+
+.hero-slideshow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* every slide sits on top of each other, hidden by default */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  pointer-events: none; /* can't click on hidden slides */
+  overflow: hidden;
+}
+
+/* the active slide fades in and becomes interactive */
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* the background photo layer - it starts slightly zoomed in (scale 1.05)
+   and slowly zooms out when the slide becomes active, this is the Ken Burns
+   effect and gives the photo a living, breathing feel */
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  transition: transform 8s ease; /* very slow zoom so it's subtle */
+}
+.slide.active .slide-bg {
+  transform: scale(1.0); /* zoom back to normal when this slide is showing */
+}
+
+/* colored overlay on top of the photo, gives each slide its own identity */
+.slide-gradient {
+  position: absolute;
+  inset: 0;
+  opacity: 0.88;
+}
+
+/* the text content sits at the bottom of each slide
+   it slides up slightly and fades in after a 0.4s delay so the photo
+   appears first, then the text comes in right after */
+.slide-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 80px 60px 200px; /* big bottom padding so text isn't hidden by the stats bar */
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.22) 60%, transparent 100%);
+  /* dark gradient makes the white text readable over any photo */
+  transform: translateY(18px); /* starts a little low */
+  opacity: 0;
+  transition: all 0.9s ease 0.4s; /* waits 0.4s then animates in */
+}
+.slide.active .slide-content {
+  transform: translateY(0); /* slides up to its final position */
+  opacity: 1;
+}
+
+/* small pill tag above the title like "SURIGAO DEL NORTE"
+   uses backdrop-filter blur to create a frosted glass look */
+.slide-location-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 30px;
+  margin-bottom: 16px;
+}
+
+/* the big destination name - this is the main hero headline */
+.slide-title {
+  color: #fff;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4); /* shadow helps readability on bright photos */
+}
+
+/* short tagline or description under the title */
+.slide-sub {
+  color: rgba(255,255,255,0.82);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 28px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+}
+
+/* the explore button on each slide - solid teal, then hollow outline on hover */
+.slide-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--deep-cyan);
+  color: #fff;
+  padding: 13px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+  border: 2px solid transparent;
+}
+.slide-btn:hover {
+  background: transparent;
+  border-color: #fff;
+  color: #fff;
+  transform: translateY(-2px); /* slight lift on hover */
+}
+
+/* left and right arrow buttons to manually switch slides
+   they use backdrop-filter to look like frosted glass buttons */
+.slide-prev,
+.slide-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* vertically centers them */
+  width: 52px;
+  height: 52px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  z-index: 10; /* sits above all slide content */
+}
+.slide-prev { left: 28px; }
+.slide-next { right: 28px; }
+.slide-prev:hover,
+.slide-next:hover {
+  background: var(--deep-cyan);
+  border-color: var(--deep-cyan); /* fills with brand color on hover */
+}
+.slide-prev svg,
+.slide-next svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the small dot indicators at the bottom left showing which slide is active
+   the active dot stretches into a pill shape to show the current position */
+.slide-dots {
+  position: absolute;
+  bottom: 160px;
+  left: 60px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.38);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.dot.active {
+  width: 28px;
+  border-radius: 4px; /* stretches into a pill shape */
+  background: var(--summer-green);
+}
+
+/* the Region XIII badge in the top right corner of the hero
+   frosted glass container with the Roman numeral XIII */
+.hero-region-badge {
+  position: absolute;
+  top: 100px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 16px 22px;
+  z-index: 10;
+}
+.badge-roman {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--summer-green);
+  line-height: 1;
+}
+.badge-title {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.badge-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.68rem;
+  letter-spacing: 0.8px;
+}
+
+/* stats bar that runs along the very bottom of the hero
+   shows things like number of islands, provinces etc.
+   sits above the page in a dark semi-transparent strip */
+.hero-stats-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.42);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  z-index: 10;
+  height: 90px;
+}
+
+/* each individual stat item inside the stats bar */
+.hstat {
+  flex: 1; /* all stats share equal width */
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid rgba(255,255,255,0.1); /* dividing lines between stats */
+}
+.hstat:last-child { border-right: none; } /* no divider after the last one */
+.hstat-num {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hstat-lbl {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* a small animated mouse icon on the right side of the hero
+   encourages users to scroll down, the wheel bounces up and down */
+.scroll-indicator {
+  position: absolute;
+  bottom: 108px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+.scroll-indicator span {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl; /* rotates the text to read vertically */
+}
+.scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.scroll-wheel {
+  width: 4px;
+  height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 2px;
+  animation: scrollDown 1.8s ease infinite;
+}
+
+/* makes the scroll wheel dot bounce downward and fade out repeatedly */
+@keyframes scrollDown {
+  0%   { transform: translateY(0); opacity: 1; }
+  80%  { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+
+/* ─── loading screen ─────────────────────────────────────────────────────────
+   shown when the page first loads, covers the whole screen with a solid teal
+   background, a spinning loader, and the site logo/name
+   when loading is done, .hidden is added which fades it out smoothly */
+#loader {
+  position: fixed; inset: 0; z-index: 9999; /* covers everything */
+  background: var(--deep-cyan);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 18px;
+  transition: opacity 0.5s ease;
+}
+#loader.hidden { opacity: 0; pointer-events: none; } /* fade out when done loading */
+.loader-logo {
+  width: 60px; height: 60px; border-radius: 14px;
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(150,228,176,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 800; color: #fff; letter-spacing: -0.5px;
+}
+.loader-text { font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 3px; }
+.loader-sub  { font-size: 0.78rem; color: var(--summer-green); letter-spacing: 1.5px; }
+
+/* the spinning circle animation on the loader */
+.spinner {
+  width: 38px; height: 38px;
+  border: 3px solid rgba(255,255,255,0.2); /* mostly transparent circle */
+  border-top-color: #fff;                  /* one side is solid white, creating the spin effect */
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* ─── navbar ─────────────────────────────────────────────────────────────────
+   fixed to the top of the screen so it's always visible while scrolling
+   when the user scrolls down, the .scrolled class is added via JavaScript
+   which darkens the background so it stays readable over non-hero content */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,133,129,0.97); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: all var(--transition);
+}
+#navbar.scrolled { background: rgba(0,72,70,0.98); box-shadow: 0 4px 28px rgba(0,0,0,0.18); }
+
+/* the inner row that holds the logo on the left and nav links on the right */
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+
+/* logo area on the left */
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-logo-box {
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.14); border: 1.5px solid rgba(150,228,176,0.45);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.82rem; color: #fff;
+}
+.nav-brand-title { font-weight: 700; font-size: 0.97rem; color: #fff; line-height: 1; }
+.nav-brand-sub   { font-size: 0.68rem; color: var(--summer-green); font-weight: 500; margin-top: 2px; }
+
+/* horizontal list of navigation links */
+.nav-menu { display: flex; align-items: center; gap: 2px; }
+.nav-link {
+  position: relative; padding: 8px 13px;
+  font-size: 0.855rem; font-weight: 500; color: rgba(255,255,255,0.85);
+  border-radius: var(--radius-sm); transition: all var(--transition);
+}
+.nav-link:hover, .nav-link.active { color: #fff; background: rgba(255,255,255,0.11); }
+
+/* the little underline indicator dot on the currently active nav link */
+.nav-link.active::after {
+  content: ''; position: absolute; bottom: 5px; left: 50%;
+  transform: translateX(-50%);
+  width: 16px; height: 2px;
+  background: var(--summer-green); border-radius: 2px;
+}
+
+/* dropdown nav item - the chevron arrow rotates 180deg on hover */
+.nav-dropdown { position: relative; }
+.dropdown-toggle { display: flex; align-items: center; gap: 5px; }
+.dropdown-toggle .chevron {
+  width: 12px; height: 12px;
+  stroke: rgba(255,255,255,0.75); fill: none;
+  stroke-width: 2.5; stroke-linecap: round;
+  transition: transform var(--transition);
+}
+.nav-dropdown:hover .chevron { transform: rotate(180deg); }
+
+/* the dropdown panel that appears below a nav item on hover
+   starts invisible and slightly shifted up, then fades/slides into place */
+.dropdown-menu {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(-8px); /* centered above, shifted up slightly */
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  min-width: 215px; padding: 8px;
+  opacity: 0; pointer-events: none; /* hidden and unclickable by default */
+  transition: all var(--transition); z-index: 100;
+}
+.nav-dropdown:hover .dropdown-menu {
+  opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); /* slides into view */
+}
+
+/* individual items inside the dropdown panel */
+.dropdown-item {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.86rem; font-weight: 500; color: var(--text-dark); transition: all var(--transition);
+}
+.dropdown-item:hover { background: rgba(0,133,129,0.07); color: var(--deep-cyan); }
+.dropdown-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--med-green); flex-shrink: 0; }
+
+/* hamburger menu button shown only on mobile, hidden on desktop */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 23px; height: 2px; background: #fff; border-radius: 2px; transition: all var(--transition); }
+
+/* when the hamburger is open, the three lines animate into an X shape */
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+
+/* ─── mobile menu ────────────────────────────────────────────────────────────
+   a full-width dropdown that appears below the navbar on small screens
+   it's hidden by default and only shown when .open is added via JavaScript
+   supports accordion-style submenus for sections with child pages */
+.mobile-menu {
+  display: none; position: fixed;
+  top: 66px; left: 0; right: 0; /* sits directly under the navbar */
+  background: rgba(0,72,70,0.98); backdrop-filter: blur(14px);
+  padding: 14px 24px 22px; flex-direction: column; gap: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 999;
+  max-height: calc(100vh - 66px); overflow-y: auto; /* scrollable if there are many links */
+}
+.mobile-menu.open { display: flex; }
+.mobile-link {
+  padding: 11px 14px; color: rgba(255,255,255,0.85);
+  font-size: 0.88rem; font-weight: 500; border-radius: 8px; transition: all var(--transition);
+}
+.mobile-link:hover { background: rgba(255,255,255,0.09); color: #fff; }
+
+/* a nav item with children - tapping it expands the submenu */
+.mobile-parent { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.mobile-chevron {
+  width: 14px; height: 14px; stroke: rgba(255,255,255,0.6); fill: none;
+  stroke-width: 2.5; stroke-linecap: round; transition: transform var(--transition);
+}
+.mobile-parent.submenu-open .mobile-chevron { transform: rotate(180deg); }
+
+/* the submenu list, indented slightly so it looks nested */
+.mobile-submenu { display: none; padding-left: 18px; flex-direction: column; gap: 2px; }
+.mobile-submenu.open { display: flex; }
+.mobile-sub-link {
+  display: block; padding: 8px 14px;
+  color: rgba(255,255,255,0.62); font-size: 0.83rem;
+  border-radius: 6px; transition: all var(--transition);
+}
+.mobile-sub-link:hover { color: var(--summer-green); background: rgba(255,255,255,0.05); }
+
+
+/* ─── buttons ────────────────────────────────────────────────────────────────
+   three button variants used throughout the site:
+   .btn-primary  solid teal (main actions)
+   .btn-outline  transparent with teal border (secondary actions)
+   .btn-cta      hot pink (most important calls to action) */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 8px;
+  font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition); border: 2px solid transparent; white-space: nowrap;
+}
+.btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.btn-primary { background: var(--deep-cyan); color: #fff; }
+.btn-primary:hover { background: var(--med-green); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.btn-outline { background: transparent; color: var(--deep-cyan); border-color: var(--deep-cyan); }
+.btn-outline:hover { background: var(--summer-green); border-color: var(--med-green); color: var(--text-dark); transform: translateY(-2px); }
+
+.btn-cta { background: var(--dark-hot-pink); color: #fff; }
+.btn-cta:hover { background: #c93d85; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(228,80,154,0.35); }
+
+
+/* ─── section headers ────────────────────────────────────────────────────────
+   every major section (provinces, events, map etc.) uses this same
+   centered header pattern - a small label pill, a heading, a description
+   and a decorative gradient underline */
+.section-header { text-align: center; margin-bottom: 56px; }
+
+/* small uppercase label like "EXPLORE" or "HISTORY" above the heading */
+.section-label {
+  display: inline-block; font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--deep-cyan);
+  background: rgba(0,133,129,0.08); padding: 5px 16px; border-radius: 30px; margin-bottom: 14px;
+}
+.section-header h2 { color: var(--text-dark); margin-bottom: 12px; }
+.section-header p  { max-width: 560px; margin: 0 auto; color: var(--text-light); }
+
+/* the short teal-to-green gradient line under the heading */
+.divider {
+  width: 52px; height: 4px;
+  background: linear-gradient(90deg, var(--deep-cyan), var(--summer-green));
+  border-radius: 2px; margin: 16px auto 0;
+}
+.section-view-all { display: flex; justify-content: center; margin-top: 44px; }
+
+
+/* ─── about section ──────────────────────────────────────────────────────────
+   two column layout - decorative image frame on the left,
+   text content with province links and highlight stats on the right */
+#about { background: #fff; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+
+/* the image container has a gradient border frame effect using padding + gradient background */
+.about-img-frame {
+  background: linear-gradient(135deg, var(--summer-green), var(--med-green));
+  border-radius: 22px; padding: 4px; /* the 4px padding becomes the visible gradient border */
+  box-shadow: var(--shadow-lg); position: relative;
+}
+.about-img-inner {
+  background: linear-gradient(135deg, #e6f7f5, #cce8e4);
+  border-radius: 20px; height: 400px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* placeholder shown if no actual image is loaded yet */
+.about-placeholder { text-align: center; }
+.about-placeholder-icon { width: 72px; height: 72px; margin: 0 auto 12px; opacity: 0.35; }
+.about-placeholder-icon svg { width: 100%; height: 100%; stroke: var(--med-green); fill: none; stroke-width: 1.5; }
+.about-placeholder p { font-size: 0.82rem; color: var(--med-green); opacity: 0.7; font-style: italic; }
+
+/* pink badge that sticks out from the bottom-right corner of the image
+   shows something like "Est. 1951" */
+.about-badge {
+  position: absolute; bottom: -18px; right: -18px;
+  background: var(--dark-hot-pink); color: #fff;
+  border-radius: 14px; padding: 14px 22px;
+  font-size: 0.8rem; font-weight: 600; box-shadow: 0 8px 28px rgba(228,80,154,0.38);
+}
+.about-badge strong { display: block; font-size: 1.6rem; font-weight: 800; line-height: 1; }
+
+/* clickable province quick-link buttons below the image */
+.about-map-mini { margin-top: 40px; }
+.map-mini-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-cyan); margin-bottom: 10px; }
+.province-map-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.pml-btn {
+  padding: 7px 14px; border-radius: 20px;
+  font-size: 0.76rem; font-weight: 700; color: #fff;
+  transition: all var(--transition); cursor: pointer;
+}
+
+/* each province gets its own distinct color */
+.pml-an { background: var(--deep-cyan); }       /* Agusan del Norte */
+.pml-as { background: #2a7a5c; }                /* Agusan del Sur */
+.pml-sn { background: #006b6a; }                /* Surigao del Norte */
+.pml-ss { background: #006e52; }                /* Surigao del Sur */
+.pml-dn { background: var(--dark-hot-pink); }   /* Dinagat Islands */
+.pml-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); filter: brightness(1.1); }
+
+/* 2x2 grid of icon + stat highlight boxes on the right column */
+.about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0; }
+.highlight-item {
+  background: var(--off-white); border: 1.5px solid var(--border);
+  border-radius: var(--radius-md); padding: 16px; transition: all var(--transition);
+}
+.highlight-item:hover { border-color: var(--med-green); background: rgba(0,133,129,0.03); }
+.highlight-icon-wrap {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(0,133,129,0.09);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
+}
+.highlight-icon-wrap svg { width: 22px; height: 22px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.highlight-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-cyan); margin-bottom: 2px; }
+.highlight-value { font-size: 0.88rem; color: var(--text-mid); }
+.about-content { padding-top: 20px; }
+
+
+/* ─── history timeline ───────────────────────────────────────────────────────
+   a vertical timeline with a colored center line
+   items alternate left and right - even items have date on left,
+   odd items have date on right so the two sides mirror each other */
+#history { background: var(--off-white); }
+.timeline { position: relative; max-width: 860px; margin: 0 auto; }
+
+/* the vertical colored line running down the center of the timeline */
+.timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--deep-cyan), var(--summer-green), var(--dark-hot-pink));
+  transform: translateX(-50%);
+}
+.timeline-item { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; margin-bottom: 44px; position: relative; }
+
+/* the small circle sitting on the center line for each event */
+.timeline-dot {
+  position: absolute; left: 50%; top: 20px;
+  width: 15px; height: 15px;
+  background: var(--deep-cyan); border: 3px solid var(--white); border-radius: 50%;
+  transform: translateX(-50%); box-shadow: 0 0 0 4px rgba(0,133,129,0.14);
+}
+.timeline-date { padding-top: 16px; font-size: 0.82rem; font-weight: 700; color: var(--deep-cyan); letter-spacing: 0.5px; text-align: right; padding-right: 30px; }
+
+/* the card containing the event title and description */
+.timeline-content {
+  background: #fff; border-radius: var(--radius-md); padding: 22px 24px;
+  border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); transition: all var(--transition);
+}
+.timeline-content:hover { box-shadow: var(--shadow-md); border-color: var(--med-green); transform: translateY(-2px); }
+.timeline-content h3 { font-size: 0.98rem; color: var(--text-dark); margin-bottom: 8px; }
+.timeline-content p  { font-size: 0.85rem; }
+
+/* a small pink label categorizing the era, like "Colonial Period" */
+.tl-era-tag {
+  display: inline-block; margin-bottom: 8px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--dark-hot-pink); background: rgba(228,80,154,0.08); padding: 2px 8px; border-radius: 20px;
+}
+
+/* even items: date on left side, content on right side */
+.timeline-item:nth-child(even) .timeline-date    { grid-column: 1; grid-row: 1; text-align: right; }
+.timeline-item:nth-child(even) .timeline-content { grid-column: 2; grid-row: 1; }
+
+/* odd items: content on left, date on right (opposite of even) */
+.timeline-item:nth-child(odd) .timeline-date    { grid-column: 2; grid-row: 1; text-align: left; padding-left: 30px; padding-right: 0; }
+.timeline-item:nth-child(odd) .timeline-content { grid-column: 1; grid-row: 1; }
+
+
+/* ─── provinces section ──────────────────────────────────────────────────────
+   a filterable grid of cards, one for each of the 5 provinces
+   each card has a photo, description, highlights and a hover CTA */
+#provinces { background: #fff; }
+
+/* row of filter pill buttons above the grid */
+.province-filters { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+.filter-btn {
+  padding: 8px 22px; border-radius: 30px; font-size: 0.84rem; font-weight: 600; cursor: pointer;
+  border: 2px solid var(--border); background: #fff; color: var(--text-mid);
+  transition: all var(--transition); font-family: 'Poppins', sans-serif;
+}
+.filter-btn:hover, .filter-btn.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
+
+/* responsive grid - auto-fills with cards at least 330px wide */
+.provinces-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 26px; }
+.province-card {
+  display: block; color: inherit; background: #fff; border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition);
+}
+.province-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+
+/* photo area at the top of each province card */
+.province-img {
+  height: 200px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.province-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease; z-index: 0;
+}
+.province-card:hover .province-photo { transform: scale(1.06); } /* zooms in on hover */
+.province-img-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.42) 100%); }
+
+/* the province name overlaid on the photo */
+.province-img-label {
+  position: absolute; bottom: 12px; left: 16px; z-index: 3;
+  color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+}
+.province-icon-frame {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.3); position: relative; z-index: 2;
+}
+.province-icon-frame svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* text content below the photo */
+.province-body { padding: 22px; }
+.province-tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--deep-cyan); background: rgba(0,133,129,0.08);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 9px;
+}
+.province-body h3 { font-size: 1.15rem; margin-bottom: 7px; color: var(--text-dark); }
+.province-body p  { font-size: 0.86rem; margin-bottom: 14px; }
+
+/* tiny spot name chips below the description */
+.province-spots-mini { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.pspot { font-size: 0.72rem; background: var(--off-white); border: 1px solid var(--border); border-radius: 20px; padding: 3px 10px; color: var(--text-mid); }
+
+/* small metadata row at the bottom of the card - things like island count, area */
+.province-meta    { display: flex; gap: 14px; flex-wrap: wrap; }
+.province-meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-light); }
+.province-meta-item svg { width: 13px; height: 13px; stroke: var(--med-green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* a "View More" hint that slides in only when the card is hovered */
+.province-cta-hint {
+  margin-top: 12px; font-size: 0.78rem; font-weight: 700; color: var(--deep-cyan);
+  opacity: 0; transform: translateX(-6px); transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.province-card:hover .province-cta-hint { opacity: 1; transform: translateX(0); }
+
+/* each province has its own gradient background when no photo is loaded */
+.prov-an { background: linear-gradient(135deg, #00756f, #4C9C8B); }
+.prov-as { background: linear-gradient(135deg, #2a7a5c, #50b88e); }
+.prov-sn { background: linear-gradient(135deg, #006b6a, #009e98); }
+.prov-ss { background: linear-gradient(135deg, #006e52, #00a87c); }
+.prov-dn { background: linear-gradient(135deg, #c93d85, #e4509a); }
+
+
+/* ─── tourist spots carousel ─────────────────────────────────────────────────
+   a horizontally scrollable row of spot cards with left/right arrow buttons
+   on desktop, the dots below indicate scroll position */
+#tourist-spots { background: var(--off-white); }
+.spots-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.spots-carousel {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;       /* horizontal scrolling */
+  scroll-behavior: smooth;
+  scrollbar-width: none;  /* hide scrollbar on Firefox */
+  padding: 10px 4px 16px;
+  flex: 1;
+}
+.spots-carousel::-webkit-scrollbar { display: none; } /* hide scrollbar on Chrome/Safari */
+
+/* left and right arrow buttons for the carousel */
+.carousel-nav {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* don't let arrows shrink when carousel is full */
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+.carousel-nav:hover { background: var(--deep-cyan); border-color: var(--deep-cyan); }
+.carousel-nav svg { width: 20px; height: 20px; stroke: var(--deep-cyan); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.carousel-nav:hover svg { stroke: #fff; }
+
+/* scroll position indicator dots below the carousel */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); border: none; cursor: pointer; transition: all var(--transition);
+}
+.carousel-dot.active { background: var(--deep-cyan); width: 22px; border-radius: 4px; } /* stretches to pill for active */
+
+/* individual tourist spot card inside the carousel */
+.spot-card {
+  background: #fff; border-radius: var(--radius-lg); border: 1.5px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition);
+  flex: 0 0 300px; /* fixed width so cards don't resize when carousel is scrolled */
+}
+.spot-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+.spot-img { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.spot-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease; z-index: 0;
+}
+.spot-card:hover .spot-photo { transform: scale(1.06); }
+.spot-img-bg { position: absolute; inset: 0; z-index: 0; transition: transform 0.5s ease; }
+.spot-card:hover .spot-img-bg { transform: scale(1.06); }
+.spot-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.48) 100%); }
+
+/* small label in the corner showing which province the spot belongs to */
+.spot-prov-badge {
+  position: absolute; top: 12px; right: 12px; z-index: 3;
+  background: rgba(0,133,129,0.82); color: #fff;
+  font-size: 0.66rem; font-weight: 600; padding: 3px 9px; border-radius: 20px;
+}
+.spot-icon-frame {
+  position: relative; z-index: 2; width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.spot-icon-frame svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.spot-body { padding: 20px; }
+.spot-body h3 { font-size: 0.98rem; margin-bottom: 7px; }
+.spot-body p  { font-size: 0.82rem; margin-bottom: 12px; }
+.spot-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.spot-tag { font-size: 0.68rem; padding: 3px 9px; border-radius: 20px; background: rgba(150,228,176,0.2); color: var(--med-green); font-weight: 600; }
+.spot-link { font-size: 0.78rem; font-weight: 700; color: var(--deep-cyan); transition: all var(--transition); }
+.spot-link:hover { color: var(--dark-hot-pink); }
+
+/* fallback gradient backgrounds for spots with no photo - each spot gets its own vibe */
+.spot-siargao   { background: linear-gradient(135deg, #005a8e, #0088cc); }
+.spot-enchanted { background: linear-gradient(135deg, #005f5c, #00bdb5); }
+.spot-tinuyan   { background: linear-gradient(135deg, #005846, #00a862); }
+.spot-marsh     { background: linear-gradient(135deg, #3e6a18, #72ad3a); }
+.spot-britania  { background: linear-gradient(135deg, #005a8e, #4C9C8B); }
+.spot-sohoton   { background: linear-gradient(135deg, #1c2f60, #2e5fac); }
+
+
+/* ─── events section ─────────────────────────────────────────────────────────
+   a grid of event cards showing festivals and celebrations
+   each card has a left-side colored stripe using a ::before pseudo-element */
+#events { background: #fff; }
+.events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; }
+.event-card {
+  background: var(--off-white); border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border); padding: 26px 22px;
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+
+/* the 4px teal/green vertical stripe on the left edge of each event card */
+.event-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: linear-gradient(to bottom, var(--deep-cyan), var(--summer-green));
+}
+.event-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--med-green); }
+.event-month { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--dark-hot-pink); margin-bottom: 10px; }
+.event-card h3 { font-size: 1rem; color: var(--text-dark); margin-bottom: 8px; }
+.event-card p  { font-size: 0.84rem; }
+.event-location { display: flex; align-items: center; gap: 5px; margin-top: 14px; font-size: 0.78rem; color: var(--deep-cyan); font-weight: 600; }
+.event-location svg { width: 13px; height: 13px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* the icon box at the top of each event card - three color variants */
+.card-icon-box {
+  width: 52px; height: 52px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  background: rgba(0,133,129,0.08);
+}
+.card-icon-box svg       { width: 26px; height: 26px; stroke: var(--deep-cyan); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.card-icon-box.pink-box  { background: rgba(228,80,154,0.08); }
+.card-icon-box.pink-box svg  { stroke: var(--dark-hot-pink); }
+.card-icon-box.green-box { background: rgba(76,156,139,0.1); }
+.card-icon-box.green-box svg { stroke: var(--med-green); }
+
+
+/* ─── map section ────────────────────────────────────────────────────────────
+   an embedded Google Map with tab buttons to switch between different
+   map views (e.g. overview, tourist spots, provinces)
+   the map iframe is wrapped in a rounded container with a legend below */
+.map-section { background: #fff; padding: 84px 0; }
+
+/* the tab buttons above the map */
+.map-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px;
+}
+.map-tab {
+  padding: 8px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600;
+  border: 2px solid var(--border); background: #fff; color: var(--text-mid);
+  cursor: pointer; transition: all var(--transition); font-family: 'Poppins', sans-serif;
+}
+.map-tab:hover, .map-tab.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
+
+/* the container wrapping the iframe - rounded corners and a border */
+.map-embed-wrapper { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1.5px solid var(--border); }
+.gmap-iframe { display: block; width: 100%; height: 500px; border: 0; border-bottom: 1.5px solid var(--border); }
+
+/* the legend strip below the map showing province color codes */
+.map-legend { background: var(--off-white); padding: 20px 28px; display: flex; flex-direction: column; gap: 10px; }
+.map-legend-title { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-cyan); margin-bottom: 6px; }
+.map-legend-items { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-mid); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* one color per province in the legend */
+.dot-an { background: #4C9C8B; }
+.dot-as { background: #50b88e; }
+.dot-sn { background: #009e98; }
+.dot-ss { background: #00a87c; }
+.dot-dn { background: #E4509A; }
+
+
+/* ─── CTA banner ─────────────────────────────────────────────────────────────
+   a big gradient banner encouraging users to plan their trip
+   has a heading and subtext on the left, action buttons on the right */
+.cta-section { padding: 80px 0; background: var(--off-white); }
+.cta-banner {
+  background: linear-gradient(135deg, var(--deep-cyan) 0%, var(--med-green) 100%);
+  border-radius: var(--radius-lg); padding: 54px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap; /* wraps to stacked layout on small screens */
+  box-shadow: var(--shadow-lg);
+}
+.cta-banner h2 { color: #fff; margin-bottom: 8px; font-size: 1.85rem; }
+.cta-banner p  { color: rgba(255,255,255,0.72); font-size: 0.93rem; }
+.cta-actions   { display: flex; gap: 14px; flex-wrap: wrap; }
+
+
+/* ─── back to top button ─────────────────────────────────────────────────────
+   a small floating button in the bottom right corner
+   it's invisible until the user scrolls down enough, then .visible is added
+   clicking it scrolls the page back to the top */
+#back-top {
+  position: fixed; bottom: 26px; right: 26px; width: 44px; height: 44px;
+  background: var(--deep-cyan); color: #fff; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: var(--shadow-md); z-index: 500;
+  opacity: 0; pointer-events: none; /* hidden by default */
+  transition: all var(--transition);
+}
+#back-top.visible { opacity: 1; pointer-events: auto; } /* revealed when scrolled down */
+#back-top:hover   { background: var(--dark-hot-pink); transform: translateY(-3px); }
+#back-top svg     { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+
+/* ─── scroll animations ──────────────────────────────────────────────────────
+   elements start invisible and slightly shifted down (.fade-up)
+   when they enter the viewport, the IntersectionObserver in JS adds .visible
+   which triggers the transition and fades them in upward
+   the nth-child delays stagger the animation so items appear one by one */
+.fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up:nth-child(2) { transition-delay: 0.1s; }
+.fade-up:nth-child(3) { transition-delay: 0.2s; }
+.fade-up:nth-child(4) { transition-delay: 0.3s; }
+.fade-up:nth-child(5) { transition-delay: 0.4s; }
+
+
+/* ─── footer ─────────────────────────────────────────────────────────────────
+   dark teal gradient background, 4-column grid layout
+   columns: brand info | quick links | explore links | team members
+   collapses to 2 columns then 1 on smaller screens */
+footer {
+  background: linear-gradient(135deg, #002e2d 0%, #004d4a 100%);
+  color: rgba(255,255,255,0.75); padding: 64px 0 0;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 44px; margin-bottom: 44px; }
+
+/* logo + brand name row at the top of the first footer column */
+.footer-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer-logo {
+  width: 44px; height: 44px; background: rgba(150,228,176,0.14); border: 1.5px solid rgba(150,228,176,0.3);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.88rem; color: #fff;
+}
+.footer-brand-name { font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1; }
+.footer-brand-sub  { font-size: 0.7rem; color: var(--summer-green); }
+.footer-desc       { font-size: 0.83rem; color: rgba(255,255,255,0.48); line-height: 1.85; margin-bottom: 20px; }
+
+/* social media icon buttons */
+.footer-social { display: flex; gap: 10px; }
+.social-btn {
+  width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.13); display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition); cursor: pointer;
+}
+.social-btn:hover { background: var(--deep-cyan); border-color: var(--deep-cyan); }
+.social-btn svg { width: 17px; height: 17px; stroke: rgba(255,255,255,0.7); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* footer column headings like "QUICK LINKS" */
+.footer-col h4 { font-size: 0.78rem; font-weight: 700; color: #fff; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 18px; }
+.footer-links  { display: flex; flex-direction: column; gap: 10px; }
+
+/* individual footer nav links - they shift right and turn mint on hover */
+.footer-link   { font-size: 0.84rem; color: rgba(255,255,255,0.48); transition: all var(--transition); }
+.footer-link:hover { color: var(--summer-green); padding-left: 4px; }
+
+/* the team members column - shows avatar initials + name */
+.footer-team   { display: flex; flex-direction: column; gap: 9px; }
+.team-member   { display: flex; align-items: center; gap: 10px; }
+.team-avatar   {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--deep-cyan), var(--summer-green));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.63rem; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.team-name { font-size: 0.84rem; color: rgba(255,255,255,0.6); }
+
+/* the very bottom strip of the footer with copyright and extra links */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07); padding: 20px 0;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+.footer-made-by { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+.footer-made-by span { color: var(--summer-green); } /* highlights the team name in mint */
+.footer-bottom-links { display: flex; gap: 20px; }
+.footer-bottom-link { font-size: 0.78rem; color: rgba(255,255,255,0.35); transition: color var(--transition); }
+.footer-bottom-link:hover { color: var(--summer-green); }
+
+
+/* ─── province detail page ───────────────────────────────────────────────────
+   styles specific to individual province pages (agusan, surigao etc.)
+   the hero spans 60% of the viewport height with a background photo
+   and a gradient overlay so the white text stays readable */
+.province-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end; /* content sits at the bottom of the hero */
+  position: relative;
+  overflow: hidden;
+  padding-top: 66px; /* offset for the fixed navbar */
+}
+.province-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.03);
+  transition: transform 8s ease;
+}
+.province-hero:hover .province-hero-bg { transform: scale(1); } /* slow zoom out on hover */
+.province-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+}
+.province-hero-content {
+  position: relative; z-index: 2; padding: 60px;
+}
+
+/* breadcrumb navigation above the title e.g. "Home > Provinces > Surigao del Norte" */
+.province-hero-content .province-breadcrumb {
+  color: rgba(255,255,255,0.65); font-size: 0.78rem; margin-bottom: 12px;
+}
+.province-hero-content .province-breadcrumb a { color: var(--summer-green); }
+.province-hero-content h1 { color: #fff; margin-bottom: 10px; }
+.province-hero-content .province-hero-sub { color: rgba(255,255,255,0.78); font-size: 1.1rem; margin-bottom: 24px; }
+
+/* a row of quick stats at the bottom of the province hero */
+.province-hero-stats {
+  display: flex; gap: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15);
+}
+.ph-stat-num { font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1; }
+.ph-stat-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 3px; }
+
+/* grid of tourist spot cards on a province's detail page */
+.province-spots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+.province-spot-card {
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); transition: all var(--transition);
+}
+.province-spot-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+.psc-img { height: 200px; position: relative; overflow: hidden; }
+.psc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.province-spot-card:hover .psc-img img { transform: scale(1.06); }
+.psc-img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.psc-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%); }
+
+/* category label in the top left corner of the spot photo */
+.psc-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+  color: #fff; font-size: 0.66rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px;
+}
+
+/* the "Open in Maps" button that appears over the photo */
+.psc-gmap-btn {
+  position: absolute; bottom: 12px; right: 12px; z-index: 2;
+  background: rgba(255,255,255,0.9); color: var(--deep-cyan);
+  font-size: 0.68rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;
+  display: flex; align-items: center; gap: 5px; transition: all var(--transition);
+}
+.psc-gmap-btn:hover { background: var(--deep-cyan); color: #fff; }
+.psc-gmap-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.psc-body { padding: 20px; }
+.psc-body h3 { font-size: 1rem; color: var(--text-dark); margin-bottom: 8px; }
+.psc-body p  { font-size: 0.83rem; margin-bottom: 12px; }
+.psc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.psc-tag { font-size: 0.66rem; padding: 3px 9px; border-radius: 20px; background: rgba(150,228,176,0.2); color: var(--med-green); font-weight: 600; }
+.psc-info { font-size: 0.75rem; color: var(--text-light); display: flex; align-items: center; gap: 5px; }
+.psc-info svg { width: 12px; height: 12px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; }
+
+/* the embedded map that appears on each province page */
+.province-map-section { background: var(--off-white); }
+.province-gmap-frame { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
+.province-gmap-frame iframe { display: block; width: 100%; height: 420px; border: 0; }
+
+
+/* ─── tourist spots full listing page ────────────────────────────────────────
+   a standalone page that shows all tourist spots across all provinces
+   has a colored hero banner at the top, a sticky filter bar, and a grid */
+.spots-page-hero {
+  background: linear-gradient(135deg, #004d4a 0%, var(--med-green) 100%);
+  padding: 120px 0 60px; /* extra top padding to clear the fixed navbar */
+  text-align: center;
+}
+.spots-page-hero h1 { color: #fff; }
+.spots-page-hero p  { color: rgba(255,255,255,0.72); max-width: 560px; margin: 12px auto 0; }
+
+/* sticky filter bar that follows the user as they scroll the spots grid */
+.spots-filter-bar {
+  background: #fff; border-bottom: 1.5px solid var(--border);
+  position: sticky; top: 66px; /* sticks right below the navbar */
+  z-index: 100; padding: 16px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.spots-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.spots-filter-btn {
+  padding: 7px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600;
+  border: 2px solid var(--border); background: #fff; color: var(--text-mid);
+  cursor: pointer; transition: all var(--transition); font-family: 'Poppins', sans-serif;
+}
+.spots-filter-btn:hover, .spots-filter-btn.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
+
+/* the main grid of all tourist spot cards */
+.all-spots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+.all-spot-card {
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); transition: all var(--transition);
+}
+.all-spot-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+.asc-img { height: 220px; position: relative; overflow: hidden; }
+.asc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.all-spot-card:hover .asc-img img { transform: scale(1.07); }
+.asc-img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.asc-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%); }
+
+/* teal badge showing the province in the top right */
+.asc-prov { position: absolute; top: 14px; right: 14px; z-index: 2; background: rgba(0,133,129,0.85); color: #fff; font-size: 0.66rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+
+/* pink badge showing the spot's ranking e.g. "#1 Must Visit" */
+.asc-rank { position: absolute; top: 14px; left: 14px; z-index: 2; background: var(--dark-hot-pink); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
+.asc-body { padding: 22px; }
+.asc-body h3 { font-size: 1.05rem; color: var(--text-dark); margin-bottom: 8px; }
+.asc-body p  { font-size: 0.84rem; margin-bottom: 14px; }
+.asc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.asc-tag { font-size: 0.67rem; padding: 3px 9px; border-radius: 20px; background: rgba(150,228,176,0.18); color: var(--med-green); font-weight: 600; }
+
+/* the bottom row of each spot card - location name on left, map link on right */
+.asc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); }
+.asc-location { font-size: 0.76rem; color: var(--deep-cyan); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.asc-location svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+.asc-map-link { font-size: 0.73rem; font-weight: 700; color: var(--dark-hot-pink); display: flex; align-items: center; gap: 4px; }
+.asc-map-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+
+/* ─── contact section ────────────────────────────────────────────────────────
+   two column layout - contact info on the left, form card on the right
+   the form uses floating labels that sit on the border of each input */
+#contact { background: var(--off-white); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+.contact-form-card {
+  background: #fff; border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border); padding: 38px; box-shadow: var(--shadow-sm);
+}
+
+/* each form field is wrapped in this so the floating label can be positioned */
+.form-group { position: relative; margin-bottom: 20px; }
+.form-group input,
+.form-group textarea {
+  width: 100%; padding: 13px 15px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-family: 'Poppins', sans-serif; background: var(--off-white); color: var(--text-dark);
+  transition: all var(--transition); outline: none;
+}
+
+/* the teal glow ring that appears when a field is focused */
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--med-green); background: #fff; box-shadow: 0 0 0 4px rgba(76,156,139,0.1); }
+.form-group textarea { min-height: 118px; resize: vertical; }
+
+/* the label sits above the input border with a white background to cut through the border line */
+.form-group label {
+  position: absolute; top: -10px; left: 11px;
+  font-size: 0.72rem; font-weight: 700; color: var(--deep-cyan);
+  background: #fff; padding: 0 6px;
+}
+
+
+/* ─── responsive breakpoints ─────────────────────────────────────────────────
+   the layout adjusts at three breakpoints:
+   1024px  switch multi-column grids to single column
+   768px   hide desktop nav and show hamburger, stack hero content
+   480px   tighten padding, hide less important elements */
+
+/* tablets and small laptops */
+@media (max-width: 1024px) {
+  .about-grid   { grid-template-columns: 1fr; gap: 44px; }      /* stack image above text */
+  .contact-grid { grid-template-columns: 1fr; }                  /* stack contact info above form */
+  .footer-grid  { grid-template-columns: 1fr 1fr; gap: 30px; }  /* 4 columns down to 2 */
+}
+
+/* mobile phones and small tablets */
+@media (max-width: 768px) {
+  .nav-menu  { display: none; }  /* hide the desktop nav links */
+  .hamburger { display: flex; }  /* show the hamburger menu button */
+  section    { padding: 56px 0; }
+  .slide-content { padding: 40px 28px 180px; }
+  .slide-title   { font-size: 2.4rem; }
+  .hero-region-badge { display: none; }  /* hide the XIII badge to save space */
+  .scroll-indicator  { display: none; }  /* hide the scroll mouse icon */
+  .slide-dots { left: 28px; bottom: 150px; }
+  .hstat { padding: 0 12px; }
+  .hstat-num { font-size: 1.2rem; }
+
+  /* collapse the timeline to single column on mobile
+     the center line moves to the far left and all items sit to the right of it */
+  .timeline::before { left: 18px; }
+  .timeline-item { grid-template-columns: 1fr; padding-left: 44px; }
+  .timeline-item:nth-child(odd) .timeline-date    { grid-column: 1; text-align: left; padding-left: 0; }
+  .timeline-item:nth-child(odd) .timeline-content  { grid-column: 1; }
+  .timeline-item:nth-child(even) .timeline-date   { grid-column: 1; text-align: left; padding-right: 0; }
+  .timeline-item:nth-child(even) .timeline-content { grid-column: 1; }
+  .timeline-dot { left: 18px; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .cta-banner  { flex-direction: column; text-align: center; padding: 38px 28px; }
+  .cta-actions { justify-content: center; }
+  .province-hero-content { padding: 28px; }
+  .province-hero-stats   { gap: 20px; }
+
+  /* on mobile the carousel becomes a vertical stack instead of horizontal scroll */
+  .spots-carousel-wrapper { flex-direction: column; }
+  .carousel-nav { display: none; } /* hide left/right arrows, touch scrolling works instead */
+}
+
+/* very small phones */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }                           /* tighter side padding */
+  .about-highlights { grid-template-columns: 1fr; }          /* 2-column highlights down to 1 */
+  .footer-grid      { grid-template-columns: 1fr; }          /* footer down to single column */
+  .hero-stats-strip { display: none; }                       /* hide the bottom stats bar entirely */
+  .slide-dots { bottom: 28px; }
+  .slide-content { padding: 28px 20px 80px; }
+  .map-tabs { gap: 6px; }
+  .map-tab  { font-size: 0.74rem; padding: 6px 12px; }      /* smaller map tab buttons */
+}

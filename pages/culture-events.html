@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Culture &amp; Events — Caraga Region XIII</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ════════════════════════════════════════════════
+       CULTURE & EVENTS — page-specific styles
+       All colours use CSS vars from style.css
+    ════════════════════════════════════════════════ */
+
+    /* ── Hero ──────────────────────────────────────── */
+    .ce-hero {
+      background: linear-gradient(135deg, #002e20 0%, #005a3c 45%, var(--med-green) 100%);
+      padding: 130px 0 70px;
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .ce-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(150,228,176,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150,228,176,0.07) 1px, transparent 1px);
+      background-size: 52px 52px;
+    }
+    .ce-hero::after {
+      content: '文化';
+      position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+      font-size: 10rem; font-weight: 900; color: rgba(255,255,255,0.03);
+      line-height: 1; user-select: none; pointer-events: none;
+    }
+    .ce-hero .container { position: relative; z-index: 2; }
+    .ce-hero h1 { color: #fff; margin-bottom: 14px; }
+    .ce-hero p  { color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto 24px; }
+
+    .ce-breadcrumb {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 18px;
+    }
+    .ce-breadcrumb a { color: var(--summer-green); }
+    .ce-breadcrumb a:hover { opacity: .75; }
+    .ce-breadcrumb span { opacity: .4; }
+
+    /* hero stat pills */
+    .ce-hero-stats {
+      display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 28px;
+    }
+    .ce-stat-pill {
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 100px;
+      padding: 8px 20px; display: flex; align-items: center; gap: 8px;
+    }
+    .ce-stat-pill svg   { width: 15px; height: 15px; stroke: var(--summer-green); fill: none; stroke-width: 2; }
+    .ce-stat-pill span  { color: #fff; font-size: 0.82rem; font-weight: 600; }
+
+    /* ── Filter bar ────────────────────────────────── */
+    .ce-filter-bar {
+      background: #fff; border-bottom: 1.5px solid var(--border);
+      position: sticky; top: 66px; z-index: 100; padding: 14px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .ce-filters {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+    }
+    .ce-filter-btn {
+      padding: 7px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600;
+      border: 2px solid var(--border); background: #fff; color: var(--text-mid);
+      cursor: pointer; transition: all var(--transition); font-family: 'Poppins', sans-serif;
+    }
+    .ce-filter-btn:hover,
+    .ce-filter-btn.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
+    .ce-filter-btn.pink-active { background: var(--dark-hot-pink); border-color: var(--dark-hot-pink); color: #fff; }
+
+    /* ── FESTIVALS — big feature cards ────────────────── */
+    .festivals-section { background: var(--off-white); }
+
+    .festivals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .festival-card {
+      background: #fff; border-radius: var(--radius-lg);
+      border: 1.5px solid var(--border); overflow: hidden;
+      box-shadow: var(--shadow-sm); transition: all var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .festival-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+
+    .festival-img {
+      height: 220px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .festival-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease; z-index: 0;
+    }
+    .festival-card:hover .festival-img img { transform: scale(1.06); }
+    .festival-img-bg {
+      position: absolute; inset: 0; z-index: 0; transition: transform 0.5s ease;
+    }
+    .festival-card:hover .festival-img-bg { transform: scale(1.06); }
+    .festival-img-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 55%);
+    }
+    .festival-img-icon {
+      position: relative; z-index: 2;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: rgba(255,255,255,0.16); border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .festival-img-icon svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .festival-month-tag {
+      position: absolute; top: 14px; left: 14px; z-index: 3;
+      background: var(--dark-hot-pink); color: #fff;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+    }
+    .festival-prov-tag {
+      position: absolute; top: 14px; right: 14px; z-index: 3;
+      background: rgba(0,133,129,0.82); color: #fff;
+      font-size: 0.66rem; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    }
+    .festival-img-title {
+      position: absolute; bottom: 14px; left: 16px; z-index: 3;
+      color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+
+    .festival-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .festival-body h3 { font-size: 1.08rem; color: var(--text-dark); margin-bottom: 8px; }
+    .festival-body p  { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; flex: 1; }
+    .festival-meta {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .festival-meta-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.76rem; color: var(--text-light); font-weight: 500;
+    }
+    .festival-meta-item svg { width: 13px; height: 13px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .festival-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+    .festival-tag  { font-size: 0.68rem; padding: 3px 9px; border-radius: 20px; background: rgba(150,228,176,0.18); color: var(--med-green); font-weight: 600; }
+    .festival-cta  { font-size: 0.78rem; font-weight: 700; color: var(--deep-cyan); margin-top: 12px; display: inline-block; transition: color var(--transition); }
+    .festival-card:hover .festival-cta { color: var(--dark-hot-pink); }
+
+    /* gradient backgrounds per festival */
+    .fb-balanghai  { background: linear-gradient(135deg, #004a3a, #007a60); }
+    .fb-bonok      { background: linear-gradient(135deg, #003d58, #006b9a); }
+    .fb-kahimunan  { background: linear-gradient(135deg, #4a0060, #8a009a); }
+    .fb-cloud9     { background: linear-gradient(135deg, #003a68, #0068bb); }
+    .fb-panaghiusa { background: linear-gradient(135deg, #1e4a00, #3a8a00); }
+    .fb-fiesta     { background: linear-gradient(135deg, #680026, #b8004a); }
+    .fb-sinulog    { background: linear-gradient(135deg, #4a3000, #8a6000); }
+    .fb-araw       { background: linear-gradient(135deg, #002448, #004898); }
+    .fb-banog      { background: linear-gradient(135deg, #003a3a, #006a6a); }
+
+    /* ── FEATURED / SPOTLIGHT (large card) ────────────── */
+    .ce-spotlight {
+      background: #fff; padding: 80px 0;
+    }
+    .spotlight-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .spotlight-img-wrap {
+      background: linear-gradient(135deg, var(--summer-green), var(--med-green));
+      border-radius: 22px; padding: 4px; box-shadow: var(--shadow-lg);
+    }
+    .spotlight-img-inner {
+      border-radius: 20px; height: 380px; overflow: hidden;
+      background: linear-gradient(135deg, #004a3a, #007a60);
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .spotlight-img-inner img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .spotlight-img-inner .spotlight-placeholder-icon {
+      opacity: 0.25;
+    }
+    .spotlight-placeholder-icon svg { width: 80px; height: 80px; stroke: #fff; fill: none; stroke-width: 1; }
+    .spotlight-badge {
+      position: absolute; bottom: -18px; right: -18px;
+      background: var(--dark-hot-pink); color: #fff;
+      border-radius: 14px; padding: 14px 22px;
+      font-size: 0.78rem; font-weight: 600;
+      box-shadow: 0 8px 28px rgba(228,80,154,0.38); text-align: center;
+    }
+    .spotlight-badge strong { display: block; font-size: 1.5rem; font-weight: 800; line-height: 1; }
+    .spotlight-content .section-label { margin-bottom: 12px; }
+    .spotlight-content h2 { color: var(--text-dark); margin-bottom: 14px; }
+    .spotlight-content p  { color: var(--text-mid); font-size: 0.93rem; line-height: 1.8; margin-bottom: 12px; }
+    .spotlight-facts {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0;
+    }
+    .spotlight-fact {
+      background: var(--off-white); border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); padding: 14px 16px; transition: all var(--transition);
+    }
+    .spotlight-fact:hover { border-color: var(--med-green); }
+    .spotlight-fact-lbl { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--deep-cyan); margin-bottom: 3px; }
+    .spotlight-fact-val { font-size: 0.88rem; color: var(--text-dark); font-weight: 600; }
+
+    /* ── INDIGENOUS CULTURE ────────────────────────── */
+    .indigenous-section { background: var(--off-white); }
+    .indigenous-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px;
+    }
+    .indigenous-card {
+      background: #fff; border-radius: var(--radius-lg);
+      border: 1.5px solid var(--border); padding: 28px 24px;
+      box-shadow: var(--shadow-sm); transition: all var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .indigenous-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      background: linear-gradient(to bottom, var(--deep-cyan), var(--summer-green));
+    }
+    .indigenous-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--med-green); }
+    .indigenous-icon-box {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      background: rgba(0,133,129,0.08);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    .indigenous-icon-box svg { width: 26px; height: 26px; stroke: var(--deep-cyan); fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    .indigenous-card h3 { font-size: 1rem; color: var(--text-dark); margin-bottom: 8px; }
+    .indigenous-card p  { font-size: 0.84rem; color: var(--text-mid); line-height: 1.75; }
+    .indigenous-peoples-tag {
+      display: inline-block; margin-top: 12px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--dark-hot-pink); background: rgba(228,80,154,0.08); padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* ── CALENDAR STRIP ───────────────────────────── */
+    .calendar-section { background: #fff; }
+    .calendar-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .cal-month {
+      padding: 22px 18px; border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); transition: all var(--transition);
+    }
+    .cal-month:nth-child(4n) { border-right: none; }
+    .cal-month:nth-last-child(-n+4) { border-bottom: none; }
+    .cal-month:hover { background: rgba(0,133,129,0.03); }
+    .cal-month-name {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--deep-cyan); margin-bottom: 10px;
+    }
+    .cal-event {
+      font-size: 0.78rem; color: var(--text-mid); padding: 5px 0;
+      border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 7px;
+    }
+    .cal-event:last-child { border-bottom: none; padding-bottom: 0; }
+    .cal-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+    }
+    .cal-dot-teal  { background: var(--deep-cyan); }
+    .cal-dot-pink  { background: var(--dark-hot-pink); }
+    .cal-dot-green { background: var(--med-green); }
+    .cal-dot-gold  { background: #cc9900; }
+    .cal-empty { font-size: 0.75rem; color: var(--border); font-style: italic; }
+
+    /* ── ARTS & TRADITIONS ──────────────────────────── */
+    .arts-section { background: var(--off-white); }
+    .arts-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .art-card {
+      background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+      border: 1.5px solid var(--border); box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+    }
+    .art-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+    .art-img {
+      height: 180px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .art-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease; z-index: 0;
+    }
+    .art-card:hover .art-img img { transform: scale(1.06); }
+    .art-img-bg  { position: absolute; inset: 0; z-index: 0; transition: transform 0.5s ease; }
+    .art-card:hover .art-img-bg { transform: scale(1.06); }
+    .art-img-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%); }
+    .art-img-icon {
+      position: relative; z-index: 2; width: 50px; height: 50px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .art-img-icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+    .art-cat-badge {
+      position: absolute; top: 12px; right: 12px; z-index: 3;
+      background: rgba(0,133,129,0.82); color: #fff;
+      font-size: 0.64rem; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+    }
+    .art-body { padding: 20px; }
+    .art-body h3 { font-size: 0.98rem; color: var(--text-dark); margin-bottom: 7px; }
+    .art-body p  { font-size: 0.83rem; color: var(--text-mid); line-height: 1.7; }
+    /* art card gradients */
+    .ab-weaving { background: linear-gradient(135deg, #4a2800, #8a5000); }
+    .ab-boat    { background: linear-gradient(135deg, #003a68, #0068bb); }
+    .ab-gold    { background: linear-gradient(135deg, #4a3200, #8a6200); }
+    .ab-dance   { background: linear-gradient(135deg, #4a0060, #8a00aa); }
+    .ab-music   { background: linear-gradient(135deg, #003a30, #006a5a); }
+    .ab-crafts  { background: linear-gradient(135deg, #002040, #004890); }
+
+    /* ── Responsive ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .spotlight-inner { grid-template-columns: 1fr; gap: 44px; }
+      .arts-grid        { grid-template-columns: repeat(2, 1fr); }
+      .calendar-grid    { grid-template-columns: repeat(3, 1fr); }
+      .calendar-grid .cal-month:nth-child(3n) { border-right: none; }
+      .calendar-grid .cal-month:nth-child(4n) { border-right: 1px solid var(--border); }
+    }
+    @media (max-width: 768px) {
+      .festivals-grid   { grid-template-columns: 1fr; }
+      .arts-grid        { grid-template-columns: 1fr; }
+      .calendar-grid    { grid-template-columns: repeat(2, 1fr); }
+      .indigenous-grid  { grid-template-columns: 1fr; }
+      .spotlight-facts  { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .calendar-grid    { grid-template-columns: 1fr; }
+      .cal-month        { border-right: none !important; }
+      .ce-hero-stats    { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">CARAGA</div>
+  <div class="loader-sub">REGION XIII · PHILIPPINES</div>
+</div>
+
+<!-- BACK TO TOP -->
+<div id="back-top" title="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#home"      class="nav-link">Home</a></li>
+        <li><a href="../index.html#about"     class="nav-link">About</a></li>
+        <li><a href="../index.html#history"   class="nav-link">History</a></li>
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle">
+            Provinces <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="../provinces/agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+            <li><a href="../provinces/agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="../provinces/surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+            <li><a href="../provinces/surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+            <li><a href="../provinces/dinagat.html"       class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+        <li><a href="tourist-spots.html"          class="nav-link">Tourist Spots</a></li>
+        <li><a href="culture-events.html"         class="nav-link active">Culture &amp; Events</a></li>
+        <li><a href="delicacies.html"             class="nav-link">Delicacies</a></li>
+        <li><a href="notable-personalities.html"  class="nav-link">Personalities</a></li>
+        <li><a href="contact.html"                class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html#home"    class="mobile-link" onclick="closeMenu()">Home</a>
+  <a href="../index.html#about"   class="mobile-link" onclick="closeMenu()">About</a>
+  <a href="../index.html#history" class="mobile-link" onclick="closeMenu()">History</a>
+  <div class="mobile-link mobile-parent" id="mobileProvincesToggle">
+    Provinces <svg class="mobile-chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+  </div>
+  <div class="mobile-submenu" id="mobileSubmenu">
+    <a href="../provinces/agusan-norte.html"  class="mobile-sub-link" onclick="closeMenu()">Agusan del Norte</a>
+    <a href="../provinces/agusan-sur.html"    class="mobile-sub-link" onclick="closeMenu()">Agusan del Sur</a>
+    <a href="../provinces/surigao-norte.html" class="mobile-sub-link" onclick="closeMenu()">Surigao del Norte</a>
+    <a href="../provinces/surigao-sur.html"   class="mobile-sub-link" onclick="closeMenu()">Surigao del Sur</a>
+    <a href="../provinces/dinagat.html"       class="mobile-sub-link" onclick="closeMenu()">Dinagat Islands</a>
+  </div>
+  <a href="tourist-spots.html"          class="mobile-link" onclick="closeMenu()">Tourist Spots</a>
+  <a href="culture-events.html"         class="mobile-link" onclick="closeMenu()">Culture &amp; Events</a>
+  <a href="delicacies.html"             class="mobile-link" onclick="closeMenu()">Delicacies</a>
+  <a href="notable-personalities.html"  class="mobile-link" onclick="closeMenu()">Personalities</a>
+  <a href="contact.html"                class="mobile-link" onclick="closeMenu()">Contact</a>
+</div>
+
+
+<!-- ═══════ HERO ═══════ -->
+<section class="ce-hero">
+  <div class="container">
+    <div class="ce-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span><span>Culture &amp; Events</span>
+    </div>
+    <span class="section-label">Living Heritage</span>
+    <h1>Culture &amp; Events of Caraga</h1>
+    <p>Where ancient Austronesian traditions meet vibrant festivals — Caraga's cultural tapestry spans over 1,700 years of living heritage, celebrated by five proud indigenous peoples.</p>
+    <div class="ce-hero-stats">
+      <div class="ce-stat-pill">
+        <svg viewBox="0 0 24 24"><path d="M3,17 L6,7 L18,7 L21,17 Z"/><path d="M6,7 L8,2 L16,2 L18,7"/><path d="M3,17 C5,15 9,15 12,17 C15,19 19,19 21,17"/></svg>
+        <span>30+ Annual Festivals</span>
+      </div>
+      <div class="ce-stat-pill">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>5 Indigenous Peoples</span>
+      </div>
+      <div class="ce-stat-pill">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>1,700+ Years of History</span>
+      </div>
+      <div class="ce-stat-pill">
+        <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span>National Cultural Treasures</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FILTER BAR ═══════ -->
+<div class="ce-filter-bar">
+  <div class="container">
+    <div class="ce-filters">
+      <button class="ce-filter-btn active" onclick="filterCards('all', this)">All</button>
+      <button class="ce-filter-btn" onclick="filterCards('festival', this)">Festivals</button>
+      <button class="ce-filter-btn" onclick="filterCards('religious', this)">Religious</button>
+      <button class="ce-filter-btn" onclick="filterCards('sports', this)">Sports &amp; Tourism</button>
+      <button class="ce-filter-btn" onclick="filterCards('indigenous', this)">Indigenous</button>
+      <button class="ce-filter-btn" onclick="filterCards('environmental', this)">Environmental</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════ SPOTLIGHT — BALANGHAI FESTIVAL ═══════ -->
+<section class="ce-spotlight">
+  <div class="container">
+    <div class="spotlight-inner fade-up">
+      <div style="position:relative;">
+        <div class="spotlight-img-wrap">
+          <div class="spotlight-img-inner">
+            <img src="../images/festival-balanghai.jpg" alt="Balanghai Festival" onerror="this.style.display='none'">
+            <div class="spotlight-placeholder-icon">
+              <svg viewBox="0 0 80 80"><path d="M10,50 Q20,30 40,35 Q60,30 70,50 L70,65 L10,65 Z"/><path d="M20,35 L20,20 L60,20 L60,35"/><line x1="40" y1="20" x2="40" y2="10"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="spotlight-badge"><strong>August</strong>Butuan City</div>
+      </div>
+      <div class="spotlight-content">
+        <span class="section-label">Featured Festival</span>
+        <h2>Balanghai Festival</h2>
+        <div class="divider" style="margin: 14px 0 18px; text-align:left;"></div>
+        <p>Butuan City's grandest annual celebration honours the ancient Balanghai boats — among the oldest watercraft ever discovered in Southeast Asia. The festival is a spectacular week-long tribute to the city's extraordinary pre-colonial seafaring heritage, declared a National Cultural Treasure in the 1970s.</p>
+        <p>The centrepiece is a magnificent fluvial procession along the Agusan River, where ornately decorated bancas and replica Balanghai boats carry performers in traditional Butuanon attire. Street dancing competitions, tribal showcases, and a cultural trade fair fill the city with energy, colour, and music for an entire week in August.</p>
+        <div class="spotlight-facts">
+          <div class="spotlight-fact">
+            <div class="spotlight-fact-lbl">When</div>
+            <div class="spotlight-fact-val">August (entire month)</div>
+          </div>
+          <div class="spotlight-fact">
+            <div class="spotlight-fact-lbl">Where</div>
+            <div class="spotlight-fact-val">Butuan City, Agusan del Norte</div>
+          </div>
+          <div class="spotlight-fact">
+            <div class="spotlight-fact-lbl">Highlights</div>
+            <div class="spotlight-fact-val">Fluvial parade, street dancing, tribal rites</div>
+          </div>
+          <div class="spotlight-fact">
+            <div class="spotlight-fact-lbl">Significance</div>
+            <div class="spotlight-fact-val">National Cultural Treasure heritage event</div>
+          </div>
+        </div>
+        <a href="../provinces/agusan-norte.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/></svg>
+          Explore Agusan del Norte
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FESTIVALS GRID ═══════ -->
+<section class="festivals-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Annual Celebrations</span>
+      <h2>Festivals of Caraga</h2>
+      <div class="divider"></div>
+      <p>From fluvial river parades to international surf competitions — Caraga's festivals celebrate every dimension of the region's identity.</p>
+    </div>
+
+    <div class="festivals-grid" id="festivalsGrid">
+
+      <!-- Balanghai -->
+      <div class="festival-card fade-up" data-cat="festival indigenous">
+        <div class="festival-img">
+          <img src="../images/festival-balanghai.jpg" alt="Balanghai Festival" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-balanghai"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M3,15 Q8,9 12,12 Q16,15 21,12 L21,18 Q16,22 12,19 Q8,22 3,18 Z"/></svg></div>
+          <span class="festival-month-tag">August</span>
+          <span class="festival-prov-tag">Agusan del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Balanghai Festival</h3>
+          <p>Butuan City's grandest celebration honours the ancient Balanghai boats — a National Cultural Treasure. Featuring a fluvial procession on the Agusan River, vibrant street dancing, and tribal cultural showcases.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Heritage</span>
+            <span class="festival-tag">Fluvial</span>
+            <span class="festival-tag">Street Dancing</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Entire month of August</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Bonok-Bonok -->
+      <div class="festival-card fade-up" data-cat="festival">
+        <div class="festival-img">
+          <img src="../images/festival-bonok.jpg" alt="Bonok-Bonok Festival" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-bonok"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M2,4 Q12,0 22,4 L22,12 Q22,20 12,22 Q2,20 2,12 Z"/></svg></div>
+          <span class="festival-month-tag">September</span>
+          <span class="festival-prov-tag">Surigao del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Bonok-Bonok Maradjao Kataw</h3>
+          <p>Surigao City's beloved maritime festival — a spectacular fluvial procession, colourful street dancing, and cultural performances celebrating the city's deep connection to the sea and its proud Surigaonon identity.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Maritime</span>
+            <span class="festival-tag">Fluvial</span>
+            <span class="festival-tag">Cultural</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Surigao City</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>September</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Kahimunan -->
+      <div class="festival-card fade-up" data-cat="festival religious">
+        <div class="festival-img">
+          <img src="../images/festival-kahimunan.jpg" alt="Kahimunan Festival" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-kahimunan"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5Z"/></svg></div>
+          <span class="festival-month-tag">October</span>
+          <span class="festival-prov-tag">Agusan del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Kahimunan Festival</h3>
+          <p>A deeply religious fiesta in Butuan City honouring the Virgen de los Remedios. Colourful religious processions, traditional Butuanon dances, cultural shows, and a week-long celebration of faith and community pride.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Religious</span>
+            <span class="festival-tag">Procession</span>
+            <span class="festival-tag">Heritage</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>October</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Cloud 9 Surfing Cup -->
+      <div class="festival-card fade-up" data-cat="sports">
+        <div class="festival-img">
+          <img src="../images/festival-cloud9.jpg" alt="Cloud 9 Surfing Cup" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-cloud9"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M2,14 C4.5,10 7.5,10 10,14 C12.5,18 15.5,18 18,14 C20.5,10 22,10 22,14"/></svg></div>
+          <span class="festival-month-tag">September</span>
+          <span class="festival-prov-tag">Surigao del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Siargao International Surfing Cup</h3>
+          <p>One of Asia's most prestigious annual surfing events at the legendary Cloud 9 break on Siargao Island. International competitors ride the powerful barrelling waves in front of thousands of spectators from around the world.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Surfing</span>
+            <span class="festival-tag">International</span>
+            <span class="festival-tag">Sports</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Siargao Island</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>September (annually since 1996)</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Panaghiusa -->
+      <div class="festival-card fade-up" data-cat="environmental indigenous">
+        <div class="festival-img">
+          <img src="../images/festival-panaghiusa.jpg" alt="Panaghiusa sa Kinaiyahan" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-panaghiusa"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-9 15L12 2z"/><path d="M12 2a10 10 0 019 15L12 2z"/></svg></div>
+          <span class="festival-month-tag">June</span>
+          <span class="festival-prov-tag">Agusan del Sur</span>
+        </div>
+        <div class="festival-body">
+          <h3>Panaghiusa sa Kinaiyahan</h3>
+          <p>An environmental festival celebrating Caraga's extraordinary natural heritage. Activities include mass tree planting, river clean-ups, eco-tours into the Agusan Marsh, and indigenous Manobo cultural showcases and traditional rituals.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Environmental</span>
+            <span class="festival-tag">Indigenous</span>
+            <span class="festival-tag">Eco-Tourism</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Agusan del Sur</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>June</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Caraga Fiesta -->
+      <div class="festival-card fade-up" data-cat="festival">
+        <div class="festival-img">
+          <img src="../images/festival-caraga-fiesta.jpg" alt="Caraga Fiesta" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-fiesta"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <span class="festival-month-tag">December</span>
+          <span class="festival-prov-tag">Region-wide</span>
+        </div>
+        <div class="festival-body">
+          <h3>Caraga Fiesta</h3>
+          <p>A region-wide celebration bringing all five provinces together in December. Trade fairs, cultural performances, indigenous craft markets, agri-fishery expos, and food festivals showcase the very best of what Caraga has to offer.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Regional</span>
+            <span class="festival-tag">Trade Fair</span>
+            <span class="festival-tag">Culture</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Region XIII (all provinces)</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>December</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Sinulog sa Butuan -->
+      <div class="festival-card fade-up" data-cat="festival religious">
+        <div class="festival-img">
+          <img src="../images/festival-sinulog.jpg" alt="Sinulog sa Butuan" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-sinulog"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <span class="festival-month-tag">January</span>
+          <span class="festival-prov-tag">Agusan del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Sinulog sa Butuan</h3>
+          <p>Butuan's version of the beloved Sinulog celebration in honour of the Santo Niño. Street dancers in elaborate costumes perform the two-step forward, one-step back dance movement, accompanied by drums and flutes through the city's streets.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Religious</span>
+            <span class="festival-tag">Street Dance</span>
+            <span class="festival-tag">Santo Niño</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>January</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Araw ng Surigao -->
+      <div class="festival-card fade-up" data-cat="festival">
+        <div class="festival-img">
+          <img src="../images/festival-araw-surigao.jpg" alt="Araw ng Surigao" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-araw"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+          <span class="festival-month-tag">March</span>
+          <span class="festival-prov-tag">Surigao del Norte</span>
+        </div>
+        <div class="festival-body">
+          <h3>Araw ng Surigao</h3>
+          <p>The annual founding anniversary celebration of Surigao City. The week-long festivities include a trade fair along the baywalk, pageants, sports competitions, cultural presentations, and concerts honouring the city's history and people.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">City Anniversary</span>
+            <span class="festival-tag">Trade Fair</span>
+            <span class="festival-tag">Cultural</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Surigao City</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>March</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+      <!-- Banog Festival -->
+      <div class="festival-card fade-up" data-cat="festival indigenous environmental">
+        <div class="festival-img">
+          <img src="../images/festival-banog.jpg" alt="Banog Festival" onerror="this.style.display='none'">
+          <div class="festival-img-bg fb-banog"></div>
+          <div class="festival-img-overlay"></div>
+          <div class="festival-img-icon"><svg viewBox="0 0 24 24"><path d="M12 2L8 8 2 9.5 6.5 14 5.5 20 12 17 18.5 20 17.5 14 22 9.5 16 8Z"/></svg></div>
+          <span class="festival-month-tag">April</span>
+          <span class="festival-prov-tag">Surigao del Sur</span>
+        </div>
+        <div class="festival-body">
+          <h3>Banog Festival</h3>
+          <p>The Banog (Philippine Eagle kite) Festival of Bislig City celebrates the region's biodiversity and the majestic wildlife of the Bislig rainforest. Giant hand-crafted kites, eco-tours into Manga Forest, and indigenous Mandaya cultural presentations.</p>
+          <div class="festival-tags">
+            <span class="festival-tag">Wildlife</span>
+            <span class="festival-tag">Eco-Culture</span>
+            <span class="festival-tag">Kite Festival</span>
+          </div>
+          <div class="festival-meta">
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bislig City, Surigao del Sur</div>
+            <div class="festival-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>April</div>
+          </div>
+          <span class="festival-cta">Learn More →</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ ANNUAL CALENDAR STRIP ═══════ -->
+<section class="calendar-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Plan Your Visit</span>
+      <h2>Year-Round Events Calendar</h2>
+      <div class="divider"></div>
+      <p>Every month brings something to celebrate in Caraga. Use this guide to plan your trip around the region's biggest events.</p>
+    </div>
+    <div class="calendar-grid fade-up">
+
+      <div class="cal-month">
+        <div class="cal-month-name">January</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Sinulog sa Butuan</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>New Year Cultural Shows</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">February</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>Caraga Foundation Day</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Heritage Month Events</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">March</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Araw ng Surigao</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Holy Week Processions</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">April</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>Banog Festival, Bislig</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Easter Celebrations</div>
+      </div>
+
+      <div class="cal-month">
+        <div class="cal-month-name">May</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Flores de Mayo</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Santacruzan</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">June</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>Panaghiusa sa Kinaiyahan</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Independence Day Events</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">July</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Tribal Peoples' Month</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>Mangrove Planting Drive</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">August</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Balanghai Festival</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>Buwan ng Wika Events</div>
+      </div>
+
+      <div class="cal-month">
+        <div class="cal-month-name">September</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Cloud 9 Surfing Cup</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Bonok-Bonok Kataw</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">October</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Kahimunan Festival</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Heritage Month</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">November</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-green"></span>All Saints Day Rites</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Tourism Month</div>
+      </div>
+      <div class="cal-month">
+        <div class="cal-month-name">December</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-pink"></span>Caraga Fiesta</div>
+        <div class="cal-event"><span class="cal-dot cal-dot-teal"></span>Christmas Celebrations</div>
+      </div>
+
+    </div>
+    <!-- Legend -->
+    <div style="display:flex;gap:22px;flex-wrap:wrap;justify-content:center;margin-top:18px;" class="fade-up">
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--text-light);">
+        <span class="cal-dot cal-dot-teal" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--deep-cyan);"></span>Cultural / Heritage
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--text-light);">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--dark-hot-pink);"></span>Religious / Civic
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--text-light);">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--med-green);"></span>Environmental / Sports
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ INDIGENOUS PEOPLES & CULTURE ═══════ -->
+<section class="indigenous-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Living Traditions</span>
+      <h2>Indigenous Peoples of Caraga</h2>
+      <div class="divider"></div>
+      <p>Five distinct indigenous peoples call Caraga home. Their languages, traditions, and deep ecological knowledge continue to shape the region's cultural identity.</p>
+    </div>
+    <div class="indigenous-grid">
+
+      <div class="indigenous-card fade-up">
+        <div class="indigenous-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Manobo</h3>
+        <p>The Manobo people are the most widely distributed indigenous group in Caraga. They inhabit the highlands and riverine areas of Agusan del Sur, living on floating houses along the Agusan Marsh. Known for their intricate beadwork, traditional clothing, and the sacred rituals of the baylan (spiritual healer), the Manobo maintain a profound relationship with the marsh that sustains their way of life.</p>
+        <span class="indigenous-peoples-tag">Agusan del Sur</span>
+      </div>
+
+      <div class="indigenous-card fade-up">
+        <div class="indigenous-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M12 2L4 14h5v6h6v-6h5L12 2z"/></svg>
+        </div>
+        <h3>Mamanwa</h3>
+        <p>The Mamanwa — often referred to as the original inhabitants of Mindanao — are considered one of the oldest surviving ethnic groups in Southeast Asia. A Negrito people, they inhabit the mountainous areas of Agusan del Norte and Surigao del Norte. The Mamanwa are renowned for their intricate weaving, forest knowledge, and honey-gathering traditions using the towering dipterocarp trees.</p>
+        <span class="indigenous-peoples-tag">Agusan del Norte · Surigao del Norte</span>
+      </div>
+
+      <div class="indigenous-card fade-up">
+        <div class="indigenous-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M3,17 L6,7 L18,7 L21,17 Z"/><path d="M6,7 L8,2 L16,2 L18,7"/></svg>
+        </div>
+        <h3>Higaonon</h3>
+        <p>Meaning "people of the mountains," the Higaonon inhabit the highland areas between Agusan del Norte and Misamis Oriental. Their traditional governance system — led by a datu and guided by customary law (adat) — remains active. The Higaonon are celebrated for their striking traditional attire with geometric patterns and their practice of the ritwal, a traditional ceremony marking significant life events.</p>
+        <span class="indigenous-peoples-tag">Agusan del Norte · Misamis Oriental</span>
+      </div>
+
+      <div class="indigenous-card fade-up">
+        <div class="indigenous-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M2,11 C5,7 8,7 11,11 C14,15 17,15 20,11"/><path d="M2,17 C5,13 8,13 11,17 C14,21 17,21 20,17"/></svg>
+        </div>
+        <h3>Banwaon</h3>
+        <p>The Banwaon people inhabit the upstream areas of the Agusan River in the interior highlands of Agusan del Sur. Closely related to the Manobo, the Banwaon are exceptional farmers and forest stewards who maintain complex agricultural rituals tied to the planting cycle. Their traditional music — performed on the kubing (jaw harp) and gimbal (drum) — is recognised as an important element of Caraga's intangible cultural heritage.</p>
+        <span class="indigenous-peoples-tag">Agusan del Sur</span>
+      </div>
+
+      <div class="indigenous-card fade-up">
+        <div class="indigenous-icon-box">
+          <svg viewBox="0 0 24 24"><path d="M2,14 C4.5,10 7.5,10 10,14 C12.5,18 15.5,18 18,14 C20.5,10 22,10 22,14"/><circle cx="12" cy="8" r="3"/></svg>
+        </div>
+        <h3>Surigaonon</h3>
+        <p>The Surigaonon are the dominant ethnic group of the Surigao provinces and Dinagat Islands. With a culture rooted in the sea, the Surigaonon are exceptional fishermen, boat builders, and navigators — a tradition stretching back thousands of years. Their rich oral literature, fishing ceremonies, and the mangungubat (traditional healers) represent a unique fusion of Austronesian maritime heritage and Visayan cultural influence.</p>
+        <span class="indigenous-peoples-tag">Surigao del Norte · Surigao del Sur · Dinagat Islands</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ ARTS & TRADITIONS ═══════ -->
+<section class="arts-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Heritage &amp; Craft</span>
+      <h2>Arts, Music &amp; Traditions</h2>
+      <div class="divider"></div>
+      <p>From intricate gold-smithing to ancient boat-building — Caraga's artistic traditions are as diverse as its landscapes.</p>
+    </div>
+    <div class="arts-grid">
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-weaving.jpg" alt="Indigenous Weaving" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-weaving"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
+          <span class="art-cat-badge">Textile Art</span>
+        </div>
+        <div class="art-body">
+          <h3>Abaca &amp; Traditional Weaving</h3>
+          <p>The Manobo and Banwaon peoples create intricate abaca woven textiles with geometric patterns that encode clan identity, social status, and spiritual beliefs passed through generations. Each piece can take weeks to complete.</p>
+        </div>
+      </div>
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-boatbuilding.jpg" alt="Balanghai Boat Building" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-boat"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><path d="M3,15 Q8,9 12,12 Q16,15 21,12 L21,18 Q16,22 12,19 Q8,22 3,18 Z"/></svg></div>
+          <span class="art-cat-badge">Maritime Heritage</span>
+        </div>
+        <div class="art-body">
+          <h3>Balanghai Boat Building</h3>
+          <p>The ancient art of building plank-sewn watercraft stretches back over 1,700 years in Butuan. Modern craftsmen still build traditional bancas using techniques descended from the Balanghai seafarers — cultural heritage declared a National Treasure.</p>
+        </div>
+      </div>
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-goldcraft.jpg" alt="Gold Crafting" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-gold"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+          <span class="art-cat-badge">Gold &amp; Metalwork</span>
+        </div>
+        <div class="art-body">
+          <h3>Butuan's Gold Tradition</h3>
+          <p>Over 1,500 gold artefacts have been recovered from Butuan's pre-colonial sites — among them golden masks, kinnari figurines, and intricately worked jewellery dating to the 9th–11th centuries. This goldsmithing tradition reflects one of Southeast Asia's most sophisticated ancient civilisations.</p>
+        </div>
+      </div>
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-dance.jpg" alt="Traditional Dance" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-dance"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M15.89 8.11C15.1 7.32 14.1 7 13 7H11c-1.1 0-2.1.32-2.89 1.11L6 10l1.5 1.5L9 10v3l-1.5 4.5h1.9L10 16h4l.5 1.5h1.9L15 10v-1l1.5 1.5L18 9l-2.11-0.89z"/></svg></div>
+          <span class="art-cat-badge">Performing Arts</span>
+        </div>
+        <div class="art-body">
+          <h3>Tribal Dance &amp; Ritual</h3>
+          <p>From the Manobo kaamulan ritual dances to the Surigaonon maritime celebration dances, Caraga's indigenous peoples maintain a rich tradition of ceremonial movement. Many dances re-enact creation myths, harvests, and sea voyages passed down through oral tradition.</p>
+        </div>
+      </div>
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-music.jpg" alt="Traditional Music" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-music"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <span class="art-cat-badge">Music</span>
+        </div>
+        <div class="art-body">
+          <h3>Indigenous Music Traditions</h3>
+          <p>The kubing (bamboo jaw harp), gimbal (drum), and kulintang (gong ensemble) are central to Caraga's musical heritage. These instruments accompany ritual ceremonies, courtship, and community celebrations — their sounds echoing traditions centuries old and still very much alive today.</p>
+        </div>
+      </div>
+
+      <div class="art-card fade-up">
+        <div class="art-img">
+          <img src="../images/art-crafts.jpg" alt="Traditional Crafts" onerror="this.style.display='none'">
+          <div class="art-img-bg ab-crafts"></div>
+          <div class="art-img-overlay"></div>
+          <div class="art-img-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+          <span class="art-cat-badge">Craftsmanship</span>
+        </div>
+        <div class="art-body">
+          <h3>Bamboo &amp; Rattan Crafts</h3>
+          <p>Caraga's artisans are renowned for their expertise in bamboo and rattan craft — from functional household items to elaborate decorative pieces. The Agusan del Sur highlands are especially rich in skilled weavers producing baskets, mats, and furniture that are sold across the Philippines and internationally.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ CTA BANNER ═══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-banner fade-up">
+      <div>
+        <h2>Experience Caraga's Culture</h2>
+        <p>Plan your trip around one of our festivals and immerse yourself in the living heritage of Region XIII. Every visit tells a 1,700-year-old story.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tourist-spots.html" class="btn btn-cta">
+          <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          Explore Tourist Spots
+        </a>
+        <a href="contact.html" class="btn btn-outline" style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.4);">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines. From the surf-kissed shores of Siargao to the mystical Enchanted River — the Land of Promise.</p>
+        <div class="footer-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html#home"       class="footer-link">Home</a>
+          <a href="../index.html#about"      class="footer-link">About Caraga</a>
+          <a href="../index.html#history"    class="footer-link">History</a>
+          <a href="../index.html#provinces"  class="footer-link">Provinces</a>
+          <a href="tourist-spots.html"       class="footer-link">Tourist Spots</a>
+          <a href="culture-events.html"      class="footer-link">Culture &amp; Events</a>
+          <a href="delicacies.html"          class="footer-link">Delicacies</a>
+          <a href="notable-personalities.html" class="footer-link">Personalities</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="../provinces/agusan-norte.html"  class="footer-link">Agusan del Norte</a>
+          <a href="../provinces/agusan-sur.html"    class="footer-link">Agusan del Sur</a>
+          <a href="../provinces/surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <a href="../provinces/surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="../provinces/dinagat.html"       class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>The Team</h4>
+        <div class="footer-team">
+          <div class="team-member"><div class="team-avatar">LR</div><span class="team-name">Laurence</span></div>
+          <div class="team-member"><div class="team-avatar">AN</div><span class="team-name">Andrea</span></div>
+          <div class="team-member"><div class="team-avatar">JN</div><span class="team-name">Jonas</span></div>
+          <div class="team-member"><div class="team-avatar">ZA</div><span class="team-name">Zareena</span></div>
+          <div class="team-member"><div class="team-avatar">KZ</div><span class="team-name">Kriziel</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
+      <div class="footer-made-by">Made with <span>♥</span> for Caraga, Region XIII</div>
+      <div class="footer-bottom-links">
+        <a href="#"            class="footer-bottom-link">Privacy</a>
+        <a href="#"            class="footer-bottom-link">Terms</a>
+        <a href="contact.html" class="footer-bottom-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="../js/main.js"></script>
+<script>
+  /* ── Filter festival cards ─────────────────────────────────────────────── */
+  function filterCards(cat, btn) {
+    // update button states
+    document.querySelectorAll('.ce-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('#festivalsGrid .festival-card');
+    cards.forEach(card => {
+      if (cat === 'all') {
+        card.style.display = '';
+      } else {
+        const cats = card.dataset.cat || '';
+        card.style.display = cats.includes(cat) ? '' : 'none';
+      }
+    });
+  }
+
+  /* ── Scroll fade-up ────────────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.10 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  });
+</script>
+
+</body>
+</html>

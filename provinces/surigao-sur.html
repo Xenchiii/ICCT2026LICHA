@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Page title that shows up on the browser tab -->
+  <title>Surigao del Sur — Caraga Region XIII</title>
+  <!-- Our main stylesheet that controls the look of everything -->
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<!-- =====================================================
+     LOADER — this is the full-screen intro animation
+     that plays when the page first loads. It shows the
+     region number "XIII", a spinning icon, and the
+     province name. It's hidden via JS once the page
+     is ready (check main.js for that logic).
+===================================================== -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">SURIGAO</div>
+  <div class="loader-sub">DEL SUR · CARAGA</div>
+</div>
+
+<!-- =====================================================
+     BACK TO TOP BUTTON — the little arrow that appears
+     at the bottom-right corner when you scroll down.
+     Clicking it smoothly scrolls the user back to the
+     top of the page. The SVG inside is just the arrow
+     icon (a chevron pointing up).
+===================================================== -->
+<div id="back-top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+<!-- =====================================================
+     NAVBAR — the top navigation bar that sticks to
+     the top of the screen as you scroll. Contains the
+     site logo/brand on the left, nav links in the
+     middle, and a hamburger menu icon for mobile.
+===================================================== -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- Brand/logo area — clicking this goes back to the homepage -->
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+
+      <!-- Main navigation links list -->
+      <ul class="nav-menu">
+        <li><a href="../index.html#home" class="nav-link">Home</a></li>
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="../index.html#history" class="nav-link">History</a></li>
+
+        <!-- Provinces dropdown — this list item has a hover/click
+             dropdown submenu with all 5 provinces. The "active"
+             class highlights this item since we're on a province page. -->
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle active">
+            Provinces
+            <!-- Tiny chevron arrow icon pointing down -->
+            <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <!-- The dropdown submenu that appears on hover -->
+          <ul class="dropdown-menu">
+            <li><a href="agusan-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+            <li><a href="agusan-sur.html" class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+            <!-- Surigao del Sur dot is pink/magenta to stand out as the current page -->
+            <li><a href="surigao-sur.html" class="dropdown-item"><span class="dropdown-dot" style="background:#E4509A"></span>Surigao del Sur</a></li>
+            <li><a href="dinagat.html" class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+
+        <li><a href="../pages/tourist-spots.html" class="nav-link">Tourist Spots</a></li>
+        <li><a href="../pages/culture-events.html" class="nav-link">Culture &amp; Events</a></li>
+        <li><a href="../pages/contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger icon — only visible on mobile screens.
+           The three <span> tags are the three horizontal lines.
+           Clicking it calls toggleMenu() from main.js which
+           slides the nav-menu open/closed. -->
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- =====================================================
+     HERO SECTION — the big full-screen banner at the
+     top of the page. Has a background image of the
+     province with a gradient overlay, the province
+     name as a large heading, a subtitle, and key stats
+     (area, population, municipalities, cities).
+===================================================== -->
+<div class="province-hero" style="min-height:70vh;">
+
+  <!-- Background layer — uses the province image as a background.
+       The gradient behind it acts as a fallback if the image fails
+       to load, and also tints the image with province colors. -->
+  <div class="province-hero-bg" style="background:linear-gradient(135deg,#003d20,#006e3c,#00b464);background-image:url('../images/province-surigao-sur.jpg');background-size:cover;background-position:center;"></div>
+
+  <!-- Dark overlay on top of the background image so the white
+       text is readable against whatever the image looks like -->
+  <div class="province-hero-overlay"></div>
+
+  <!-- The actual hero content: breadcrumb, title, subtitle, stats -->
+  <div class="container" style="position:relative;z-index:2;padding-bottom:60px;">
+    <div class="province-hero-content" style="padding:0;">
+
+      <!-- Breadcrumb trail — shows the user where they are in the site -->
+      <div class="province-breadcrumb">
+        <a href="../index.html">Home</a> → <a href="../index.html#provinces">Provinces</a> → Surigao del Sur
+      </div>
+
+      <!-- Main province name heading -->
+      <h1>Surigao del Sur</h1>
+
+      <!-- Short tagline describing what the province is known for -->
+      <p class="province-hero-sub">Home of the Enchanted River, Tinuy-an Falls &amp; Britania Archipelago</p>
+
+      <!-- Quick stats row — four key facts displayed as big numbers
+           with a small label underneath each one -->
+      <div class="province-hero-stats">
+        <div><div class="ph-stat-num">5,256</div><div class="ph-stat-lbl">km² Area</div></div>
+        <div><div class="ph-stat-num">588K+</div><div class="ph-stat-lbl">Population</div></div>
+        <div><div class="ph-stat-num">17</div><div class="ph-stat-lbl">Municipalities</div></div>
+        <div><div class="ph-stat-num">2</div><div class="ph-stat-lbl">Cities</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     PROVINCE OVERVIEW SECTION — two-column layout.
+     Left side has descriptive paragraphs about the
+     province. Right side shows a grid of quick-info
+     cards (capital, cities, top spots, best season etc.)
+===================================================== -->
+<section style="background:#fff;padding:64px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+
+      <!-- Left column: text description of the province -->
+      <div class="fade-up">
+        <!-- Small uppercase label above the heading -->
+        <span class="section-label">Province Overview</span>
+        <h2>Where Nature Meets Mystery</h2>
+        <!-- Green decorative line divider under the heading -->
+        <div class="divider" style="margin:14px 0 20px;"></div>
+        <p>Surigao del Sur stretches along Mindanao's wild Pacific coast — a province of extraordinary contrasts: the deep-blue mystery of Hinatuan's Enchanted River, the thundering curtains of Tinuy-an Falls, and the white-sand paradise of the 24-island Britania archipelago.</p>
+        <p style="margin-top:12px;">Tandag City is the provincial capital and main commercial hub. Bislig City — the "Paper Capital of the Philippines" — hosts the sprawling PICOP timberlands and sits beside the crystal-clear Cantingas River. The province's Pacific coastline is largely untouched and offers extraordinary diving, surfing, and fishing along some of the most remote shores in the region.</p>
+        <p style="margin-top:12px;">Manobo and Mandaya indigenous communities inhabit the mountainous interior, maintaining traditional practices, crafts, and knowledge of the forest that have endured for centuries.</p>
+      </div>
+
+      <!-- Right column: info card grid with mint-green background -->
+      <div class="fade-up">
+        <div style="background:linear-gradient(135deg,#e8f5f0,#c5e8d8);border-radius:20px;padding:28px;">
+          <!-- 2x3 grid of individual fact cards -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- Each card: teal label on top, bold value below -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Capital</div><div style="font-weight:600;font-size:0.9rem;">Tandag City</div></div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Cities</div><div style="font-weight:600;font-size:0.9rem;">Tandag, Bislig</div></div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Top Spot</div><div style="font-weight:600;font-size:0.9rem;">Enchanted River</div></div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Waterfall</div><div style="font-weight:600;font-size:0.9rem;">Tinuy-an Falls</div></div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Best Season</div><div style="font-weight:600;font-size:0.9rem;">Mar–May</div></div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Coastline</div><div style="font-weight:600;font-size:0.9rem;">Pacific Ocean</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     TOURIST SPOTS SECTION — the main attraction cards
+     grid. Each "province-spot-card" has an image area
+     on top (with a colored gradient fallback), a badge
+     label, a Google Maps link button, and a body with
+     the spot's name, description, tags, and location.
+===================================================== -->
+<section style="background:var(--off-white);padding:80px 0;">
+  <div class="container">
+
+    <!-- Section header — centered label, heading, divider, and intro text -->
+    <div class="section-header fade-up">
+      <span class="section-label">Destinations</span>
+      <h2>Tourist Spots in Surigao del Sur</h2>
+      <div class="divider"></div>
+      <p>From the mystical blue depths of Hinatuan to roaring waterfalls and island chains — Surigao del Sur's natural wonders are unlike anything else in the Philippines.</p>
+    </div>
+
+    <!-- The grid that holds all the spot cards -->
+    <div class="province-spots-grid">
+
+      <!-- -----------------------------------------------
+           SPOT CARD 1: Hinatuan Enchanted River
+           The image area has a teal gradient as background
+           in case the actual photo doesn't load (onerror
+           hides the broken img tag). The badge floats
+           top-left, and the Map button floats top-right.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <!-- Image container with gradient fallback -->
+        <div class="psc-img" style="background:linear-gradient(135deg,#005f5c,#00bdb5);">
+          <img src="../images/spot-enchanted.jpg" alt="Enchanted River" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <!-- Dark overlay so badge/button text stays readable over the image -->
+          <div class="psc-img-overlay"></div>
+          <!-- Category badge — floats in the top-left of the image -->
+          <span class="psc-badge"> Mystery River</span>
+          <!-- Google Maps link button — opens in a new tab -->
+          <a href="https://maps.google.com/maps?q=Hinatuan+Enchanted+River+Surigao+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <!-- Card body: name, description, tags, and location info -->
+        <div class="psc-body">
+          <h3>Hinatuan Enchanted River</h3>
+          <p>A short, deep river in Hinatuan town that has captured the imagination of travellers worldwide. Its extraordinary clarity and impossible deep-blue colour — ranging from turquoise to cobalt — are caused by a subterranean underwater cave system connecting it to the sea. The depth is unknown; divers have descended beyond 80 metres without reaching the bottom. Every day at noon, a "feeding of the fishes" ritual takes place — the river music plays, fish swarm from the depths, and swimming is paused. Snorkelling reveals surreal underwater visibility. It remains one of the Philippines' most photographed natural wonders.</p>
+          <!-- Tag pills — small keyword labels for quick categorization -->
+          <div class="psc-tags">
+            <span class="psc-tag">River</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Mystery</span>
+            <span class="psc-tag">Photography</span>
+          </div>
+          <!-- Location/note line at the bottom of the card -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Hinatuan, Surigao del Sur • Noon feeding ritual daily
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           SPOT CARD 2: Tinuy-an Falls
+           Same card structure as above. Green gradient
+           fallback fits the lush rainforest setting.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#005846,#00a862);">
+          <img src="../images/spot-tinuyan.jpg" alt="Tinuy-an Falls" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Waterfalls</span>
+          <a href="https://maps.google.com/maps?q=Tinuy-an+Falls+Bislig+City+Surigao+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Tinuy-an Falls — Niagara of the Philippines</h3>
+          <p>The widest waterfall in the Philippines — a three-tiered, 95-metre-wide curtain of white water cascading through dense tropical rainforest in Bislig City. Often called the "Niagara Falls of the Philippines," Tinuy-an is most spectacular after heavy rains when all three tiers flow at full force. A bamboo raft ride to the base of the falls is one of the most thrilling experiences in Caraga — the mist and roar are overwhelming up close. Rainbow arches frequently appear in the morning spray. Walking trails lead to viewing platforms above the falls.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Waterfalls</span>
+            <span class="psc-tag">Eco-Tourism</span>
+            <span class="psc-tag">Rafting</span>
+            <span class="psc-tag">Photography</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bislig City, Surigao del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           SPOT CARD 3: Britania Group of Islands
+           Blue-teal gradient because it's a sea/island
+           destination. Same card layout as the rest.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#005a8e,#4C9C8B);">
+          <img src="../images/spot-britania.jpg" alt="Britania Islands" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Islands</span>
+          <a href="https://maps.google.com/maps?q=Britania+Islands+San+Agustin+Surigao+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Britania Group of Islands</h3>
+          <p>A breathtaking archipelago of 24 islets off the municipality of San Agustin — each one a perfect postcard of powdery white sand, swaying palms, and crystal-clear emerald water. Island-hopping tours visit the best of the group, including the famous Hagonoy Island (with its stunning sandbar), Buslon Island, and Pison Island. The surrounding waters offer excellent snorkeling over coral gardens, and campers can overnight on some islands. The Britania Group is often called Surigao del Sur's answer to El Nido — and the crowds are far smaller.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Islands</span>
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Snorkeling</span>
+            <span class="psc-tag">Camping</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            San Agustin, Surigao del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           SPOT CARD 4: Cantingas River
+           Deep forest-green gradient since it's a
+           river surrounded by protected forest.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d20,#006a38);">
+          <img src="../images/spot-cantingas.jpg" alt="Cantingas River" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> River</span>
+          <a href="https://maps.google.com/maps?q=Cantingas+River+Bislig+City+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Cantingas River</h3>
+          <p>Flowing through the heart of Bislig City, the Cantingas River is renowned for its exceptional clarity — the riverbed is visible at depths of several metres, and the water is cool, fresh, and inviting year-round. Riverside swimming, bamboo rafting, and picnicking are popular activities. The forest-lined banks shelter a variety of birds and small wildlife. The Cantingas River basin is an important conservation area, and community-managed eco-tourism programs offer guided river treks and cultural experiences with local Manobo guides.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">River</span>
+            <span class="psc-tag">Swimming</span>
+            <span class="psc-tag">Eco-Tour</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bislig City, Surigao del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           SPOT CARD 5: Lianga Bay
+           Blue ocean gradient — this is the surf/beach
+           spot along the Pacific coast.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#004d80,#0080cc);">
+          <img src="../images/spot-lianga-bay.jpg" alt="Lianga Bay" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Surfing</span>
+          <a href="https://maps.google.com/maps?q=Lianga+Bay+Surigao+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Lianga Bay — Pacific Surf Coast</h3>
+          <p>Lianga municipality fronts directly onto the Philippine Sea and has been gaining quiet recognition among surfers for its consistent Pacific swells. The wide, dark-sand beach at Lianga is uncrowded and raw — a world away from the tourist infrastructure of Siargao. Local surf guides offer lessons and boards for beginners. The bay also hosts a diverse marine ecosystem with whale shark sightings occasionally reported offshore. The town's heritage church, built in 1877, is one of the oldest in the province.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Surfing</span>
+            <span class="psc-tag">Beach</span>
+            <span class="psc-tag">Heritage</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Lianga, Surigao del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------------------------------
+           SPOT CARD 6: Manobo Indigenous Communities
+           Darker, earthy tones to reflect the cultural/
+           forest nature of this entry. No beach here —
+           it's about the highland interior communities.
+      ----------------------------------------------- -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#2c3e50,#4a7a6a);">
+          <img src="../images/spot-manobo-village.jpg" alt="Manobo Village" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge"> Indigenous</span>
+          <a href="https://maps.google.com/maps?q=Surigao+del+Sur+indigenous+community" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Manobo Indigenous Communities</h3>
+          <p>The highland municipalities of Surigao del Sur — particularly Tago, Marihatag, and San Miguel — are home to traditional Manobo communities whose way of life has endured for millennia. Respectful community visits arranged through local government offices offer insight into traditional weaving, beadwork, ritual ceremonies, and forest farming. The Manobo are known for their intricate textiles, elaborate beaded jewellery, and the Buklog thanksgiving ritual — a communal celebration involving traditional music, dance, and communal feasting lasting several days.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Cultural</span>
+            <span class="psc-tag">Indigenous</span>
+            <span class="psc-tag">Heritage</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Interior municipalities, Surigao del Sur
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end province-spots-grid -->
+  </div>
+</section>
+
+<!-- =====================================================
+     MAP TABS SECTION — an interactive Google Maps embed
+     with tab buttons above it. Clicking a tab swaps the
+     iframe src to a different location using the
+     switchProvMap() function defined at the bottom.
+     The "Province View" tab is active by default.
+===================================================== -->
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Location</span>
+      <h2>Surigao del Sur on the Map</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Tab buttons — each one passes a key and itself (this)
+         to switchProvMap() so it can update the iframe and
+         also mark itself as the active tab visually -->
+    <div class="map-tabs fade-up">
+      <button class="map-tab active" onclick="switchProvMap('ss-main',this)">Province View</button>
+      <button class="map-tab" onclick="switchProvMap('enchanted',this)">Enchanted River</button>
+      <button class="map-tab" onclick="switchProvMap('tinuyan',this)">Tinuy-an Falls</button>
+      <button class="map-tab" onclick="switchProvMap('britania',this)">Britania Islands</button>
+      <button class="map-tab" onclick="switchProvMap('tandag',this)">Tandag City</button>
+    </div>
+
+    <!-- The Google Maps iframe — its src is swapped by switchProvMap() -->
+    <div class="province-gmap-frame fade-up">
+      <iframe
+        id="provMapFrame"
+        src="https://maps.google.com/maps?q=Surigao+del+Sur+Philippines&output=embed&z=10"
+        width="100%"
+        height="480"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        title="Surigao del Sur Map">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================
+     HOW TO GET THERE SECTION — four info cards in a
+     responsive auto-fit grid, covering the different
+     ways to travel to/around Surigao del Sur: air,
+     bus, sea, and local transport.
+===================================================== -->
+<section style="background:var(--off-white);padding:64px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Travel Guide</span>
+      <h2>How to Get There</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- auto-fit grid: cards shrink/grow based on screen width,
+         minimum card width is 240px before wrapping to next row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;" class="fade-up">
+
+      <!-- By Air card -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;">️</div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Air</h3>
+        <p style="font-size:0.84rem;">Bislig Airport (BPH) has limited service from Cebu. Most visitors fly to Butuan City or Surigao City, then travel overland. Tandag Airport (TDG) has occasional flights from Cebu Pacific.</p>
+      </div>
+
+      <!-- By Bus card -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Bus</h3>
+        <p style="font-size:0.84rem;">Buses run from Butuan City to Tandag City in ~4 hours, and from Surigao City to Tandag in ~3 hours. Air-conditioned buses and vans are available daily. Bislig is a further 2 hours south of Tandag.</p>
+      </div>
+
+      <!-- By Sea card -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Sea</h3>
+        <p style="font-size:0.84rem;">Bislig Port serves occasional cargo and passenger vessels from Davao, Cebu, and Manila. The Port of Tandag handles inter-island shipping. For Britania Islands, bangka boats depart from San Agustin port.</p>
+      </div>
+
+      <!-- Getting Around card — local transport within the province -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:10px;"></div>
+        <h3 style="margin-bottom:6px;font-size:1rem;">Getting Around</h3>
+        <p style="font-size:0.84rem;">Tricycles and habal-habal serve most towns and tourist sites. Multicabs (minivans) run between major municipalities. Renting a motorbike in Tandag or Bislig is the most flexible option for exploring remote spots.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     FOOTER — site-wide footer with four columns:
+     1. Brand info + description
+     2. Links to all province pages
+     3. Links to top tourist spots on this page
+     4. General quick links (home, spots, contact)
+     Bottom bar has copyright and "made with love" note.
+===================================================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Column 1: Logo and site description -->
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, Region XIII — Land of Promise, northeastern Mindanao, Philippines.</p>
+      </div>
+
+      <!-- Column 2: All province links.
+           Surigao del Sur is highlighted in green since
+           we're currently on that page. -->
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="agusan-norte.html" class="footer-link">Agusan del Norte</a>
+          <a href="agusan-sur.html" class="footer-link">Agusan del Sur</a>
+          <a href="surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <!-- Active province link styled in the province's accent color -->
+          <a href="surigao-sur.html" class="footer-link" style="color:var(--summer-green);">Surigao del Sur</a>
+          <a href="dinagat.html" class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+
+      <!-- Column 3: Quick links to the top spots on this page
+           (these # hrefs could be updated to actual anchor IDs
+           if the cards have IDs added later) -->
+      <div class="footer-col">
+        <h4>Top Spots</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Enchanted River</a>
+          <a href="#" class="footer-link">Tinuy-an Falls</a>
+          <a href="#" class="footer-link">Britania Islands</a>
+          <a href="#" class="footer-link">Cantingas River</a>
+        </div>
+      </div>
+
+      <!-- Column 4: Sitewide utility links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html" class="footer-link">Home</a>
+          <a href="../pages/tourist-spots.html" class="footer-link">All Tourist Spots</a>
+          <a href="../pages/contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer bottom bar: copyright on the left, credits on the right -->
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition.</div>
+      <div class="footer-made-by">Made with <span></span> for Caraga, Region XIII</div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Main JS file handles: scroll animations (fade-up), navbar
+     scroll behavior, loader hide, back-to-top button visibility,
+     and the hamburger mobile menu toggle. -->
+<script src="../js/main.js"></script>
+
+<script>
+  // =====================================================
+  // MAP TAB SWITCHER
+  // This object maps each tab's key to its Google Maps
+  // embed URL. When a tab is clicked, we look up the
+  // URL here and set it as the iframe's src.
+  // =====================================================
+  const provMapUrls = {
+    'ss-main':   'https://maps.google.com/maps?q=Surigao+del+Sur+Philippines&output=embed&z=10',
+    'enchanted': 'https://maps.google.com/maps?q=Hinatuan+Enchanted+River+Philippines&output=embed&z=14',
+    'tinuyan':   'https://maps.google.com/maps?q=Tinuy-an+Falls+Bislig+City+Philippines&output=embed&z=14',
+    'britania':  'https://maps.google.com/maps?q=Britania+Islands+San+Agustin+Surigao+del+Sur&output=embed&z=13',
+    'tandag':    'https://maps.google.com/maps?q=Tandag+City+Surigao+del+Sur+Philippines&output=embed&z=13'
+  };
+
+  // switchProvMap() is called by each tab button's onclick.
+  // "key" is the string key in provMapUrls (e.g. 'enchanted'),
+  // "btn" is the button element that was clicked (passed as "this").
+  function switchProvMap(key, btn) {
+    // Grab the iframe element by its ID
+    const f = document.getElementById('provMapFrame');
+
+    // Update the iframe src to the new map URL.
+    // Falls back to the province overview if the key isn't found.
+    if (f) f.src = provMapUrls[key] || provMapUrls['ss-main'];
+
+    // Remove the "active" highlight from all tab buttons first...
+    document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+
+    // ...then add it back only to the button that was just clicked
+    btn?.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
