@@ -221,8 +221,8 @@
           <div class="about-img-inner">
             <img src="images/about-caraga.jpg" alt="Caraga Region"
               style="width:100%;height:100%;object-fit:cover;border-radius:20px;"
-              onerror="this.style.display='none'">
-            <div class="about-placeholder">
+              onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+            <div class="about-placeholder" style="display:none;">
               <div class="about-placeholder-icon">
                 <svg viewBox="0 0 80 80"><rect x="8" y="22" width="64" height="46" rx="4"/><circle cx="28" cy="40" r="8"/><path d="M8,54 L22,38 L38,56 L52,42 L72,58"/></svg>
               </div>
@@ -517,7 +517,7 @@
         <div class="province-img prov-an">
           <img src="images/province-agusan-norte.jpg" alt="Agusan del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-icon-frame"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="13" height="12"/><path d="M9 3h10v18H9"/></svg></div>
+        
           <div class="province-img-label">Agusan del Norte</div>
         </div>
         <div class="province-body">
@@ -541,8 +541,7 @@
         <div class="province-img prov-as">
           <img src="images/province-agusan-sur.jpg" alt="Agusan del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-icon-frame"><svg viewBox="0 0 24 24"><path d="M12 2L4 14h5v6h6v-6h5L12 2z"/></svg></div>
-          <div class="province-img-label">Agusan del Sur</div>
+          
         </div>
         <div class="province-body">
           <span class="province-tag">Agusan</span>
@@ -565,7 +564,7 @@
         <div class="province-img prov-sn">
           <img src="images/province-surigao-norte.jpg" alt="Surigao del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-icon-frame"><svg viewBox="0 0 24 24"><path d="M2,11 C5,7 8,7 11,11 C14,15 17,15 20,11"/><path d="M2,17 C5,13 8,13 11,17 C14,21 17,21 20,17"/></svg></div>
+          
           <div class="province-img-label">Surigao del Norte</div>
         </div>
         <div class="province-body">
@@ -589,7 +588,7 @@
         <div class="province-img prov-ss">
           <img src="images/province-surigao-sur.jpg" alt="Surigao del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-icon-frame"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3.5"/><path d="M4,19 Q9,13 12,16 Q15,19 20,16"/></svg></div>
+          
           <div class="province-img-label">Surigao del Sur</div>
         </div>
         <div class="province-body">
@@ -613,7 +612,7 @@
         <div class="province-img prov-dn">
           <img src="images/province-dinagat.jpg" alt="Dinagat Islands" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-icon-frame"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="22"/><path d="M5,11 C5,18 12,22 19,11"/></svg></div>
+          
           <div class="province-img-label">Dinagat Islands</div>
         </div>
         <div class="province-body">

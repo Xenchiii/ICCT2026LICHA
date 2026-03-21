@@ -79,7 +79,7 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
     .del-spotlight-img-wrap {
-      background: linear-gradient(135deg, #f5c842, #e07b00);
+      background: linear-gradient(135deg, #f5c842, #d530bf);
       border-radius: 22px; padding: 4px; box-shadow: var(--shadow-lg);
     }
     .del-spotlight-img {
@@ -387,38 +387,51 @@
 <section class="del-spotlight">
   <div class="container">
     <div class="del-spotlight-inner fade-up">
-      <div style="position:relative;">
+      
+      <div class="del-spotlight-media" style="position:relative;">
         <div class="del-spotlight-img-wrap">
           <div class="del-spotlight-img">
-            <img src="../images/food-kinilaw.jpg" alt="Kinilaw na Isda" onerror="this.style.display='none'">
-            <div class="ph-icon">
-              <svg viewBox="0 0 80 80"><circle cx="40" cy="30" r="18"/><path d="M10,60 Q20,44 40,48 Q60,44 70,60"/></svg>
+            <img src="../images/food-kinilaw.jpg" alt="Kinilaw na Isda" 
+                 onerror="this.nextElementSibling.style.display='flex'">
+            
+            <div class="ph-icon" style="display:none;">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="30" r="18"/>
+                <path d="M10,60 Q20,44 40,48 Q60,44 70,60"/>
+              </svg>
             </div>
           </div>
+        </div> 
+
+        <div class="del-spotlight-badge">
+          <strong>No. 1</strong> Must Try
         </div>
-        <div class="del-spotlight-badge"><strong>No. 1</strong>Must Try</div>
-      </div>
-      <div class="del-spotlight-content">
+      </div> <div class="del-spotlight-content">
         <span class="section-label">Featured Delicacy</span>
         <h2>Kinilaw na Isda</h2>
         <div class="divider" style="margin:14px 0 18px;text-align:left;"></div>
+        
         <p>Caraga's most iconic dish — fresh raw fish "cooked" in native cane vinegar (sukang tuba), calamansi, ginger, onions, chilli, and coconut milk. The acid from the vinegar denatures the fish proteins, producing a silky texture that is technically "cooked" without heat.</p>
-        <p>In Caraga, kinilaw is not just food — it is a ritual of freshness. The fish must be caught the same morning, and each family has its own secret balance of ingredients passed down through generations. It is served at every celebration, from birthdays to fiestas, and is the first dish placed on the table at the Balanghai Festival feasts.</p>
+        
+        <p>In Caraga, kinilaw is not just food — it is a ritual of freshness. The fish must be caught the same morning, and each family has its own secret balance of ingredients passed down through generations.</p>
+
         <div class="del-facts-grid">
           <div class="del-fact"><div class="del-fact-lbl">Main Ingredient</div><div class="del-fact-val">Fresh tuna, tanigue, or lapu-lapu</div></div>
           <div class="del-fact"><div class="del-fact-lbl">Key Flavour</div><div class="del-fact-val">Sour, spicy, coconut-creamy</div></div>
           <div class="del-fact"><div class="del-fact-lbl">Best Found In</div><div class="del-fact-val">Surigao del Norte, Siargao Island</div></div>
           <div class="del-fact"><div class="del-fact-lbl">Occasion</div><div class="del-fact-val">Festivals, everyday meals, celebrations</div></div>
         </div>
+
         <a href="tourist-spots.html" class="btn btn-primary">
-          <svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/></svg>
+          <svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2;">
+            <polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/>
+          </svg>
           Explore Caraga's Best Spots
         </a>
-      </div>
-    </div>
-  </div>
+      </div> 
+    </div> 
+  </div> 
 </section>
-
 
 <!-- ═══════ DELICACIES GRID ═══════ -->
 <section class="delicacies-section">
@@ -435,10 +448,7 @@
       <!-- Kinilaw na Isda -->
       <div class="del-card fade-up" data-cat="seafood">
         <div class="del-card-img">
-          <img src="../images/food-kinilaw.jpg" alt="Kinilaw na Isda" onerror="this.style.display='none'">
-          <div class="del-card-bg db-kinilaw"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🐟</div>
+          <img src="../images/food-kinilaw2.jpg" alt="Kinilaw na Isda" onerror="this.style.display='none'">
           <span class="del-type-badge badge-seafood">Seafood</span>
           <span class="del-prov-badge">Surigao del Norte</span>
         </div>
@@ -459,9 +469,6 @@
       <div class="del-card fade-up" data-cat="seafood savoury">
         <div class="del-card-img">
           <img src="../images/food-sinalaw.jpg" alt="Sinalaw" onerror="this.style.display='none'">
-          <div class="del-card-bg db-sinalaw"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🦀</div>
           <span class="del-type-badge badge-seafood">Seafood</span>
           <span class="del-prov-badge">Agusan del Sur</span>
         </div>
@@ -481,9 +488,6 @@
       <div class="del-card fade-up" data-cat="savoury">
         <div class="del-card-img">
           <img src="../images/food-inubarang.jpg" alt="Inubarang" onerror="this.style.display='none'">
-          <div class="del-card-bg db-inubarang"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🍖</div>
           <span class="del-type-badge badge-savoury">Savoury</span>
           <span class="del-prov-badge">Agusan del Norte</span>
         </div>
@@ -503,9 +507,6 @@
       <div class="del-card fade-up" data-cat="savoury">
         <div class="del-card-img">
           <img src="../images/food-tinuom.jpg" alt="Tinuom" onerror="this.style.display='none'">
-          <div class="del-card-bg db-tinuom"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🌿</div>
           <span class="del-type-badge badge-savoury">Savoury</span>
           <span class="del-prov-badge">All Provinces</span>
         </div>
@@ -525,9 +526,6 @@
       <div class="del-card fade-up" data-cat="kakanin sweet">
         <div class="del-card-img">
           <img src="../images/food-kalamay.jpg" alt="Kalamay" onerror="this.style.display='none'">
-          <div class="del-card-bg db-kalamay"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🍯</div>
           <span class="del-type-badge badge-kakanin">Kakanin</span>
           <span class="del-prov-badge">Surigao del Norte</span>
         </div>
@@ -547,9 +545,6 @@
       <div class="del-card fade-up" data-cat="kakanin sweet">
         <div class="del-card-img">
           <img src="../images/food-puto.jpg" alt="Puto Gabi" onerror="this.style.display='none'">
-          <div class="del-card-bg db-puto"></div>
-          <div class="del-card-overlay"></div>
-          <div class="del-card-icon">🍚</div>
           <span class="del-type-badge badge-kakanin">Kakanin</span>
           <span class="del-prov-badge">Agusan del Norte</span>
         </div>

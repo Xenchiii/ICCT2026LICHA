@@ -131,7 +131,7 @@ p  { font-size: 0.965rem; color: var(--text-mid); line-height: 1.8; }
 .slide-gradient {
   position: absolute;
   inset: 0;
-  opacity: 0.88;
+  opacity: 0.45;
 }
 
 /* the text content sits at the bottom of each slide
@@ -605,14 +605,14 @@ p  { font-size: 0.965rem; color: var(--text-mid); line-height: 1.8; }
 
 /* the image container has a gradient border frame effect using padding + gradient background */
 .about-img-frame {
-  background: linear-gradient(135deg, var(--summer-green), var(--med-green));
+  background: linear-gradient(135deg, var(--dark-hot-pink), var(--med-green));
   border-radius: 22px; padding: 4px; /* the 4px padding becomes the visible gradient border */
   box-shadow: var(--shadow-lg); position: relative;
 }
 .about-img-inner {
   background: linear-gradient(135deg, #e6f7f5, #cce8e4);
   border-radius: 20px; height: 400px; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
+  display:flex; align-items: center; justify-content: center;
 }
 
 /* placeholder shown if no actual image is loaded yet */
@@ -690,7 +690,7 @@ p  { font-size: 0.965rem; color: var(--text-mid); line-height: 1.8; }
   background: var(--deep-cyan); border: 3px solid var(--white); border-radius: 50%;
   transform: translateX(-50%); box-shadow: 0 0 0 4px rgba(0,133,129,0.14);
 }
-.timeline-date { padding-top: 16px; font-size: 0.82rem; font-weight: 700; color: var(--deep-cyan); letter-spacing: 0.5px; text-align: right; padding-right: 30px; }
+.timeline-date { padding-top: 16px; font-size: 1.1rem; font-weight: 700; color: var(--deep-cyan); letter-spacing: 0.5px; text-align: right; padding-right: 30px; }
 
 /* the card containing the event title and description */
 .timeline-content {
