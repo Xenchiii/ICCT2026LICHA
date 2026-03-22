@@ -2,479 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+      <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Page title shown on the browser tab -->
   <title>Notable Personalities — Caraga Region XIII</title>
-  <!-- Main shared stylesheet for the whole site -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <style>
-    /* =====================================================
-       PAGE-SPECIFIC STYLES FOR NOTABLE-PERSONALITIES.HTML
-       These extend the global style.css with styles that
-       are only needed on this page.
-    ===================================================== */
-
-    /* ── HERO BANNER ─────────────────────────────────── */
-    /* Full-width hero section at the top of the page */
-    .personalities-hero {
-      position: relative;
-      min-height: 52vh;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
-    }
-
-    /* Background image layer — deep blue-purple gradient with
-       optional photo behind the text overlay */
-    .personalities-hero-bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #1a0050, #3d006e, #6600b0);
-      background-size: cover;
-      background-position: center top;
-    }
-
-    /* Decorative floating orbs in the hero background
-       — pure CSS, no images needed, adds depth */
-    .personalities-hero-bg::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(120,0,200,0.3) 0%, transparent 70%);
-      top: -100px;
-      right: -100px;
-    }
-    .personalities-hero-bg::after {
-      content: '';
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,120,200,0.2) 0%, transparent 70%);
-      bottom: 0;
-      left: 10%;
-    }
-
-    /* Dark gradient overlay — darkens the bottom so text is readable */
-    .personalities-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(20,0,60,0.4) 60%, transparent 100%);
-    }
-
-    /* Hero text content area — sits above the overlay */
-    .personalities-hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 60px 0 56px;
-      color: #fff;
-    }
-
-    .personalities-hero-content h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 10px;
-      line-height: 1.1;
-    }
-
-    .personalities-hero-sub {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.85);
-      max-width: 560px;
-    }
-
-    /* ── FILTER BAR ───────────────────────────────────── */
-    /* Sticky filter bar with category/province buttons.
-       Positions itself just below the navbar on scroll. */
-    .pers-filter-bar {
-      background: #fff;
-      border-bottom: 1.5px solid var(--border);
-      position: sticky;
-      top: 66px;
-      z-index: 90;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    }
-
-    /* Horizontally scrollable inner row — works on mobile
-       without wrapping so all buttons are accessible */
-    .pers-filter-inner {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 14px 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .pers-filter-inner::-webkit-scrollbar { display: none; }
-
-    /* Individual filter button */
-    .pers-filter-btn {
-      flex-shrink: 0;
-      padding: 8px 18px;
-      border-radius: 50px;
-      border: 1.5px solid var(--border);
-      background: #fff;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .pers-filter-btn:hover {
-      border-color: #6600b0;
-      color: #6600b0;
-    }
-    /* Active state uses a purple accent to match the hero theme */
-    .pers-filter-btn.active {
-      background: #6600b0;
-      border-color: #6600b0;
-      color: #fff;
-    }
-
-    /* Showing X personalities badge on the right of the filter bar */
-    .pers-count-badge {
-      margin-left: auto;
-      flex-shrink: 0;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      background: var(--off-white);
-      border: 1.5px solid var(--border);
-      border-radius: 50px;
-      padding: 6px 14px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    /* ── PERSONALITIES GRID ───────────────────────────── */
-    /* 3-column responsive grid for personality cards */
-    .personalities-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      padding: 48px 0 80px;
-    }
-
-    /* ── PERSONALITY CARD ─────────────────────────────── */
-    /* Each card has an avatar/photo area on top and a
-       white body below with name, field, bio, and tags */
-    .personality-card {
-      background: #fff;
-      border-radius: 20px;
-      border: 1.5px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-      transition: transform 0.25s, box-shadow 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .personality-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
-    }
-
-    /* Top colour band — holds the avatar and decorative elements.
-       Each card gets its own gradient via inline style so the
-       colours can reflect the person's field or province. */
-    .pc-header {
-      position: relative;
-      height: 160px;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 24px 20px;
-      overflow: hidden;
-    }
-
-    /* Decorative circle behind the avatar — adds depth */
-    .pc-header::before {
-      content: '';
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      top: -60px;
-      right: -40px;
-    }
-    .pc-header::after {
-      content: '';
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      top: 20px;
-      left: -20px;
-    }
-
-    /* The circular avatar — either an actual photo or
-       the initials fallback. Sits at the bottom-left
-       of the coloured header band. */
-    .pc-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 3px solid rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #fff;
-      overflow: hidden;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Photo inside the avatar — covers the whole circle */
-    .pc-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-
-    /* Field/category badge in the top-right of the header */
-    .pc-field-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      z-index: 2;
-    }
-
-    /* Province tag in the top-left corner */
-    .pc-province-tag {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(6px);
-      color: rgba(255,255,255,0.9);
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 50px;
-      z-index: 2;
-    }
-
-    /* Card body — white area with the main content */
-    .pc-body {
-      padding: 18px 20px 20px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Person's name */
-    .pc-body h3 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 2px;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
-
-    /* Short title / role line below the name */
-    .pc-title {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #6600b0;
-      margin-bottom: 10px;
-    }
-
-    /* Bio paragraph */
-    .pc-bio {
-      font-size: 0.83rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      flex: 1;
-      margin-bottom: 14px;
-    }
-
-    /* Row of keyword tags at the bottom of the card */
-    .pc-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 12px;
-    }
-
-    .pc-tag {
-      font-size: 0.68rem;
-      font-weight: 700;
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      padding: 3px 8px;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    /* Born/hometown info line at the bottom of each card */
-    .pc-meta {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-    }
-    .pc-meta svg {
-      width: 11px;
-      height: 11px;
-      stroke: #6600b0;
-      fill: none;
-      stroke-width: 2;
-      flex-shrink: 0;
-    }
-
-    /* ── FEATURED / SPOTLIGHT CARD ────────────────────── */
-    /* A wider card that spans 2 columns — used to highlight
-       the most significant personalities. Only one per section. */
-    .personality-card.featured {
-      grid-column: span 2;
-      flex-direction: row;
-    }
-
-    /* Featured card header becomes a vertical left column */
-    .personality-card.featured .pc-header {
-      width: 240px;
-      min-width: 240px;
-      height: auto;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 24px 20px;
-    }
-
-    /* Featured avatar is a bit bigger */
-    .personality-card.featured .pc-avatar {
-      width: 88px;
-      height: 88px;
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-    }
-
-    /* Featured badge label in the coloured header column */
-    .pc-featured-label {
-      font-size: 0.68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 6px;
-    }
-
-    /* Featured person name in the header column */
-    .pc-featured-name {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.2;
-    }
-
-    /* ── QUOTE BLOCK ──────────────────────────────────── */
-    /* Pull-quote section between the grid sections —
-       a coloured banner with a notable quote */
-    .personalities-quote {
-      background: linear-gradient(135deg, #1a0050, #3d006e);
-      padding: 56px 0;
-      text-align: center;
-    }
-
-    .pq-inner {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Large decorative quote mark above the text */
-    .pq-mark {
-      font-size: 5rem;
-      line-height: 0.5;
-      color: rgba(255,255,255,0.2);
-      font-family: Georgia, serif;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .pq-text {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .pq-attribution {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.65);
-      font-style: italic;
-    }
-
-    /* ── EMPTY STATE ──────────────────────────────────── */
-    /* Shown when no personality cards match the active filter */
-    .pers-empty {
-      display: none;
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--text-secondary);
-    }
-    .pers-empty svg {
-      width: 48px;
-      height: 48px;
-      stroke: var(--border);
-      fill: none;
-      stroke-width: 1.5;
-      margin-bottom: 16px;
-    }
-    .pers-empty h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); }
-
-    /* ── RESPONSIVE ───────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .personalities-grid { grid-template-columns: repeat(2, 1fr); }
-      /* Featured card reverts to single column on tablet */
-      .personality-card.featured { grid-column: span 2; }
-    }
-    @media (max-width: 700px) {
-      .personalities-grid { grid-template-columns: 1fr; gap: 18px; }
-      /* On mobile the featured card stacks vertically too */
-      .personality-card.featured {
-        flex-direction: column;
-        grid-column: span 1;
-      }
-      .personality-card.featured .pc-header {
-        width: 100%;
-        min-width: unset;
-        height: 160px;
-      }
-    }
+    .personalities-hero { position:relative; min-height:52vh; display:flex; align-items:flex-end; overflow:hidden; }
+    .personalities-hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,#1a0050,#3d006e,#6600b0); background-size:cover; background-position:center top; }
+    .personalities-hero-bg::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(120,0,200,0.3) 0%,transparent 70%); top:-100px; right:-100px; }
+    .personalities-hero-bg::after { content:''; position:absolute; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(0,120,200,0.2) 0%,transparent 70%); bottom:0; left:10%; }
+    .personalities-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(20,0,60,0.4) 60%,transparent 100%); }
+    .personalities-hero-content { position:relative; z-index:2; padding:60px 0 56px; color:#fff; }
+    .personalities-hero-content h1 { font-size:clamp(2rem,5vw,3.4rem); font-weight:800; color:#fff; margin-bottom:10px; line-height:1.1; }
+    .personalities-hero-sub { font-size:1.05rem; color:rgba(255,255,255,0.85); max-width:560px; }
+    .pers-filter-bar { background:#fff; border-bottom:1.5px solid var(--border); position:sticky; top:66px; z-index:90; box-shadow:0 2px 12px rgba(0,0,0,0.07); }
+    .pers-filter-inner { display:flex; align-items:center; gap:6px; padding:14px 0; overflow-x:auto; scrollbar-width:none; }
+    .pers-filter-inner::-webkit-scrollbar { display:none; }
+    .pers-filter-btn { flex-shrink:0; padding:8px 18px; border-radius:50px; border:1.5px solid var(--border); background:#fff; font-size:0.82rem; font-weight:600; color:var(--text-secondary); cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+    .pers-filter-btn:hover { border-color:#6600b0; color:#6600b0; }
+    .pers-filter-btn.active { background:#6600b0; border-color:#6600b0; color:#fff; }
+    .pers-count-badge { margin-left:auto; flex-shrink:0; font-size:0.78rem; color:var(--text-secondary); background:var(--off-white); border:1.5px solid var(--border); border-radius:50px; padding:6px 14px; font-weight:600; white-space:nowrap; }
+    .personalities-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; padding:48px 0 80px; }
+    .personality-card { background:#fff; border-radius:20px; border:1.5px solid var(--border); overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.06); transition:transform 0.25s,box-shadow 0.25s; display:flex; flex-direction:column; }
+    .personality-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.13); }
+    .pc-header { position:relative; height:160px; display:flex; align-items:flex-end; padding:0 24px 20px; overflow:hidden; }
+    .pc-header::before { content:''; position:absolute; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,0.08); top:-60px; right:-40px; pointer-events:none; }
+    .pc-header::after { content:''; position:absolute; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,0.06); top:20px; left:-20px; pointer-events:none; }
+    /* Photo support — add <img> as first child of .pc-header */
+    .pc-header > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; z-index:3; }
+    .pc-header-name { position:absolute; bottom:14px; left:20px; right:20px; font-size:1.6rem; font-weight:800; color:rgba(255,255,255,0.18); line-height:1.1; z-index:1; pointer-events:none; word-break:break-word; }
+    .pc-header:has(> img)::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.2) 100%); z-index:2; width:auto; height:auto; border-radius:0; }
+    .pc-field-badge { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.18); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:0.68rem; font-weight:700; padding:4px 10px; border-radius:50px; text-transform:uppercase; letter-spacing:0.04em; z-index:5; }
+    .pc-province-tag { position:absolute; top:16px; left:16px; background:rgba(0,0,0,0.3); backdrop-filter:blur(6px); color:rgba(255,255,255,0.9); font-size:0.65rem; font-weight:700; padding:3px 9px; border-radius:50px; z-index:5; }
+    .pc-featured-label { font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.7); margin-bottom:6px; position:relative; z-index:5; }
+    .pc-featured-name { font-size:1.15rem; font-weight:800; color:#fff; line-height:1.2; position:relative; z-index:5; }
+    .pc-body { padding:18px 20px 20px; flex:1; display:flex; flex-direction:column; }
+    .pc-body h3 { font-size:1.05rem; font-weight:800; margin-bottom:2px; color:var(--text-primary); line-height:1.2; }
+    .pc-title { font-size:0.78rem; font-weight:600; color:#6600b0; margin-bottom:10px; }
+    .pc-bio { font-size:0.83rem; color:var(--text-secondary); line-height:1.65; flex:1; margin-bottom:14px; }
+    .pc-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+    .pc-tag { font-size:0.68rem; font-weight:700; background:var(--off-white); border:1px solid var(--border); color:var(--text-secondary); padding:3px 8px; border-radius:50px; text-transform:uppercase; letter-spacing:0.03em; }
+    .pc-meta { font-size:0.75rem; color:var(--text-secondary); display:flex; align-items:center; gap:5px; padding-top:10px; border-top:1px solid var(--border); }
+    .pc-meta svg { width:11px; height:11px; stroke:#6600b0; fill:none; stroke-width:2; flex-shrink:0; }
+    .personality-card.featured { grid-column:span 2; flex-direction:row; }
+    .personality-card.featured .pc-header { width:240px; min-width:240px; height:auto; flex-direction:column; align-items:flex-start; padding:24px 20px; }
+    .personalities-quote { background:linear-gradient(135deg,#1a0050,#3d006e); padding:56px 0; text-align:center; }
+    .pq-inner { max-width:680px; margin:0 auto; padding:0 20px; }
+    .pq-mark { font-size:5rem; line-height:0.5; color:rgba(255,255,255,0.2); font-family:Georgia,serif; margin-bottom:20px; display:block; }
+    .pq-text { font-size:1.3rem; font-weight:700; color:#fff; line-height:1.5; margin-bottom:16px; }
+    .pq-attribution { font-size:0.85rem; color:rgba(255,255,255,0.65); font-style:italic; }
+    .pers-empty { display:none; grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--text-secondary); }
+    .pers-empty svg { width:48px; height:48px; stroke:var(--border); fill:none; stroke-width:1.5; margin-bottom:16px; }
+    .pers-empty h3 { font-size:1.1rem; margin-bottom:8px; color:var(--text-primary); }
+    @media (max-width:1024px) { .personalities-grid { grid-template-columns:repeat(2,1fr); } .personality-card.featured { grid-column:span 2; } }
+    @media (max-width:700px) { .personalities-grid { grid-template-columns:1fr; gap:18px; } .personality-card.featured { flex-direction:column; grid-column:span 1; } .personality-card.featured .pc-header { width:100%; min-width:unset; height:160px; } }
   </style>
 </head>
 <body>
 
-<!-- =====================================================
-     LOADER — full-screen intro animation shared across
-     all pages. main.js fades it out after the page loads.
-===================================================== -->
 <div id="loader">
   <div class="loader-logo">XIII</div>
   <div class="spinner"></div>
@@ -482,21 +68,13 @@
   <div class="loader-sub">REGION XIII · PHILIPPINES</div>
 </div>
 
-<!-- Back to top arrow — appears after scrolling down -->
 <div id="back-top" title="Back to top">
   <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
 </div>
 
-<!-- =====================================================
-     NAVBAR — identical to every other page on the site.
-     "Personalities" link gets the active class since
-     we're currently on this page.
-===================================================== -->
 <nav id="navbar">
   <div class="container">
     <div class="nav-inner">
-
-      <!-- Brand/logo — links back to homepage -->
       <a href="../index.html" class="nav-brand">
         <div class="nav-logo-box">XIII</div>
         <div>
@@ -504,18 +82,12 @@
           <div class="nav-brand-sub">Region XIII — Caraga</div>
         </div>
       </a>
-
-      <!-- Desktop navigation menu -->
       <ul class="nav-menu">
         <li><a href="../index.html#home"    class="nav-link">Home</a></li>
         <li><a href="../index.html#about"   class="nav-link">About</a></li>
         <li><a href="../index.html#history" class="nav-link">History</a></li>
-        <!-- Provinces dropdown -->
         <li class="nav-dropdown">
-          <a href="../index.html#provinces" class="nav-link dropdown-toggle">
-            Provinces
-            <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
-          </a>
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle">Provinces <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></a>
           <ul class="dropdown-menu">
             <li><a href="../provinces/agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
             <li><a href="../provinces/agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
@@ -527,31 +99,19 @@
         <li><a href="tourist-spots.html"         class="nav-link">Tourist Spots</a></li>
         <li><a href="culture-events.html"        class="nav-link">Culture &amp; Events</a></li>
         <li><a href="delicacies.html"            class="nav-link">Delicacies</a></li>
-        <!-- Active page — highlighted with the active class -->
         <li><a href="notable-personalities.html" class="nav-link active">Personalities</a></li>
         <li><a href="contact.html"               class="nav-link">Contact</a></li>
       </ul>
-
-      <!-- Hamburger button for mobile — toggles the mobile drawer -->
-      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
   </div>
 </nav>
 
-<!-- =====================================================
-     MOBILE MENU — slide-down drawer used on small screens.
-===================================================== -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="../index.html#home"    class="mobile-link" onclick="closeMenu()">Home</a>
   <a href="../index.html#about"   class="mobile-link" onclick="closeMenu()">About</a>
   <a href="../index.html#history" class="mobile-link" onclick="closeMenu()">History</a>
-  <!-- Provinces accordion -->
-  <div class="mobile-link mobile-parent" id="mobileProvincesToggle">
-    Provinces
-    <svg class="mobile-chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
-  </div>
+  <div class="mobile-link mobile-parent" id="mobileProvincesToggle">Provinces <svg class="mobile-chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></div>
   <div class="mobile-submenu" id="mobileSubmenu">
     <a href="../provinces/agusan-norte.html"  class="mobile-sub-link" onclick="closeMenu()">Agusan del Norte</a>
     <a href="../provinces/agusan-sur.html"    class="mobile-sub-link" onclick="closeMenu()">Agusan del Sur</a>
@@ -566,459 +126,288 @@
   <a href="contact.html"               class="mobile-link" onclick="closeMenu()">Contact</a>
 </div>
 
-
-<!-- =====================================================
-     HERO BANNER — purple/violet gradient matching the
-     "Personalities" theme. Includes decorative CSS orbs
-     in the background instead of relying on a photo.
-===================================================== -->
 <section class="personalities-hero">
   <div class="personalities-hero-bg"></div>
   <div class="personalities-hero-overlay"></div>
   <div class="container">
     <div class="personalities-hero-content">
-      <!-- Breadcrumb trail -->
-      <div class="province-breadcrumb">
-        <a href="../index.html">Home</a> → Notable Personalities
-      </div>
+      <div class="province-breadcrumb"><a href="../index.html">Home</a> → Notable Personalities</div>
       <h1>Notable Personalities</h1>
       <p class="personalities-hero-sub">The remarkable individuals born in — or shaped by — Caraga Region XIII who have left their mark on the Philippines and the world.</p>
     </div>
   </div>
 </section>
 
-
-<!-- =====================================================
-     FILTER BAR — sticky bar with category filter buttons.
-     Uses filterPersonalities() defined at the bottom.
-     data-field on each card must match the key passed here.
-===================================================== -->
 <div class="pers-filter-bar">
   <div class="container">
     <div class="pers-filter-inner">
-      <button class="pers-filter-btn active" onclick="filterPersonalities('all', this)">All</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('politics', this)">Politics &amp; Government</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('sports', this)">Sports</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('arts', this)">Arts &amp; Entertainment</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('history', this)">History &amp; Heritage</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('religion', this)">Religion</button>
-      <button class="pers-filter-btn" onclick="filterPersonalities('business', this)">Business</button>
-      <!-- Live count badge — updated by filterPersonalities() -->
+      <button class="pers-filter-btn active" onclick="filterPersonalities('all',this)">All</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('politics',this)">Politics &amp; Government</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('sports',this)">Sports</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('arts',this)">Arts &amp; Entertainment</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('history',this)">History &amp; Heritage</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('religion',this)">Religion</button>
+      <button class="pers-filter-btn" onclick="filterPersonalities('business',this)">Business</button>
       <span class="pers-count-badge" id="persCount">Showing 16 personalities</span>
     </div>
   </div>
 </div>
 
-
-<!-- =====================================================
-     PERSONALITIES GRID — all the personality cards.
-     Each card has:
-       • data-field attribute used by filterPersonalities()
-       • Coloured header band with avatar initials
-       • Province tag and field badge overlaid on header
-       • White body: name, title, bio paragraph, tags, meta
-     Some cards have class="featured" for a wider 2-column
-     layout to highlight the most prominent figures.
-===================================================== -->
 <section style="background:var(--off-white);">
   <div class="container">
     <div class="personalities-grid" id="personalitiesGrid">
 
-      <!-- ── POLITICS & GOVERNMENT ──────────────────── -->
-
-      <!-- Featured card: Manny Pacquiao — the most
-           recognisable Mindanaoan figure, spans 2 columns -->
+      <!-- Manny Pacquiao — Featured (2 cols) -->
+      <!-- TO ADD PHOTO: <img src="../images/Manny_Pacquiao.jpg" alt="Manny Pacquiao"> as first child of .pc-header -->
       <div class="personality-card featured fade-up" data-field="sports">
-        <!-- Left coloured header column -->
         <div class="pc-header" style="background:linear-gradient(135deg,#7c0000,#cc2200);">
+          <img src="../images/Manny_Pacquiao.jpg" alt="Manny Pacquiao" onerror="this.style.display='none'">
           <span class="pc-province-tag">General Santos / Caraga</span>
-          <span class="pc-field-badge"> Sports</span>
-          <!-- Avatar with initials fallback -->
-          <div class="pc-avatar">MP</div>
-          <div style="margin-left:16px;position:relative;z-index:2;">
-            <div class="pc-featured-label">Featured</div>
-            <div class="pc-featured-name">Emmanuel "Manny" Pacquiao</div>
-          </div>
+          <span class="pc-field-badge">Sports</span>
         </div>
-        <!-- Card body -->
         <div class="pc-body">
           <h3>Emmanuel "Manny" Pacquiao</h3>
           <div class="pc-title">Boxing Legend &amp; Senator of the Philippines</div>
-          <p class="pc-bio">Born in Kibawe, Bukidnon (raised in General Santos City), Manny Pacquiao is the only eight-division world boxing champion in history — a feat never accomplished before or since. He held world titles in flyweight through super welterweight, defeating legends including Oscar De La Hoya, Ricky Hatton, Miguel Cotto, and Shane Mosley. Internationally recognised as one of the greatest boxers of all time, he also served as a Congressman and Senator of the Philippines and ran for President in 2022. His story from extreme poverty to global icon remains one of the most extraordinary in sports history.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Boxing</span>
-            <span class="pc-tag">8-Division Champion</span>
-            <span class="pc-tag">Senator</span>
-            <span class="pc-tag">World Icon</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Born: December 17, 1978 · Kibawe, Bukidnon (raised in General Santos City)
-          </div>
+          <p class="pc-bio">Born in Kibawe, Bukidnon (raised in General Santos City), Manny Pacquiao is the only eight-division world boxing champion in history — a feat never accomplished before or since. He held world titles in flyweight through super welterweight, defeating legends including Oscar De La Hoya, Ricky Hatton, Miguel Cotto, and Shane Mosley. Internationally recognised as one of the greatest boxers of all time, he also served as a Congressman and Senator of the Philippines and ran for President in 2022.</p>
+          <div class="pc-tags"><span class="pc-tag">Boxing</span><span class="pc-tag">8-Division Champion</span><span class="pc-tag">Senator</span><span class="pc-tag">World Icon</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Born: December 17, 1978 · Kibawe, Bukidnon</div>
         </div>
       </div>
 
-      <!-- Personality: Aguinaldo Supremo (local angle) -->
+      <!-- Jose Aquino -->
       <div class="personality-card fade-up" data-field="politics">
-        <!-- Gold/amber header for politics -->
         <div class="pc-header" style="background:linear-gradient(135deg,#4a2c00,#9a6200);">
+          <img src="../images/Jose_Aquino.jpg" alt="Jose Aquino" onerror="this.style.display='none'">
           <span class="pc-province-tag">Agusan del Norte</span>
-          <span class="pc-field-badge"> Politics</span>
-          <div class="pc-avatar">JA</div>
+          <span class="pc-field-badge">Politics</span>
         </div>
         <div class="pc-body">
           <h3>Jose "Pepe" Aquino</h3>
           <div class="pc-title">Pioneer Governor of Agusan Province</div>
           <p class="pc-bio">One of the earliest elected governors of the Province of Agusan following its creation in 1914, Aquino was instrumental in laying the administrative and infrastructural foundations of what is now Agusan del Norte. He championed the development of Butuan City as a regional centre and advocated for the rights of indigenous communities in the Agusan River valley during the American colonial period.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Governor</span>
-            <span class="pc-tag">Pioneer</span>
-            <span class="pc-tag">Colonial Era</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Butuan City, Agusan del Norte · Early 20th century
-          </div>
+          <div class="pc-tags"><span class="pc-tag">Governor</span><span class="pc-tag">Pioneer</span><span class="pc-tag">Colonial Era</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City, Agusan del Norte · Early 20th century</div>
         </div>
       </div>
 
-      <!-- Personality: Rodolfo Valencia -->
+      <!-- Rodolfo Valencia -->
       <div class="personality-card fade-up" data-field="politics">
         <div class="pc-header" style="background:linear-gradient(135deg,#003d5b,#006688);">
+          <img src="../images/Rodolfo_Valencia.jpg" alt="Rodolfo Valencia" onerror="this.style.display='none'">
           <span class="pc-province-tag">Surigao del Norte</span>
-          <span class="pc-field-badge"> Politics</span>
-          <div class="pc-avatar">RV</div>
+          <span class="pc-field-badge">Politics</span>
         </div>
         <div class="pc-body">
           <h3>Rodolfo Valencia</h3>
           <div class="pc-title">Long-Serving Governor of Oriental Mindoro &amp; Caraga Statesman</div>
-          <p class="pc-bio">Born in Surigao City, Valencia built a distinguished political career that spanned decades. He served multiple terms as Governor of Oriental Mindoro and was a prominent figure in Philippine politics during the Marcos era and beyond. His roots in Surigao del Norte made him a symbol of Caraga's contribution to national governance. He was also known for his work in agriculture and rural development policy.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Governor</span>
-            <span class="pc-tag">National Politics</span>
-            <span class="pc-tag">Government</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Born: Surigao City, Surigao del Norte
-          </div>
+          <p class="pc-bio">Born in Surigao City, Valencia built a distinguished political career that spanned decades. He served multiple terms as Governor of Oriental Mindoro and was a prominent figure in Philippine politics during the Marcos era and beyond. His roots in Surigao del Norte made him a symbol of Caraga's contribution to national governance.</p>
+          <div class="pc-tags"><span class="pc-tag">Governor</span><span class="pc-tag">National Politics</span><span class="pc-tag">Government</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Born: Surigao City, Surigao del Norte</div>
         </div>
       </div>
 
-      <!-- Personality: Glenda Organo -->
+      <!-- Glenda Organo -->
       <div class="personality-card fade-up" data-field="politics">
         <div class="pc-header" style="background:linear-gradient(135deg,#1a0050,#4a0090);">
+          <img src="../images/Glenda_Organo.jpg" alt="Glenda Organo" onerror="this.style.display='none'">
           <span class="pc-province-tag">Surigao del Norte</span>
-          <span class="pc-field-badge"> Government</span>
-          <div class="pc-avatar">GO</div>
+          <span class="pc-field-badge">Government</span>
         </div>
         <div class="pc-body">
           <h3>Glenda Organo</h3>
           <div class="pc-title">Associate Justice, Supreme Court of the Philippines</div>
-          <p class="pc-bio">A native of Surigao del Norte, Justice Glenda Organo rose through the judiciary to be appointed as an Associate Justice of the Supreme Court of the Philippines — one of the highest judicial positions in the land. Her appointment was a landmark for Caraga, representing the region at the apex of the Philippine justice system. She is widely regarded as a distinguished jurist and legal scholar.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Judiciary</span>
-            <span class="pc-tag">Supreme Court</span>
-            <span class="pc-tag">Law</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Surigao del Norte
-          </div>
+          <p class="pc-bio">A native of Surigao del Norte, Justice Glenda Organo rose through the judiciary to be appointed as an Associate Justice of the Supreme Court of the Philippines — one of the highest judicial positions in the land. Her appointment was a landmark for Caraga, representing the region at the apex of the Philippine justice system.</p>
+          <div class="pc-tags"><span class="pc-tag">Judiciary</span><span class="pc-tag">Supreme Court</span><span class="pc-tag">Law</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Surigao del Norte</div>
         </div>
       </div>
 
-      <!-- ── SPORTS ──────────────────────────────────── -->
-
-      <!-- Personality: Mark Magsayo -->
+      <!-- Mark Magsayo -->
       <div class="personality-card fade-up" data-field="sports">
         <div class="pc-header" style="background:linear-gradient(135deg,#003d20,#006a38);">
+          <img src="../images/Mark_Magsayo.jpg" alt="Mark Magsayo" onerror="this.style.display='none'">
           <span class="pc-province-tag">Cebu / Caraga roots</span>
-          <span class="pc-field-badge"> Boxing</span>
-          <div class="pc-avatar">MM</div>
+          <span class="pc-field-badge">Boxing</span>
         </div>
         <div class="pc-body">
           <h3>Mark Magsayo</h3>
           <div class="pc-title">WBC Featherweight Champion of the World</div>
-          <p class="pc-bio">Born in Anao-Aon, Surigao del Norte, Mark Magsayo followed in the tradition of great Filipino boxers to claim the WBC Featherweight Championship of the World in January 2022 — defeating Gary Russell Jr. in a stunning performance. Trained in Cebu and managed by the Pacquiao stable, Magsayo is recognised as one of the brightest Filipino boxing prospects of his generation and a source of immense pride for the Caraga region.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Boxing</span>
-            <span class="pc-tag">WBC Champion</span>
-            <span class="pc-tag">World Title</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Born: February 7, 1996 · Anao-Aon, Surigao del Norte
-          </div>
+          <p class="pc-bio">Born in Anao-Aon, Surigao del Norte, Mark Magsayo followed in the tradition of great Filipino boxers to claim the WBC Featherweight Championship of the World in January 2022 — defeating Gary Russell Jr. in a stunning performance. Magsayo is recognised as one of the brightest Filipino boxing prospects of his generation.</p>
+          <div class="pc-tags"><span class="pc-tag">Boxing</span><span class="pc-tag">WBC Champion</span><span class="pc-tag">World Title</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Born: February 7, 1996 · Anao-Aon, Surigao del Norte</div>
         </div>
       </div>
 
-      <!-- Personality: Nonito Donaire (Talibon but Mindanao
-           connection commonly cited with Caraga context) -->
+      <!-- Nonito Donaire -->
       <div class="personality-card fade-up" data-field="sports">
         <div class="pc-header" style="background:linear-gradient(135deg,#003d5b,#0077a6);">
+          <img src="../images/Nonito_Donaire.jpg" alt="Nonito Donaire" onerror="this.style.display='none'">
           <span class="pc-province-tag">Talibon, Bohol / Mindanao</span>
-          <span class="pc-field-badge"> Boxing</span>
-          <div class="pc-avatar">ND</div>
+          <span class="pc-field-badge">Boxing</span>
         </div>
         <div class="pc-body">
           <h3>Nonito Donaire Jr.</h3>
           <div class="pc-title">The Filipino Flash — Multi-Division World Champion</div>
-          <p class="pc-bio">Although born in Talibon, Bohol, Nonito Donaire spent formative years in Mindanao before immigrating to the United States as a child. Widely regarded as one of the most technically gifted Filipino boxers ever, "The Filipino Flash" won world titles in four weight divisions — super flyweight, bantamweight, super bantamweight, and featherweight. His rivalry with Naoya Inoue in the 2019 WBSS bantamweight final is considered one of the greatest fights of the modern era.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Boxing</span>
-            <span class="pc-tag">4-Division Champion</span>
-            <span class="pc-tag">Filipino Flash</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Born: November 16, 1982 · Talibon, Bohol
-          </div>
+          <p class="pc-bio">Although born in Talibon, Bohol, Nonito Donaire spent formative years in Mindanao. "The Filipino Flash" won world titles in four weight divisions. His rivalry with Naoya Inoue in the 2019 WBSS bantamweight final is considered one of the greatest fights of the modern era.</p>
+          <div class="pc-tags"><span class="pc-tag">Boxing</span><span class="pc-tag">4-Division Champion</span><span class="pc-tag">Filipino Flash</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Born: November 16, 1982 · Talibon, Bohol</div>
         </div>
       </div>
 
-      <!-- Personality: Nestor Colonia — Caraga-born chess player -->
+      <!-- Nestor Colonia -->
       <div class="personality-card fade-up" data-field="sports">
         <div class="pc-header" style="background:linear-gradient(135deg,#1a1a4a,#3a3a8a);">
+          <img src="../images/Nestor_Colonia.jpg" alt="Nestor Colonia" onerror="this.style.display='none'">
           <span class="pc-province-tag">Butuan City</span>
-          <span class="pc-field-badge"> Chess</span>
-          <div class="pc-avatar">NC</div>
+          <span class="pc-field-badge">Chess</span>
         </div>
         <div class="pc-body">
           <h3>Nestor Colonia</h3>
           <div class="pc-title">National Chess Champion &amp; FIDE Master</div>
-          <p class="pc-bio">Hailing from Butuan City, Nestor Colonia became one of the most accomplished chess players to emerge from Mindanao. He earned the FIDE Master title through consistent performance in national and regional championships. Colonia is credited with inspiring a generation of young chess players in the Caraga region and remains active as a coach and advocate for chess education in public schools.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Chess</span>
-            <span class="pc-tag">FIDE Master</span>
-            <span class="pc-tag">Education</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Butuan City, Agusan del Norte
-          </div>
+          <p class="pc-bio">Hailing from Butuan City, Nestor Colonia became one of the most accomplished chess players to emerge from Mindanao. He earned the FIDE Master title through consistent performance in national and regional championships. Colonia remains active as a coach and advocate for chess education in public schools.</p>
+          <div class="pc-tags"><span class="pc-tag">Chess</span><span class="pc-tag">FIDE Master</span><span class="pc-tag">Education</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City, Agusan del Norte</div>
         </div>
       </div>
 
-      <!-- ── ARTS & ENTERTAINMENT ─────────────────────── -->
-
-      <!-- Personality: Nora Aunor (grew up near Iriga but
-           deeply Mindanao-connected, often cited in Caraga
-           cultural context) — replaced with confirmed figure -->
+      <!-- Felipe Padilla de León -->
       <div class="personality-card fade-up" data-field="arts">
         <div class="pc-header" style="background:linear-gradient(135deg,#6b0060,#b00090);">
+          <img src="../images/Felipe_Padilla.jpg" alt="Felipe Padilla de Leon" onerror="this.style.display='none'">
           <span class="pc-province-tag">Surigao del Norte</span>
-          <span class="pc-field-badge"> Music</span>
-          <div class="pc-avatar">FP</div>
+          <span class="pc-field-badge">Music</span>
         </div>
         <div class="pc-body">
           <h3>Felipe Padilla de León</h3>
           <div class="pc-title">National Artist for Music — Composer of "Bayan Ko"</div>
-          <p class="pc-bio">Born in Surigao City, Felipe Padilla de León was declared a National Artist for Music in 1997. He is best known for composing the iconic protest anthem "Bayan Ko" (My Country) — a song that became the rallying cry of the Philippine opposition during the Marcos martial law era and has been performed by activists and artists worldwide. His classical compositions, operas, and folk arrangements cemented his place as one of the Philippines' most important musical voices of the 20th century.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">National Artist</span>
-            <span class="pc-tag">Music</span>
-            <span class="pc-tag">Composer</span>
-            <span class="pc-tag">Cultural Heritage</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Born: May 1, 1912 · Surigao City, Surigao del Norte
-          </div>
+          <p class="pc-bio">Born in Surigao City, Felipe Padilla de León was declared a National Artist for Music in 1997. He is best known for composing the iconic protest anthem "Bayan Ko" (My Country) — the rallying cry of the Philippine opposition during the Marcos martial law era. His classical compositions and folk arrangements cemented his place as one of the Philippines' most important musical voices.</p>
+          <div class="pc-tags"><span class="pc-tag">National Artist</span><span class="pc-tag">Music</span><span class="pc-tag">Composer</span><span class="pc-tag">Cultural Heritage</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Born: May 1, 1912 · Surigao City, Surigao del Norte</div>
         </div>
       </div>
 
-      <!-- Personality: Leah Navarro — actress and activist -->
+      <!-- Leah Navarro -->
       <div class="personality-card fade-up" data-field="arts">
         <div class="pc-header" style="background:linear-gradient(135deg,#4a006b,#8800cc);">
+          <img src="../images/Leah_Navarro.jpg" alt="Leah Navarro" onerror="this.style.display='none'">
           <span class="pc-province-tag">Agusan del Norte</span>
-          <span class="pc-field-badge"> Entertainment</span>
-          <div class="pc-avatar">LN</div>
+          <span class="pc-field-badge">Entertainment</span>
         </div>
         <div class="pc-body">
           <h3>Leah Navarro</h3>
           <div class="pc-title">Singer, Actress &amp; Civil Society Advocate</div>
-          <p class="pc-bio">With roots in Butuan City, Leah Navarro built a successful career in Philippine entertainment as a singer and TV actress before becoming one of the country's most prominent civil society voices. She is widely recognised for her outspoken advocacy for human rights, press freedom, and democratic governance in the Philippines, and has used her public platform to champion causes important to communities across Mindanao including Caraga.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Entertainment</span>
-            <span class="pc-tag">Advocacy</span>
-            <span class="pc-tag">Civil Society</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Butuan City, Agusan del Norte
-          </div>
+          <p class="pc-bio">With roots in Butuan City, Leah Navarro built a successful career in Philippine entertainment as a singer and TV actress before becoming one of the country's most prominent civil society voices. She is widely recognised for her outspoken advocacy for human rights, press freedom, and democratic governance in the Philippines.</p>
+          <div class="pc-tags"><span class="pc-tag">Entertainment</span><span class="pc-tag">Advocacy</span><span class="pc-tag">Civil Society</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City, Agusan del Norte</div>
         </div>
       </div>
 
-      <!-- Personality: Caraga-born visual artist -->
+      <!-- Romulo Caballero -->
       <div class="personality-card fade-up" data-field="arts">
         <div class="pc-header" style="background:linear-gradient(135deg,#003d3d,#008080);">
+          <img src="../images/Romulo_Caballero.jpg" alt="Romulo Caballero" onerror="this.style.display='none'">
           <span class="pc-province-tag">Surigao del Sur</span>
-          <span class="pc-field-badge"> Visual Arts</span>
-          <div class="pc-avatar">RC</div>
+          <span class="pc-field-badge">Visual Arts</span>
         </div>
         <div class="pc-body">
           <h3>Romulo Caballero</h3>
           <div class="pc-title">Acclaimed Painter &amp; Cultural Heritage Advocate</div>
-          <p class="pc-bio">A native of Tandag City, Romulo Caballero is among the most celebrated visual artists to emerge from Surigao del Sur. His works draw heavily from the indigenous Manobo and Mandaya visual traditions of the Caraga interior — intricate geometric patterns, ritual imagery, and scenes of forest and river life rendered in vivid oil and mixed media. His paintings have been exhibited in Manila, Cebu, and internationally, raising the profile of Caraga's indigenous artistic heritage.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Visual Art</span>
-            <span class="pc-tag">Indigenous</span>
-            <span class="pc-tag">Heritage</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Tandag City, Surigao del Sur
-          </div>
+          <p class="pc-bio">A native of Tandag City, Romulo Caballero is among the most celebrated visual artists to emerge from Surigao del Sur. His works draw heavily from the indigenous Manobo and Mandaya visual traditions — intricate geometric patterns and ritual imagery rendered in vivid oil and mixed media. His paintings have been exhibited in Manila, Cebu, and internationally.</p>
+          <div class="pc-tags"><span class="pc-tag">Visual Art</span><span class="pc-tag">Indigenous</span><span class="pc-tag">Heritage</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Tandag City, Surigao del Sur</div>
         </div>
       </div>
 
-      <!-- ── HISTORY & HERITAGE ──────────────────────── -->
-
-      <!-- Personality: Rajah Kiling — featured, spans 2 cols -->
+      <!-- Rajah Kiling — Featured (2 cols) -->
       <div class="personality-card featured fade-up" data-field="history">
         <div class="pc-header" style="background:linear-gradient(135deg,#7c5200,#d4a000);">
+          <img src="../images/Rajah_Kiling.jpg" alt="Rajah Kiling" onerror="this.style.display='none'">
           <span class="pc-province-tag">Butuan City</span>
-          <span class="pc-field-badge"> History</span>
-          <div class="pc-avatar">RK</div>
-          <div style="margin-left:16px;position:relative;z-index:2;">
-            <div class="pc-featured-label">Historical Figure</div>
-            <div class="pc-featured-name">Rajah Kiling of Butuan</div>
-          </div>
+          <span class="pc-field-badge">History</span>
         </div>
         <div class="pc-body">
           <h3>Rajah Kiling (Kiling)</h3>
           <div class="pc-title">Ruler of the Rajahnate of Butuan — First Philippine Diplomat</div>
-          <p class="pc-bio">Rajah Kiling was the ruler of the powerful Rajahnate of Butuan — one of the earliest and most advanced pre-colonial kingdoms in the Philippines. In 1001 AD, he sent an official envoy to Emperor Zhenzong of the Song Dynasty in China, making Butuan the first Philippine polity to establish formal diplomatic relations with a major world empire. His kingdom was a gold-trading maritime state whose artefacts — masks, jewellery, and ceremonial objects of extraordinary craftsmanship — have been recovered in their hundreds from the Butuan archaeological sites. Rajah Kiling stands as one of the earliest named figures in Philippine recorded history and the founding symbol of Caraga's ancient greatness.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Pre-Colonial</span>
-            <span class="pc-tag">Rajahnate</span>
-            <span class="pc-tag">Diplomat</span>
-            <span class="pc-tag">Gold Kingdom</span>
-            <span class="pc-tag">1001 AD</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Rajahnate of Butuan · Ruled c. 990–1010 AD
-          </div>
+          <p class="pc-bio">Rajah Kiling was the ruler of the powerful Rajahnate of Butuan — one of the earliest and most advanced pre-colonial kingdoms in the Philippines. In 1001 AD, he sent an official envoy to Emperor Zhenzong of the Song Dynasty in China, making Butuan the first Philippine polity to establish formal diplomatic relations with a major world empire. His kingdom was a gold-trading maritime state whose artefacts have been recovered in their hundreds from the Butuan archaeological sites.</p>
+          <div class="pc-tags"><span class="pc-tag">Pre-Colonial</span><span class="pc-tag">Rajahnate</span><span class="pc-tag">Diplomat</span><span class="pc-tag">Gold Kingdom</span><span class="pc-tag">1001 AD</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Rajahnate of Butuan · Ruled c. 990–1010 AD</div>
         </div>
       </div>
 
-      <!-- Personality: Rajah Kolambu -->
+      <!-- Rajah Kolambu -->
       <div class="personality-card fade-up" data-field="history">
         <div class="pc-header" style="background:linear-gradient(135deg,#5a3000,#a06000);">
+          <img src="../images/Rajah_Kolambu.jpg" alt="Rajah Kolambu" onerror="this.style.display='none'">
           <span class="pc-province-tag">Butuan City</span>
-          <span class="pc-field-badge"> History</span>
-          <div class="pc-avatar">RKo</div>
+          <span class="pc-field-badge">History</span>
         </div>
         <div class="pc-body">
           <h3>Rajah Kolambu</h3>
           <div class="pc-title">Ruler of Butuan at the Time of Magellan's Arrival</div>
-          <p class="pc-bio">Rajah Kolambu was the Rajah of Butuan when Ferdinand Magellan's fleet arrived in the Philippines in 1521. He was one of the first Philippine rulers to establish formal contact with the Spanish expedition — exchanging gifts, participating in a blood compact, and guiding Magellan's fleet to Cebu where the first mass baptism took place. Chronicler Antonio Pigafetta recorded Kolambu's gold jewellery, fine clothing, and dignified bearing. He occupies a critical place at the hinge of Philippine pre-colonial and colonial history.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Pre-Colonial</span>
-            <span class="pc-tag">1521</span>
-            <span class="pc-tag">Magellan</span>
-            <span class="pc-tag">Butuan</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Rajahnate of Butuan · Active 1521
-          </div>
+          <p class="pc-bio">Rajah Kolambu was the Rajah of Butuan when Ferdinand Magellan's fleet arrived in the Philippines in 1521. He was one of the first Philippine rulers to establish formal contact with the Spanish expedition — exchanging gifts, participating in a blood compact, and guiding Magellan's fleet to Cebu. He occupies a critical place at the hinge of Philippine pre-colonial and colonial history.</p>
+          <div class="pc-tags"><span class="pc-tag">Pre-Colonial</span><span class="pc-tag">1521</span><span class="pc-tag">Magellan</span><span class="pc-tag">Butuan</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Rajahnate of Butuan · Active 1521</div>
         </div>
       </div>
 
-      <!-- Personality: Fr. Saturnino Urios -->
+      <!-- Fr. Saturnino Urios -->
       <div class="personality-card fade-up" data-field="religion">
         <div class="pc-header" style="background:linear-gradient(135deg,#1a2a4a,#2a4a8a);">
+          <img src="../images/Saturnino_Urios.jpg" alt="Fr. Saturnino Urios" onerror="this.style.display='none'">
           <span class="pc-province-tag">Agusan del Norte</span>
-          <span class="pc-field-badge"> Religion</span>
-          <div class="pc-avatar">SU</div>
+          <span class="pc-field-badge">Religion</span>
         </div>
         <div class="pc-body">
           <h3>Fr. Saturnino Urios, S.J.</h3>
           <div class="pc-title">Jesuit Missionary &amp; Founder of Butuan's Modern Education</div>
-          <p class="pc-bio">A Spanish Jesuit priest who arrived in Butuan in 1877 and spent over four decades transforming the Caraga region. Fr. Urios established churches, schools, and healthcare missions throughout the Agusan River valley, personally navigating dangerous rapids to reach remote indigenous communities. He founded what became the University of San Carlos network's Mindanao campuses. Butuan's premier university — Xavier University campus — bears a legacy deeply shaped by his work. He is widely venerated in Butuan as an apostle of education and civilisation.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Jesuit</span>
-            <span class="pc-tag">Education</span>
-            <span class="pc-tag">Missionary</span>
-            <span class="pc-tag">Heritage</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Active in Butuan City · 1877–1916
-          </div>
+          <p class="pc-bio">A Spanish Jesuit priest who arrived in Butuan in 1877 and spent over four decades transforming the Caraga region. Fr. Urios established churches, schools, and healthcare missions throughout the Agusan River valley. He founded what became the University of San Carlos network's Mindanao campuses and is widely venerated in Butuan as an apostle of education.</p>
+          <div class="pc-tags"><span class="pc-tag">Jesuit</span><span class="pc-tag">Education</span><span class="pc-tag">Missionary</span><span class="pc-tag">Heritage</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Active in Butuan City · 1877–1916</div>
         </div>
       </div>
 
-      <!-- Personality: Cardinal José Advincula (born Bataan
-           but elevated through Capiz — replaced with confirmed
-           Caraga religious figure) -->
+      <!-- Bishop Carmelo Morelos -->
       <div class="personality-card fade-up" data-field="religion">
         <div class="pc-header" style="background:linear-gradient(135deg,#1a0a3a,#3a1a6a);">
+          <img src="../images/Carmelo_Morelos.jpg" alt="Bishop Carmelo Morelos" onerror="this.style.display='none'">
           <span class="pc-province-tag">Butuan City</span>
-          <span class="pc-field-badge"> Religion</span>
-          <div class="pc-avatar">CL</div>
+          <span class="pc-field-badge">Religion</span>
         </div>
         <div class="pc-body">
           <h3>Bishop Carmelo Morelos</h3>
           <div class="pc-title">First Bishop of the Diocese of Butuan</div>
-          <p class="pc-bio">The Diocese of Butuan — established in 1951 — was a landmark moment in the Catholic history of Caraga. Its first bishop oversaw the rapid expansion of Catholic education, charitable institutions, and parish infrastructure throughout the Agusan region. The diocese's establishment formally recognised Caraga's spiritual and demographic importance within the Philippine Church, and laid the foundations for what would later become the Diocese of Butuan's enduring role as the spiritual centre of northeastern Mindanao.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Diocese</span>
-            <span class="pc-tag">Catholic Church</span>
-            <span class="pc-tag">Heritage</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Diocese of Butuan · Established 1951
-          </div>
+          <p class="pc-bio">The Diocese of Butuan — established in 1951 — was a landmark moment in the Catholic history of Caraga. Its first bishop oversaw the rapid expansion of Catholic education, charitable institutions, and parish infrastructure throughout the Agusan region, laying the foundations for Butuan's role as the spiritual centre of northeastern Mindanao.</p>
+          <div class="pc-tags"><span class="pc-tag">Diocese</span><span class="pc-tag">Catholic Church</span><span class="pc-tag">Heritage</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Diocese of Butuan · Established 1951</div>
         </div>
       </div>
 
-      <!-- Personality: Business figure -->
+      <!-- Andres Lim -->
       <div class="personality-card fade-up" data-field="business">
         <div class="pc-header" style="background:linear-gradient(135deg,#003d20,#007040);">
+          <img src="../images/Andres_Lim.jpg" alt="Andres Lim" onerror="this.style.display='none'">
           <span class="pc-province-tag">Surigao del Norte</span>
-          <span class="pc-field-badge"> Business</span>
-          <div class="pc-avatar">AL</div>
+          <span class="pc-field-badge">Business</span>
         </div>
         <div class="pc-body">
           <h3>Andres "Andy" Lim</h3>
           <div class="pc-title">Pioneer Mining &amp; Agribusiness Entrepreneur of Caraga</div>
-          <p class="pc-bio">One of the pioneering figures in Caraga's modern mining and agribusiness sector, Andres Lim built one of the region's earliest large-scale nickel mining operations in Surigao del Norte, contributing significantly to the economic development of the province. His investments in coconut, abaca, and timber processing helped diversify Caraga's economy during the mid-20th century and created thousands of jobs for local communities in the region.</p>
-          <div class="pc-tags">
-            <span class="pc-tag">Mining</span>
-            <span class="pc-tag">Agribusiness</span>
-            <span class="pc-tag">Pioneer</span>
-          </div>
-          <div class="pc-meta">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Surigao del Norte · Mid-20th century
-          </div>
+          <p class="pc-bio">One of the pioneering figures in Caraga's modern mining and agribusiness sector, Andres Lim built one of the region's earliest large-scale nickel mining operations in Surigao del Norte. His investments in coconut, abaca, and timber processing helped diversify Caraga's economy during the mid-20th century and created thousands of jobs for local communities.</p>
+          <div class="pc-tags"><span class="pc-tag">Mining</span><span class="pc-tag">Agribusiness</span><span class="pc-tag">Pioneer</span></div>
+          <div class="pc-meta"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Surigao del Norte · Mid-20th century</div>
         </div>
       </div>
 
-      <!-- Empty state message — only shown when no cards
-           match the current filter selection -->
       <div class="pers-empty" id="persEmpty">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         <h3>No personalities found</h3>
         <p>Try selecting a different category filter above.</p>
       </div>
 
-    </div><!-- end personalities-grid -->
+    </div>
   </div>
 </section>
 
-
-<!-- =====================================================
-     QUOTE BANNER — a coloured break between the grid
-     and the bottom section. Features a notable quote
-     from/about Caraga to add cultural depth to the page.
-===================================================== -->
 <div class="personalities-quote">
   <div class="pq-inner">
     <span class="pq-mark">"</span>
@@ -1027,12 +416,6 @@
   </div>
 </div>
 
-
-<!-- =====================================================
-     KNOW A PERSONALITY CTA — invitation for users to
-     suggest additions. Keeps the page feeling alive and
-     community-driven rather than static.
-===================================================== -->
 <section style="background:#fff; padding:80px 0;">
   <div class="container">
     <div class="section-header fade-up">
@@ -1050,21 +433,13 @@
   </div>
 </section>
 
-
-<!-- =====================================================
-     FOOTER — identical to every other page on the site.
-===================================================== -->
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <!-- Brand column -->
       <div>
         <div class="footer-logo-row">
           <div class="footer-logo">XIII</div>
-          <div>
-            <div class="footer-brand-name">Vertex XIII</div>
-            <div class="footer-brand-sub">WEBster ICT Strand</div>
-          </div>
+          <div><div class="footer-brand-name">Vertex XIII</div><div class="footer-brand-sub">WEBster ICT Strand</div></div>
         </div>
         <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines.</p>
         <div class="footer-social">
@@ -1073,24 +448,19 @@
           <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
         </div>
       </div>
-
-      <!-- Quick links column -->
       <div class="footer-col">
         <h4>Quick Links</h4>
         <div class="footer-links">
-          <a href="../index.html"              class="footer-link">Home</a>
-          <a href="../index.html#about"        class="footer-link">About Caraga</a>
-          <a href="../index.html#history"      class="footer-link">History</a>
-          <a href="../index.html#provinces"    class="footer-link">Provinces</a>
-          <a href="tourist-spots.html"         class="footer-link">Tourist Spots</a>
-          <a href="culture-events.html"        class="footer-link">Culture &amp; Events</a>
-          <a href="delicacies.html"            class="footer-link">Delicacies</a>
-          <!-- Current page — highlighted in the primary colour -->
+          <a href="../index.html" class="footer-link">Home</a>
+          <a href="../index.html#about" class="footer-link">About Caraga</a>
+          <a href="../index.html#history" class="footer-link">History</a>
+          <a href="../index.html#provinces" class="footer-link">Provinces</a>
+          <a href="tourist-spots.html" class="footer-link">Tourist Spots</a>
+          <a href="culture-events.html" class="footer-link">Culture &amp; Events</a>
+          <a href="delicacies.html" class="footer-link">Delicacies</a>
           <a href="notable-personalities.html" class="footer-link" style="color:var(--primary);">Personalities</a>
         </div>
       </div>
-
-      <!-- Provinces column -->
       <div class="footer-col">
         <h4>Provinces</h4>
         <div class="footer-links">
@@ -1101,8 +471,6 @@
           <a href="../provinces/dinagat.html"       class="footer-link">Dinagat Islands</a>
         </div>
       </div>
-
-      <!-- Team column -->
       <div class="footer-col">
         <h4>The Team</h4>
         <div class="footer-team">
@@ -1114,11 +482,9 @@
         </div>
       </div>
     </div>
-
-    <!-- Footer bottom bar -->
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
-      <div class="footer-made-by">Made with <span></span> for Caraga, Region XIII</div>
+      <div class="footer-copy">&copy; 2025 Vertex XIII &middot; WEBster ICT Strand Competition. All rights reserved.</div>
+      <div class="footer-made-by">Made with <span>♥</span> for Caraga, Region XIII</div>
       <div class="footer-bottom-links">
         <a href="#" class="footer-bottom-link">Privacy</a>
         <a href="#" class="footer-bottom-link">Terms</a>
@@ -1128,56 +494,29 @@
   </div>
 </footer>
 
-<!-- Main JS: handles loader, navbar scroll, mobile menu,
-     back-to-top button, fade-up animations, smooth scroll -->
 <script src="../js/main.js"></script>
-
 <script>
-  // =====================================================
-  // FILTER PERSONALITIES — shows/hides personality cards
-  // based on their data-field attribute.
-  //
-  // "field" — the category string to match (e.g. 'sports'),
-  //           or 'all' to show every card.
-  // "btn"   — the button element that was clicked, so we
-  //           can move the active highlight to it.
-  // =====================================================
+  /* Apply full-cover style to personality card header photos */
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.pc-header > img').forEach(function(img) {
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;z-index:3;border-radius:0;display:block;';
+    });
+  });
   function filterPersonalities(field, btn) {
-    // Swap the active class to the button that was clicked
     document.querySelectorAll('.pers-filter-btn').forEach(b => b.classList.remove('active'));
     btn?.classList.add('active');
-
-    // Loop through every personality card and show/hide it
     const cards = document.querySelectorAll('.personality-card');
     let visibleCount = 0;
-
     cards.forEach(card => {
       const matches = field === 'all' || card.dataset.field === field;
       card.style.display = matches ? '' : 'none';
-
-      if (matches) {
-        visibleCount++;
-        // Re-trigger the fadeInUp animation so cards pop in nicely
-        card.style.animation = 'none';
-        void card.offsetWidth; // force reflow to restart animation
-        card.style.animation = 'fadeInUp 0.4s ease';
-      }
+      if (matches) { visibleCount++; card.style.animation = 'none'; void card.offsetWidth; card.style.animation = 'fadeInUp 0.4s ease'; }
     });
-
-    // Update the "Showing X personalities" count badge
     const badge = document.getElementById('persCount');
-    if (badge) {
-      badge.textContent = 'Showing ' + visibleCount + ' personalit' + (visibleCount !== 1 ? 'ies' : 'y');
-    }
-
-    // Show the empty-state message if nothing matches,
-    // otherwise keep it hidden
+    if (badge) badge.textContent = 'Showing ' + visibleCount + ' personalit' + (visibleCount !== 1 ? 'ies' : 'y');
     const empty = document.getElementById('persEmpty');
-    if (empty) {
-      empty.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
+    if (empty) empty.style.display = visibleCount === 0 ? 'block' : 'none';
   }
 </script>
-
 </body>
 </html>

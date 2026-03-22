@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Caraga Region XIII — Discover the Land of Promise</title>
+  <!-- Apply saved theme BEFORE CSS loads → prevents flash of wrong theme -->
+  <script>(function(){var t=localStorage.getItem('caraga-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +31,7 @@
 <nav id="navbar">
   <div class="container">
     <div class="nav-inner">
+
       <a href="index.html" class="nav-brand">
         <div class="nav-logo-box">XIII</div>
         <div>
@@ -35,6 +39,7 @@
           <div class="nav-brand-sub">Region XIII — Caraga</div>
         </div>
       </a>
+
       <ul class="nav-menu">
         <li><a href="#home"    class="nav-link active">Home</a></li>
         <li><a href="#about"   class="nav-link">About</a></li>
@@ -58,9 +63,33 @@
         <li><a href="pages/notable-personalities.html" class="nav-link">Personalities</a></li>
         <li><a href="pages/contact.html"               class="nav-link">Contact</a></li>
       </ul>
-      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
+
+      <!-- Toggle + Hamburger -->
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+          <div class="theme-track">
+            <div class="theme-thumb"></div>
+            <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="2"    x2="12"   y2="4.5"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="19.5" x2="12"   y2="22"   stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="2"  y1="12"   x2="4.5"  y2="12"   stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="19.5" y1="12" x2="22"   y2="12"   stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.93" y1="4.93"  x2="6.7"   y2="6.7"   stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="17.3" y1="17.3"  x2="19.07" y2="19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.93" y1="19.07" x2="6.7"   y2="17.3"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="17.3" y1="6.7"   x2="19.07" y2="4.93"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          </div>
+        </button>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
       </div>
+
     </div>
   </div>
 </nav>
@@ -89,11 +118,11 @@
 </div>
 
 
+
 <!-- ════════════════════════ HERO SLIDESHOW ════════════════════════ -->
 <section id="home" class="hero-section">
   <div class="hero-slideshow" id="heroSlideshow">
 
-    <!-- Slide 1: Siargao -->
     <div class="slide active">
       <div class="slide-bg" style="background-image:url('images/hero-siargao.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#003d5b 0%,#006688 50%,#009db5 100%)"></div>
@@ -105,7 +134,6 @@
       </div>
     </div>
 
-    <!-- Slide 2: Enchanted River -->
     <div class="slide">
       <div class="slide-bg" style="background-image:url('images/hero-enchanted.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#003a30 0%,#006b5c 50%,#00b5a3 100%)"></div>
@@ -117,7 +145,6 @@
       </div>
     </div>
 
-    <!-- Slide 3: Tinuy-an Falls -->
     <div class="slide">
       <div class="slide-bg" style="background-image:url('images/hero-tinuyan.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#003d20 0%,#007040 50%,#00b464 100%)"></div>
@@ -129,7 +156,6 @@
       </div>
     </div>
 
-    <!-- Slide 4: Agusan Marsh -->
     <div class="slide">
       <div class="slide-bg" style="background-image:url('images/hero-marsh.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#1e3a00 0%,#3d6e00 50%,#6ab400 100%)"></div>
@@ -141,7 +167,6 @@
       </div>
     </div>
 
-    <!-- Slide 5: Sohoton Dinagat -->
     <div class="slide">
       <div class="slide-bg" style="background-image:url('images/hero-sohoton.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#1a0050 0%,#4a0090 50%,#7c3dcc 100%)"></div>
@@ -153,7 +178,6 @@
       </div>
     </div>
 
-    <!-- Slide 6: Britania Islands -->
     <div class="slide">
       <div class="slide-bg" style="background-image:url('images/hero-britania.jpg')"></div>
       <div class="slide-gradient" style="background:linear-gradient(120deg,#003058 0%,#005590 50%,#0088cc 100%)"></div>
@@ -165,7 +189,6 @@
       </div>
     </div>
 
-    <!-- Controls -->
     <button class="slide-prev" onclick="changeSlide(-1)" aria-label="Previous slide">
       <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
     </button>
@@ -173,7 +196,6 @@
       <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
     </button>
 
-    <!-- Dots -->
     <div class="slide-dots" id="slideDots">
       <button class="dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
       <button class="dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
@@ -183,7 +205,6 @@
       <button class="dot" onclick="goToSlide(5)" aria-label="Slide 6"></button>
     </div>
 
-    <!-- Region badge overlay -->
     <div class="hero-region-badge">
       <div class="badge-roman">XIII</div>
       <div>
@@ -192,7 +213,6 @@
       </div>
     </div>
 
-    <!-- Stats strip at bottom -->
     <div class="hero-stats-strip">
       <div class="hstat"><div class="hstat-num">5</div><div class="hstat-lbl">Provinces</div></div>
       <div class="hstat"><div class="hstat-num">2</div><div class="hstat-lbl">HUC Cities</div></div>
@@ -201,7 +221,6 @@
       <div class="hstat"><div class="hstat-num">320 AD</div><div class="hstat-lbl">Est. History</div></div>
     </div>
 
-    <!-- Scroll indicator -->
     <div class="scroll-indicator">
       <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
       <span>Scroll Down</span>
@@ -232,7 +251,6 @@
         </div>
         <div class="about-badge"><strong>1995</strong>Established</div>
 
-        <!-- Province quick-links -->
         <div class="about-map-mini" style="margin-top:40px;">
           <div class="map-mini-title">Quick Province Access</div>
           <div class="province-map-links">
@@ -314,7 +332,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Ancient History</div>
           <h3>The Balanghai Era</h3>
-          <p>Ancient plank boats called Balanghai carried Austronesian settlers along the coasts of what is now Butuan. Unearthed in the 1970s in Libertad, Butuan City, these are among the oldest watercraft found in Southeast Asia. The site yielded over ten vessels alongside gold jewellery, Chinese ceramics, and burial jars — proof of a sophisticated seafaring civilisation centuries before Spanish contact.</p>
+          <p>Ancient plank boats called Balanghai carried Austronesian settlers along the coasts of what is now Butuan. Unearthed in the 1970s in Libertad, Butuan City, these are among the oldest watercraft found in Southeast Asia.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -324,7 +342,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Pre-Colonial</div>
           <h3>The Gold Trade Period</h3>
-          <p>Butuan emerged as a major gold-trading hub in Southeast Asia. Archaeological finds — golden masks, kinnari figurines, gold links, and jewellery of the finest craftsmanship — reflect a civilisation with sophisticated metallurgy and wide-ranging maritime trade networks reaching as far as Java, Borneo, and mainland China. Over 1,500 gold artefacts have been recovered from the Butuan sites.</p>
+          <p>Butuan emerged as a major gold-trading hub in Southeast Asia. Over 1,500 gold artefacts — golden masks, kinnari figurines, and jewellery of finest craftsmanship — reflect wide-ranging maritime trade networks.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -334,17 +352,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Pre-Colonial</div>
           <h3>Rajah Kiling's Mission to China</h3>
-          <p>The Rajahnate of Butuan's ruler, Rajah Kiling, sent an official envoy to Emperor Zhenzong of China's Song Dynasty — the earliest recorded diplomatic contact between a Philippine polity and China. The envoy offered tribute and sought trade recognition. This marked Butuan as one of the first Philippine states to engage in formal diplomacy with a major world empire.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">9th–11th Century</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Pre-Colonial</div>
-          <h3>Rajahnate of Butuan — A Golden Kingdom</h3>
-          <p>Butuan emerged as one of the Philippines' earliest and most powerful pre-colonial kingdoms — a gold-rich trading state with documented ties to China's Song Dynasty. Rajah Kiling's envoys regularly visited the Chinese imperial court. Butuan's gold artefacts — masks, jewellery, and the famous "Butuan Silver Paleograph" — testify to a cosmopolitan civilisation flourishing centuries before Magellan arrived.</p>
+          <p>Rajah Kiling sent an official envoy to Emperor Zhenzong of China's Song Dynasty — the earliest recorded diplomatic contact between a Philippine polity and China.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -354,7 +362,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Spanish Contact</div>
           <h3>Magellan's First Philippine Landing</h3>
-          <p>Ferdinand Magellan's fleet made its first recorded Philippine landfall at Homonhon Island, off the coast of what is now Surigao del Norte. After weeks at sea crossing the Pacific, the crew rested, replenished water, and traded with local inhabitants. Magellan's chronicler Pigafetta recorded the warm reception of the local people. Butuan's Rajah Kolambu later guided the fleet to Cebu.</p>
+          <p>Ferdinand Magellan's fleet made its first recorded Philippine landfall at Homonhon Island, off the coast of what is now Surigao del Norte.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -364,27 +372,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Spanish Colonial</div>
           <h3>Spanish Colonisation Begins in Caraga</h3>
-          <p>Spanish forces extended colonial reach into the Caraga coast. Augustinian missionaries established footholds in the region, founding mission towns along the Agusan River valley and Surigao coastlines. The Spanish referred to the entire region as "La Caraga." Indigenous peoples of the interior largely resisted pacification and maintained their culture in the highlands.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">1609</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Spanish Colonial</div>
-          <h3>Jesuit Missions Established</h3>
-          <p>Jesuit missionaries arrived in Caraga, expanding the Catholic presence into the Agusan River valley. They established reduction towns to concentrate indigenous Manobo, Mamanwa, and Higaonon populations into church-controlled settlements. Despite periodic revolts — most notably the Caraga Revolt of 1631 — the mission system gradually transformed social structures across the region.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">16th–19th Century</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Spanish Colonial</div>
-          <h3>Three Centuries Under Spain</h3>
-          <p>Spanish missionaries — primarily the Augustinian Recollects — established Catholic parishes throughout Caraga's coastal towns. Churches built during this era still stand in Butuan, Surigao, and Bislig. The colonial economy extracted timber, beeswax, abaca, and minor gold from the interior. The region's coastal towns became important stopovers on the Manila-Moluccas trade route.</p>
+          <p>Spanish forces extended colonial reach into the Caraga coast. Augustinian missionaries established footholds, founding mission towns along the Agusan River valley and Surigao coastlines.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -394,17 +382,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">American Period</div>
           <h3>American Period &amp; Modernisation</h3>
-          <p>Under American administration, the region was restructured administratively. Public schools, roads, telegraph lines, and health infrastructure expanded rapidly. The Agusan River valley opened for large-scale agriculture, attracting Visayan settlers. Timber concessions and mining operations — gold, copper, and later nickel — reshaped the landscape and economy.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">1941–1945</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">World War II</div>
-          <h3>World War II — The Japanese Occupation</h3>
-          <p>Japanese forces occupied Caraga from 1942, establishing bases in Butuan, Surigao, and Lianga. Filipino guerrilla units waged persistent resistance. The Battle of Surigao Strait (October 1944) — the largest naval battle in history by number of ships — was fought in adjacent waters, resulting in a decisive Allied victory. Liberation of Caraga's major towns was completed by early 1945.</p>
+          <p>Under American administration, public schools, roads, telegraph lines, and health infrastructure expanded rapidly. The Agusan River valley opened for large-scale agriculture.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -414,27 +392,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Modern Era</div>
           <h3>The Balanghai Boats Unearthed</h3>
-          <p>In 1976, workers at Libertad, Butuan City, accidentally uncovered the first Balanghai boat. Subsequent excavations yielded over 10 ancient vessels. Carbon dating placed the oldest at approximately 320 AD. The discovery rewrote Philippine history — proving a complex seafaring civilisation existed in Caraga over 1,700 years ago. The Butuan Balanghai Boats were declared National Cultural Treasures.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">1976</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Conservation</div>
-          <h3>Agusan Marsh Declared a Wildlife Sanctuary</h3>
-          <p>Presidential Proclamation 1038 declared the Agusan Marsh a Protected Wildlife Sanctuary. The marsh was later designated a Ramsar Wetland of International Importance in 1999, acknowledging its global significance for migratory birds, endemic wildlife (including the critically endangered Philippine freshwater crocodile), and the traditional livelihoods of Manobo communities.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">1992</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Tourism</div>
-          <h3>Siargao Emerges on the World Stage</h3>
-          <p>International surfers began arriving at Siargao Island. The wave at Cloud 9 — a powerful, barrelling right-hander over a shallow reef — was quickly recognised as one of the finest in Asia. By the mid-1990s, Siargao had begun attracting surf magazines, competitions, and a growing backpacker scene that would transform the island's economy.</p>
+          <p>In 1976, workers in Libertad, Butuan City, uncovered the first Balanghai boat. Carbon dating placed the oldest at approximately 320 AD — rewriting Philippine history.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -444,17 +402,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Birth of Region XIII</div>
           <h3>Republic Act 7901 — Caraga Becomes Region XIII</h3>
-          <p>Republic Act 7901, signed by President Fidel Ramos, formally established Caraga as a separate administrative region. Comprising four original provinces with Butuan City as the regional centre, the creation of Caraga enabled focused governance and development planning tailored to the area's unique geography and needs.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">1996</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Tourism</div>
-          <h3>First Siargao International Surfing Cup</h3>
-          <p>The inaugural Siargao International Surfing Cup was held at Cloud 9, marking the beginning of what would become one of Asia's most prestigious annual surf events. The competition drew international competitors and media attention, firmly establishing Siargao — and Caraga — on the global tourism map.</p>
+          <p>Republic Act 7901, signed by President Fidel Ramos, formally established Caraga as a separate administrative region with Butuan City as the regional centre.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -464,17 +412,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Province Created</div>
           <h3>Dinagat Islands — Caraga's 5th Province</h3>
-          <p>Republic Act 9355 created the Province of Dinagat Islands, separating it from Surigao del Norte. Despite a brief Supreme Court challenge, it was formally reconstituted in 2011 under Republic Act 10020. Today Dinagat stands as Caraga's newest province — known for rock formations, bioluminescent coves, Sohoton Cove, and significant nickel mineral deposits.</p>
-        </div>
-        <div class="timeline-dot"></div>
-      </div>
-
-      <div class="timeline-item fade-up">
-        <div class="timeline-date">2012</div>
-        <div class="timeline-content">
-          <div class="tl-era-tag">Natural Disaster</div>
-          <h3>Typhoon Pablo (Bopha) Devastates Caraga</h3>
-          <p>Super Typhoon Pablo, one of the strongest typhoons ever to hit Mindanao, swept through Caraga in December 2012. The storm caused catastrophic damage to Surigao del Sur and Agusan del Sur. Thousands were displaced and infrastructure was severely damaged. The disaster significantly strengthened disaster preparedness systems in the region.</p>
+          <p>Republic Act 9355 created the Province of Dinagat Islands, separating it from Surigao del Norte. Known for rock formations, bioluminescent coves, and significant nickel mineral deposits.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -484,7 +422,7 @@
         <div class="timeline-content">
           <div class="tl-era-tag">Global Recognition</div>
           <h3>Caraga Goes Global</h3>
-          <p>The Enchanted River of Hinatuan went viral internationally. Siargao was named "Best Island in Asia" by Condé Nast Traveler in 2019 and "Best Island in the World" in 2021. Today Caraga balances sustainable development, environmental conservation, and tourism — working to protect its extraordinary natural and cultural heritage for future generations.</p>
+          <p>Siargao was named "Best Island in Asia" by Condé Nast Traveler in 2019 and "Best Island in the World" in 2021. Caraga balances sustainable development and tourism.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
@@ -517,13 +455,12 @@
         <div class="province-img prov-an">
           <img src="images/province-agusan-norte.jpg" alt="Agusan del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-        
           <div class="province-img-label">Agusan del Norte</div>
         </div>
         <div class="province-body">
           <span class="province-tag">Agusan</span>
           <h3>Agusan del Norte</h3>
-          <p>The political and cultural hub of Caraga. Home to Butuan City — site of the ancient Balanghai boats, National Museum, and the Kahimunan Festival. Gateway to Caraga's history.</p>
+          <p>The political and cultural hub of Caraga. Home to Butuan City — site of the ancient Balanghai boats, National Museum, and the Kahimunan Festival.</p>
           <div class="province-spots-mini">
             <span class="pspot">Balanghai Museum</span>
             <span class="pspot">Butuan City</span>
@@ -541,7 +478,7 @@
         <div class="province-img prov-as">
           <img src="images/province-agusan-sur.jpg" alt="Agusan del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          
+          <div class="province-img-label">Agusan del Sur</div>
         </div>
         <div class="province-body">
           <span class="province-tag">Agusan</span>
@@ -564,7 +501,6 @@
         <div class="province-img prov-sn">
           <img src="images/province-surigao-norte.jpg" alt="Surigao del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          
           <div class="province-img-label">Surigao del Norte</div>
         </div>
         <div class="province-body">
@@ -588,7 +524,6 @@
         <div class="province-img prov-ss">
           <img src="images/province-surigao-sur.jpg" alt="Surigao del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          
           <div class="province-img-label">Surigao del Sur</div>
         </div>
         <div class="province-body">
@@ -612,7 +547,6 @@
         <div class="province-img prov-dn">
           <img src="images/province-dinagat.jpg" alt="Dinagat Islands" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          
           <div class="province-img-label">Dinagat Islands</div>
         </div>
         <div class="province-body">
@@ -653,11 +587,11 @@
       </button>
       <div class="spots-carousel" id="spotsCarousel">
 
+        <!-- ICONS REMOVED — no .spot-icon-frame elements -->
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-siargao.jpg" alt="Siargao Cloud 9" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-siargao"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M2,14 C4.5,10 7.5,10 10,14 C12.5,18 15.5,18 18,14 C20.5,10 22,10 22,14"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
@@ -673,7 +607,6 @@
           <div class="spot-img">
             <img src="images/spot-enchanted.jpg" alt="Enchanted River" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-enchanted"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 4 10 4 15a8 8 0 0016 0C20 10 12 2 12 2z"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
@@ -689,7 +622,6 @@
           <div class="spot-img">
             <img src="images/spot-tinuyan.jpg" alt="Tinuy-an Falls" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-tinuyan"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M6,2 L6,10 Q6,18 12,20 Q18,18 18,10 L18,2"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
@@ -705,7 +637,6 @@
           <div class="spot-img">
             <img src="images/spot-sugba.jpg" alt="Sugba Lagoon" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg" style="background:linear-gradient(135deg,#003d60,#0077b6)"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M3,17 Q8,11 12,14 Q16,17 21,14"/><path d="M3,12 Q8,6 12,9 Q16,12 21,9"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
@@ -721,7 +652,6 @@
           <div class="spot-img">
             <img src="images/spot-marsh.jpg" alt="Agusan Marsh" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-marsh"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-7 17l7-17z"/><path d="M12 2a10 10 0 017 17L12 2z"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Agusan del Sur</span>
           </div>
@@ -737,7 +667,6 @@
           <div class="spot-img">
             <img src="images/spot-britania.jpg" alt="Britania Islands" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-britania"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><ellipse cx="8" cy="16" rx="5" ry="3"/><circle cx="8" cy="9" r="3"/><ellipse cx="17" cy="18" rx="4" ry="2.5"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
@@ -753,7 +682,6 @@
           <div class="spot-img">
             <img src="images/spot-magpupungko.jpg" alt="Magpupungko" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg" style="background:linear-gradient(135deg,#1a4060,#2d7db8)"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M3,20 Q3,8 12,4 Q21,8 21,20"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
@@ -769,7 +697,6 @@
           <div class="spot-img">
             <img src="images/spot-sohoton.jpg" alt="Sohoton Cove" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg spot-sohoton"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M3,20 Q3,8 12,4 Q21,8 21,20"/><path d="M7,20 Q7,12 12,10 Q17,12 17,20"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Dinagat Islands</span>
           </div>
@@ -785,13 +712,12 @@
           <div class="spot-img">
             <img src="images/spot-mainit.jpg" alt="Lake Mainit" class="spot-photo" onerror="this.style.display='none'">
             <div class="spot-img-bg" style="background:linear-gradient(135deg,#1a3a0f,#2d6b1a)"></div>
-            <div class="spot-icon-frame"><svg viewBox="0 0 24 24"><path d="M2 12 Q6 8 12 10 Q18 8 22 12"/><path d="M2 16 Q6 12 12 14 Q18 12 22 16"/></svg></div>
             <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Agusan del Sur / Surigao Norte</span>
           </div>
           <div class="spot-body">
             <h3>Lake Mainit</h3>
-            <p>The fourth-largest lake in the Philippines — shared between Agusan del Sur and Surigao del Norte, known for freshwater sardines and a lush mountain backdrop.</p>
+            <p>The fourth-largest lake in the Philippines — known for freshwater sardines and a lush mountain backdrop.</p>
             <div class="spot-tags"><span class="spot-tag">Lake</span><span class="spot-tag">Fishing</span><span class="spot-tag">Nature</span></div>
             <a href="provinces/agusan-sur.html" class="spot-link">View Details →</a>
           </div>
@@ -846,7 +772,7 @@
         <div class="card-icon-box green-box"><svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5Z"/></svg></div>
         <span class="event-month">October</span>
         <h3>Kahimunan Festival</h3>
-        <p>A deeply religious fiesta in Butuan honouring the Virgen de los Remedios — colourful processions, traditional Butuanon dances, and a week-long celebration of faith and cultural pride.</p>
+        <p>A deeply religious fiesta in Butuan honouring the Virgen de los Remedios — colourful processions, traditional Butuanon dances, and a week-long celebration of faith.</p>
         <div class="event-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Butuan City, Agusan del Norte</div>
       </div>
 
@@ -854,7 +780,7 @@
         <div class="card-icon-box"><svg viewBox="0 0 24 24"><polyline points="6,3 18,3"/><path d="M6,3 C6,9 3,12 3,15 L21,15 C21,12 18,9 18,3"/></svg></div>
         <span class="event-month">September</span>
         <h3>Cloud 9 Surfing Cup</h3>
-        <p>One of Asia's most prestigious surfing events at the legendary Cloud 9 break in Siargao Island. International competitors ride the powerful, barrelling waves judged by world-class standards.</p>
+        <p>One of Asia's most prestigious surfing events at the legendary Cloud 9 break in Siargao Island. International competitors ride the powerful, barrelling waves.</p>
         <div class="event-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Siargao Island, Surigao del Norte</div>
       </div>
 

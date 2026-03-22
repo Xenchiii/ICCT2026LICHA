@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Culture &amp; Events — Caraga Region XIII</title>
   <link rel="stylesheet" href="../css/style.css" />
@@ -169,29 +170,31 @@
     .spotlight-inner {
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
-    .spotlight-img-wrap {
-      background: linear-gradient(135deg, var(--summer-green), var(--med-green));
-      border-radius: 22px; padding: 4px; box-shadow: var(--shadow-lg);
-    }
-    .spotlight-img-inner {
-      border-radius: 20px; height: 380px; overflow: hidden;
-      background: linear-gradient(135deg, #004a3a, #007a60);
-      display: flex; align-items: center; justify-content: center; position: relative;
-    }
-    .spotlight-img-inner img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .spotlight-img-inner .spotlight-placeholder-icon {
-      opacity: 0.25;
-    }
-    .spotlight-placeholder-icon svg { width: 80px; height: 80px; stroke: #fff; fill: none; stroke-width: 1; }
-    .spotlight-badge {
-      position: absolute; bottom: -18px; right: -18px;
-      background: var(--dark-hot-pink); color: #fff;
-      border-radius: 14px; padding: 14px 22px;
-      font-size: 0.78rem; font-weight: 600;
-      box-shadow: 0 8px 28px rgba(228,80,154,0.38); text-align: center;
-    }
+   .spotlight-img-wrap {
+  background: none;
+  border-radius: 22px; padding: 0; box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.spotlight-img-inner {
+  border-radius: 22px; height: 380px; overflow: hidden;
+  background: linear-gradient(135deg, #004a3a, #007a60);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.spotlight-img-inner img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; display: block;
+}
+.spotlight-img-inner .spotlight-placeholder-icon {
+  opacity: 0.25;
+}
+.spotlight-placeholder-icon svg { width: 80px; height: 80px; stroke: #fff; fill: none; stroke-width: 1; }
+.spotlight-badge {
+  position: absolute; bottom: 20px; right: 20px;
+  background: var(--dark-hot-pink); color: #fff;
+  border-radius: 14px; padding: 14px 22px;
+  font-size: 0.78rem; font-weight: 600;
+  box-shadow: 0 8px 28px rgba(228,80,154,0.38); text-align: center;
+}
     .spotlight-badge strong { display: block; font-size: 1.5rem; font-weight: 800; line-height: 1; }
     .spotlight-content .section-label { margin-bottom: 12px; }
     .spotlight-content h2 { color: var(--text-dark); margin-bottom: 14px; }
