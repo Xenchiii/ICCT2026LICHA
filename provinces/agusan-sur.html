@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- page title shown on the browser tab -->
+  <title>Agusan del Sur — Caraga Region XIII</title>
+  <!-- linking back to the shared stylesheet one folder up -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/province-mobile.css"/>
+</head>
+<body>
+
+
+<!-- ============================================================
+     LOADING SCREEN
+     shows "AGUSAN DEL SUR" instead of the homepage's "CARAGA"
+     so each province page feels distinct when it first loads
+============================================================ -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">AGUSAN</div>
+  <div class="loader-sub">DEL SUR · CARAGA</div>
+</div>
+
+
+<!-- ============================================================
+     BACK TO TOP BUTTON
+     fixed arrow that appears after scrolling — scrolls back to top
+============================================================ -->
+<div id="back-top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+
+<!-- ============================================================
+     NAVBAR
+     same structure as all province pages — paths use ../
+     because we're inside the /provinces/ subfolder
+     "Provinces" toggle is marked active since we're on a province page
+     Agusan del Sur's dropdown dot is pink to show the current page
+============================================================ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- brand logo — goes back to the main homepage -->
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+
+      <!-- desktop nav links -->
+<ul class="nav-menu">
+  <li><a href="../index.html#home"    class="nav-link">Home</a></li>
+  <li><a href="../index.html#about"   class="nav-link">About</a></li>
+  <li><a href="../index.html#history" class="nav-link">History</a></li>
+  <li class="nav-dropdown">
+    <a href="../index.html#provinces" class="nav-link dropdown-toggle active">
+      Provinces
+      <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+      <li><a href="agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+      <li><a href="surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+      <li><a href="surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+      <li><a href="dinagat.html"       class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+    </ul>
+  </li>
+  <li><a href="../pages/tourist-spots.html"         class="nav-link">Tourist Spots</a></li>
+  <li><a href="../pages/culture-events.html"        class="nav-link">Culture &amp; Events</a></li>
+  <li><a href="../pages/delicacies.html"            class="nav-link">Delicacies</a></li>
+  <li><a href="../pages/notable-personalities.html" class="nav-link">Personalities</a></li>
+  <li><a href="../pages/contact.html"               class="nav-link">Contact</a></li>
+  <li><a href="../pages/directions.html"            class="nav-link">Navigator</a></li>
+</ul>
+
+      <!-- hamburger icon — only visible on mobile screens -->
+<div class="nav-controls">
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <div class="theme-track">
+      <div class="theme-thumb"></div>
+      <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/>
+        <line x1="12" y1="2" x2="12" y2="4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="19.5" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="2" y1="12" x2="4.5" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="19.5" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93" y1="4.93" x2="6.7" y2="6.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="17.3" y1="17.3" x2="19.07" y2="19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93" y1="19.07" x2="6.7" y2="17.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="17.3" y1="6.7" x2="19.07" y2="4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+      </svg>
+    </div>
+  </button>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html#home"    class="mobile-link" onclick="closeMenu()">Home</a>
+  <a href="../index.html#about"   class="mobile-link" onclick="closeMenu()">About</a>
+  <a href="../index.html#history" class="mobile-link" onclick="closeMenu()">History</a>
+  <div class="mobile-link mobile-parent" id="mobileProvincesToggle">
+    Provinces
+    <svg class="mobile-chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+  </div>
+  <div class="mobile-submenu" id="mobileSubmenu">
+    <a href="../provinces/agusan-norte.html"  class="mobile-sub-link" onclick="closeMenu()">Agusan del Norte</a>
+    <a href="../provinces/agusan-sur.html"    class="mobile-sub-link" onclick="closeMenu()">Agusan del Sur</a>
+    <a href="../provinces/surigao-norte.html" class="mobile-sub-link" onclick="closeMenu()">Surigao del Norte</a>
+    <a href="../provinces/surigao-sur.html"   class="mobile-sub-link" onclick="closeMenu()">Surigao del Sur</a>
+    <a href="../provinces/dinagat.html"       class="mobile-sub-link" onclick="closeMenu()">Dinagat Islands</a>
+  </div>
+  <a href="../pages/tourist-spots.html"         class="mobile-link" onclick="closeMenu()">Tourist Spots</a>
+  <a href="../pages/culture-events.html"        class="mobile-link" onclick="closeMenu()">Culture &amp; Events</a>
+  <a href="../pages/delicacies.html"            class="mobile-link" onclick="closeMenu()">Delicacies</a>
+  <a href="../pages/notable-personalities.html" class="mobile-link" onclick="closeMenu()">Personalities</a>
+  <a href="../pages/contact.html"               class="mobile-link" onclick="closeMenu()">Contact</a>
+  <a href="../pages/directions.html"            class="mobile-link" onclick="closeMenu()">Navigator</a>
+</div>
+<!-- ============================================================
+     PROVINCE HERO SECTION
+     full-width banner for Agusan del Sur
+     uses a green gradient (fitting for a nature/wetland province)
+     layered with the actual province photo on top
+     contains: breadcrumb, title, tagline, and 4 quick stats
+============================================================ -->
+<div class="province-hero" style="min-height:70vh;">
+
+  <!-- background: green gradient base with the province photo on top -->
+  <div class="province-hero-bg" style="background:linear-gradient(135deg,#1e3a00,#3d7000,#6ab400);background-image:url('../images/province-agusan-sur.jpg');background-size:cover;background-position:center;"></div>
+
+  <!-- semi-transparent dark overlay to keep text readable over the photo -->
+  <div class="province-hero-overlay"></div>
+
+  <div class="container" style="position:relative;z-index:2;padding-bottom:60px;">
+    <div class="province-hero-content" style="padding:0;">
+
+      <!-- breadcrumb trail showing where we are in the site structure -->
+      <div class="province-breadcrumb">
+        <a href="../index.html">Home</a> &rarr; <a href="../index.html#provinces">Provinces</a> &rarr; Agusan del Sur
+      </div>
+
+      <!-- main province heading and tagline -->
+      <h1>Agusan del Sur</h1>
+      <p class="province-hero-sub">The Largest Province in Caraga — Heart of the Agusan Marsh</p>
+
+      <!-- quick stats strip: area, population, municipality count, and its one city -->
+      <div class="province-hero-stats">
+        <div><div class="ph-stat-num">10,314</div><div class="ph-stat-lbl">km² Area</div></div>
+        <div><div class="ph-stat-num">773K+</div><div class="ph-stat-lbl">Population</div></div>
+        <div><div class="ph-stat-num">13</div><div class="ph-stat-lbl">Municipalities</div></div>
+        <div><div class="ph-stat-num">1</div><div class="ph-stat-lbl">City — Bayugan</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PROVINCE OVERVIEW SECTION
+     two-column layout:
+       left  — three paragraphs describing the province
+       right — 6 quick-fact tiles (capital, city, size, marsh, IP groups, best season)
+============================================================ -->
+<section style="background:#fff;padding:64px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+
+      <!-- LEFT: overview text — size, the Agusan Marsh, and indigenous communities -->
+      <div class="fade-up">
+        <span class="section-label">Province Overview</span>
+        <h2>The Largest Province in Mindanao</h2>
+        <div class="divider" style="margin:14px 0 20px;"></div>
+        <p>Agusan del Sur is the largest province in Caraga and the entire island of Mindanao, covering over 10,314 km² of tropical forest, wetland, river valleys, and highland terrain. Its vast interior remains among the least developed and most ecologically rich territories in the Philippines.</p>
+        <p style="margin-top:12px;">The centrepiece of the province is the Agusan Marsh Wildlife Sanctuary — a sprawling 19,200-hectare Ramsar wetland that shelters the critically endangered Philippine freshwater crocodile, over 200 bird species, and the floating-island communities of the Manobo people who have lived on the marsh for generations.</p>
+        <p style="margin-top:12px;">The province is home to five major indigenous groups — the Manobo, Banwaon, Mamanwa, Higaonon, and Talaandig — whose cultural heritage spans millennia. Prosperidad is the provincial capital; Bayugan City is the province's main commercial hub.</p>
+      </div>
+
+      <!-- RIGHT: quick-fact card grid — 6 info tiles in a 2-column mini-grid -->
+      <div class="fade-up">
+        <!-- soft green gradient background for this info panel -->
+        <div style="background:linear-gradient(135deg,#eef7e8,#d0ebc0);border-radius:20px;padding:28px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- each tile is a white rounded card with a label and value -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Capital</div>
+              <div style="font-weight:600;font-size:0.9rem;">Prosperidad</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">City</div>
+              <div style="font-weight:600;font-size:0.9rem;">Bayugan City</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Largest In</div>
+              <div style="font-weight:600;font-size:0.9rem;">Caraga &amp; Mindanao</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Ramsar Site</div>
+              <div style="font-weight:600;font-size:0.9rem;">Agusan Marsh 19,200 ha</div>
+            </div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Indigenous Groups</div>
+              <div style="font-weight:600;font-size:0.9rem;">Manobo, Banwaon +3</div>
+            </div>
+            <!-- best season tile — useful travel tip right on the overview -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+              <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:4px;">Best Season</div>
+              <div style="font-weight:600;font-size:0.9rem;">Feb–May (Dry Season)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TOURIST SPOTS SECTION
+     a responsive grid of spot cards unique to Agusan del Sur
+     heavy on nature, wildlife, and indigenous culture spots
+     each card: photo/gradient bg, category badge, Google Maps link,
+     description text, activity tags, and a location line
+============================================================ -->
+<section style="background:var(--off-white);padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Destinations</span>
+      <h2>Tourist Spots in Agusan del Sur</h2>
+      <div class="divider"></div>
+      <p>From the world-famous Agusan Marsh to hidden forest waterfalls and ancient indigenous communities deep in Mindanao's interior.</p>
+    </div>
+
+    <!-- grid of province-specific spot cards -->
+    <div class="province-spots-grid">
+
+      <!-- SPOT CARD: Agusan Marsh Wildlife Sanctuary — the star attraction -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#3e6a18,#72ad3a);">
+          <!-- spot photo — hides gracefully if the image file is missing -->
+          <img src="../images/spot-marsh.jpg" alt="Agusan Marsh" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <!-- category badge on the top-left of the image -->
+          <span class="psc-badge">Wildlife Sanctuary</span>
+          <!-- direct Google Maps link opens in a new tab -->
+          <a href="https://maps.google.com/maps?q=Agusan+Marsh+Wildlife+Sanctuary+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Agusan Marsh Wildlife Sanctuary</h3>
+          <p>One of the most ecologically significant wetlands in Southeast Asia. This 19,200-hectare Ramsar-listed sanctuary is a labyrinth of lakes, floating islands, reed beds, and waterways — home to the critically endangered Philippine freshwater crocodile, over 200 bird species, and the Manobo people who live on floating reed platforms called basey. Guided boat tours reveal extraordinary wildlife and a way of life found nowhere else on earth.</p>
+          <!-- activity/category tags for quick scanning -->
+          <div class="psc-tags">
+            <span class="psc-tag">Wildlife</span>
+            <span class="psc-tag">Wetland</span>
+            <span class="psc-tag">Ramsar Site</span>
+            <span class="psc-tag">Birdwatching</span>
+          </div>
+          <!-- location + access note at the bottom -->
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bunawan, Agusan del Sur — boat access only
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Manobo Floating Reed Communities — unique human settlement -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#2d5a0a,#5a9e20);">
+          <img src="../images/spot-manobo-floating.jpg" alt="Manobo Floating Village" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Indigenous Culture</span>
+          <a href="https://maps.google.com/maps?q=Manobo+floating+village+Agusan+Marsh" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Manobo Floating Reed Communities</h3>
+          <p>Among the most remarkable human settlements in the world — Manobo communities in the Agusan Marsh have lived for generations on floating reed islands woven from dense aquatic vegetation. These basey drift naturally with the water levels across seasons. Respectful visits arranged through the Bunawan LGU allow travellers to witness this extraordinary way of life, observe traditional crafts, and connect with a culture uniquely adapted to life on the water.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Indigenous</span>
+            <span class="psc-tag">Cultural</span>
+            <span class="psc-tag">Floating Village</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bunawan / San Francisco, Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Lake Mainit — 4th largest lake in PH, shared with Surigao del Norte -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a3a0f,#2d6b1a);">
+          <img src="../images/spot-mainit.jpg" alt="Lake Mainit" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">4th Largest Lake in PH</span>
+          <a href="https://maps.google.com/maps?q=Lake+Mainit+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Lake Mainit</h3>
+          <p>The fourth-largest lake in the Philippines, straddling the boundary of Agusan del Sur and Surigao del Norte. Fed by geothermal springs, the lake is famous for its warm, crystal-clear waters surrounded by forested slopes and its unique endemic sardine species found nowhere else in the world. Boat tours offer exceptional scenery and birdwatching, while traditional fishing communities ring the shoreline practicing centuries-old net fishing.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Lake</span>
+            <span class="psc-tag">Fishing</span>
+            <span class="psc-tag">Birdwatching</span>
+            <span class="psc-tag">Nature</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Jabonga / Kitcharao — shared with Surigao del Norte
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Sibagat & Veruela Falls — hidden forest waterfalls in the interior -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#003d20,#007840);">
+          <img src="../images/spot-sibagat.jpg" alt="Sibagat Falls" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Forest Waterfalls</span>
+          <a href="https://maps.google.com/maps?q=Sibagat+Agusan+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Sibagat and Veruela Falls</h3>
+          <p>The interior municipalities of Sibagat and Veruela are threaded with rivers tumbling off the Diwata Mountain Range, creating a series of forest waterfalls largely unknown to outsiders. These cascades drop through old-growth dipterocarp forest into clear rock pools ideal for swimming. Community eco-guides from local Manobo villages lead visitors through forest trails, and the surrounding forest shelters Philippine eagles and dozens of endemic bird species.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Waterfalls</span>
+            <span class="psc-tag">Eco-Tourism</span>
+            <span class="psc-tag">Forest Trekking</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sibagat / Veruela, Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Diwata Mountain Range — old-growth rainforest trekking -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#1a2a10,#3a5a20);">
+          <img src="../images/spot-diwata.jpg" alt="Diwata Mountain Range" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Mountain Range</span>
+          <a href="https://maps.google.com/maps?q=Diwata+Mountain+Range+Agusan+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Diwata Mountain Range</h3>
+          <p>The Diwata Range forms the rugged eastern spine of Agusan del Sur, rising to over 2,000 metres and sheltering some of the largest remaining tracts of old-growth rainforest in Mindanao. Trekking expeditions depart from Loreto and Esperanza guided by Banwaon and Manobo trackers. The range shelters Philippine eagles, tarsiers, hornbills, and dozens of endemic flora species in a wilderness almost entirely free from outside visitation.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Mountains</span>
+            <span class="psc-tag">Trekking</span>
+            <span class="psc-tag">Biodiversity</span>
+            <span class="psc-tag">Philippine Eagle</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Loreto / Esperanza, Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Banwaon Tribal Communities — abaca weaving & traditional music -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#3a2800,#6e4e00);">
+          <img src="../images/spot-banwaon.jpg" alt="Banwaon Community" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">Indigenous Heritage</span>
+          <a href="https://maps.google.com/maps?q=Banwaon+Talacogon+Agusan+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Banwaon Tribal Communities</h3>
+          <p>The Banwaon people inhabit the upper Agusan River valley, particularly in Talacogon and San Luis. They are renowned for intricate abaca cloth weaving with geometric patterns unique to Banwaon tradition, deep knowledge of medicinal plants, traditional music on the kubing and kulintang, and rich oral traditions. Cultural programs arranged through the NCIP regional office offer immersive experiences in craft, ceremony, and community life.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">Indigenous</span>
+            <span class="psc-tag">Weaving</span>
+            <span class="psc-tag">Cultural</span>
+            <span class="psc-tag">Music</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Talacogon / San Luis, Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+      <!-- SPOT CARD: Bayugan City — the main commercial hub and travel base -->
+      <div class="province-spot-card fade-up">
+        <div class="psc-img" style="background:linear-gradient(135deg,#005040,#009070);">
+          <img src="../images/spot-bayugan.jpg" alt="Bayugan City" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <div class="psc-img-overlay"></div>
+          <span class="psc-badge">City Eco-Parks</span>
+          <a href="https://maps.google.com/maps?q=Bayugan+City+Agusan+del+Sur+Philippines" target="_blank" class="psc-gmap-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Map
+          </a>
+        </div>
+        <div class="psc-body">
+          <h3>Bayugan City — Eco-Parks and River Gardens</h3>
+          <p>Agusan del Sur's main commercial centre and a pleasant base for exploring the province. The city's green spaces along the Maasam River include the Bayugan Eco-Park featuring native trees and fish-rearing ponds. The city market offers fresh produce, local delicacies, and indigenous handicrafts from communities across the province. Several American-era heritage structures are scattered through the older neighbourhoods.</p>
+          <div class="psc-tags">
+            <span class="psc-tag">City</span>
+            <span class="psc-tag">Eco-Park</span>
+            <span class="psc-tag">Market</span>
+            <span class="psc-tag">Crafts</span>
+          </div>
+          <div class="psc-info">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bayugan City, Agusan del Sur
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     INTERACTIVE MAP SECTION
+     Google Maps iframe with tab buttons that swap the map view
+     tabs cover: the whole province, Agusan Marsh, Lake Mainit,
+     Bayugan City, and the provincial capital Prosperidad
+============================================================ -->
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Location</span>
+      <h2>Agusan del Sur on the Map</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- tab buttons — each one calls switchProvMap() to change the iframe src -->
+    <div class="map-tabs fade-up">
+      <button class="map-tab active" onclick="switchProvMap('as-main',this)">Province View</button>
+      <button class="map-tab"        onclick="switchProvMap('agusan-marsh',this)">Agusan Marsh</button>
+      <button class="map-tab"        onclick="switchProvMap('lake-mainit',this)">Lake Mainit</button>
+      <button class="map-tab"        onclick="switchProvMap('bayugan',this)">Bayugan City</button>
+      <button class="map-tab"        onclick="switchProvMap('prosperidad',this)">Prosperidad</button>
+    </div>
+
+    <!-- the iframe — default shows the full province, tabs swap the src -->
+    <div class="province-gmap-frame fade-up">
+      <iframe id="provMapFrame"
+        src="https://maps.google.com/maps?q=Agusan+del+Sur+Philippines&output=embed&z=9"
+        width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy"
+        title="Agusan del Sur Map">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW TO GET THERE SECTION
+     four travel tip cards laid out in a responsive auto-fit grid
+     covers: via Butuan, by bus/van, reaching the Agusan Marsh,
+     and important notes for visiting the interior/indigenous sites
+============================================================ -->
+<section style="background:var(--off-white);padding:64px 0;">
+  <div class="container">
+
+    <!-- section heading -->
+    <div class="section-header fade-up">
+      <span class="section-label">Travel Guide</span>
+      <h2>How to Get There</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- responsive grid of travel info cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;" class="fade-up">
+
+      <!-- travel card: via Butuan City — the most common entry route -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Via Butuan City</h3>
+        <p style="font-size:0.84rem;">Fly into Bancasi Airport (BXU) in Butuan City then take a bus or van south along the Agusan valley. Bayugan City is approximately 2 hours from Butuan; Prosperidad is 2.5 hours. This is the most common route.</p>
+      </div>
+
+      <!-- travel card: by bus or van from nearby cities -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">By Bus / Van</h3>
+        <p style="font-size:0.84rem;">Air-conditioned vans and buses run regularly from Butuan City to Bayugan and Prosperidad. From Davao City, buses connect via the CARAGA–Davao highway through Tagum. Davao to Bayugan is approximately 3.5 hours.</p>
+      </div>
+
+      <!-- travel card: specific directions to the Agusan Marsh entrance -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">For the Agusan Marsh</h3>
+        <p style="font-size:0.84rem;">Head to Bunawan municipality, about 3 hours from Butuan. Arranged boat tours depart from there into the marsh. Prior coordination with the Agusan del Sur Tourism Office is strongly recommended to secure guides and entry permits.</p>
+      </div>
+
+      <!-- travel card: important notes — permits, guides, best time to visit -->
+      <div style="background:#fff;border-radius:16px;padding:22px;border:1.5px solid var(--border);">
+        <h3 style="margin-bottom:6px;font-size:1rem;">Important Notes</h3>
+        <p style="font-size:0.84rem;">Many interior sites require advance coordination with local government units. Indigenous community visits require NCIP regional office coordination. Always engage a licensed local guide. Best season is February to May during the dry season.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     four-column footer — same structure as all province pages
+     Agusan del Sur is highlighted green in the provinces list
+     since that's the page currently being viewed
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- brand column -->
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, Region XIII — Land of Promise, northeastern Mindanao, Philippines.</p>
+      </div>
+
+      <!-- provinces list — Agusan del Sur is highlighted in green (current page) -->
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="agusan-norte.html"  class="footer-link">Agusan del Norte</a>
+          <a href="agusan-sur.html"    class="footer-link" style="color:var(--summer-green);">Agusan del Sur</a>
+          <a href="surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <a href="surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="dinagat.html"       class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+
+      <!-- top spots column — province-specific highlights -->
+      <div class="footer-col">
+        <h4>Top Spots</h4>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Agusan Marsh</a>
+          <a href="#" class="footer-link">Lake Mainit</a>
+          <a href="#" class="footer-link">Manobo Villages</a>
+          <a href="#" class="footer-link">Diwata Mountains</a>
+        </div>
+      </div>
+
+      <!-- quick links column -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html"               class="footer-link">Home</a>
+          <a href="../pages/tourist-spots.html" class="footer-link">Tourist Spots</a>
+          <a href="../pages/contact.html"       class="footer-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- copyright bar at the very bottom -->
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2025 Vertex XIII &middot; WEBster ICT Strand Competition.</div>
+      <div class="footer-made-by">Made with <span>&hearts;</span> for Caraga, Region XIII</div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- loading the shared JS file that handles loader, navbar scroll, and fade-in effects -->
+<script src="../js/main.js"></script>
+
+<!-- ============================================================
+     PROVINCE MAP SWITCHER SCRIPT
+     same pattern as the other province pages:
+       provMapUrls — stores all the Google Maps embed URLs keyed by tab ID
+       switchProvMap() — swaps the iframe src and moves the active tab highlight
+============================================================ -->
+<script>
+  // Google Maps embed URLs for each tab button — keyed by short string ID
+  const provMapUrls = {
+    'as-main':      'https://maps.google.com/maps?q=Agusan+del+Sur+Philippines&output=embed&z=9',
+    'agusan-marsh': 'https://maps.google.com/maps?q=Agusan+Marsh+Wildlife+Sanctuary+Philippines&output=embed&z=11',
+    'lake-mainit':  'https://maps.google.com/maps?q=Lake+Mainit+Philippines&output=embed&z=12',
+    'bayugan':      'https://maps.google.com/maps?q=Bayugan+City+Agusan+del+Sur+Philippines&output=embed&z=13',
+    'prosperidad':  'https://maps.google.com/maps?q=Prosperidad+Agusan+del+Sur+Philippines&output=embed&z=13'
+  };
+
+  // fires when a map tab is clicked — updates the iframe and active state
+  function switchProvMap(key, btn) {
+    const f = document.getElementById('provMapFrame');
+    // falls back to the province overview if the key doesn't exist
+    if (f) f.src = provMapUrls[key] || provMapUrls['as-main'];
+    // strip active from every tab, then add it only to the one that was clicked
+    document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+</script>
+
+
+</body>
+</html>

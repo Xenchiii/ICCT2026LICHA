@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — Caraga Region XIII</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Contact page-specific styles ───────────────────────────────────────── */
+
+    /* hero banner */
+    .contact-page-hero {
+      background: linear-gradient(135deg, #003432 0%, var(--deep-cyan) 55%, var(--med-green) 100%);
+      padding: 130px 0 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(150,228,176,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150,228,176,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .contact-page-hero::after {
+      content: 'XIII';
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      font-size: 9rem; font-weight: 800; color: rgba(255,255,255,0.04);
+      line-height: 1; letter-spacing: -4px; user-select: none; pointer-events: none;
+    }
+    .contact-page-hero .container { position: relative; z-index: 2; }
+    .contact-page-hero h1 { color: #fff; margin-bottom: 12px; }
+    .contact-page-hero p  { color: rgba(255,255,255,0.72); max-width: 520px; margin: 0 auto 20px; }
+    .contact-breadcrumb {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 18px;
+    }
+    .contact-breadcrumb a { color: var(--summer-green); transition: opacity 0.2s; }
+    .contact-breadcrumb a:hover { opacity: 0.75; }
+    .contact-breadcrumb span { opacity: 0.4; }
+
+    /* ── Quick-info cards row ── */
+    .contact-info-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 52px;
+    }
+    .cinfo-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 26px 20px; text-align: center; box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+    }
+    .cinfo-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--med-green); }
+    .cinfo-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
+    }
+    .cinfo-icon svg { width: 24px; height: 24px; stroke-width: 1.8; fill: none; }
+    .ci-teal  { background: rgba(0,133,129,0.10); } .ci-teal  svg { stroke: var(--deep-cyan); }
+    .ci-green { background: rgba(76,156,139,0.10); } .ci-green svg { stroke: var(--med-green); }
+    .ci-pink  { background: rgba(228,80,154,0.10); } .ci-pink  svg { stroke: var(--dark-hot-pink); }
+    .ci-mint  { background: rgba(150,228,176,0.18); } .ci-mint  svg { stroke: #2a7a5c; }
+    .cinfo-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--deep-cyan); margin-bottom: 5px;
+    }
+    .cinfo-value { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); line-height: 1.55; }
+    .cinfo-value a { color: var(--deep-cyan); transition: color var(--transition); }
+    .cinfo-value a:hover { color: var(--dark-hot-pink); }
+
+    /* ── Two-column layout ── */
+    .contact-body-grid {
+      display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start;
+    }
+
+    /* ── Contact form card ── */
+    .contact-form-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 42px 38px; box-shadow: var(--shadow-md);
+    }
+    .form-card-head { margin-bottom: 30px; }
+    .form-card-head h2 {
+      font-size: 1.65rem; font-weight: 700; color: var(--text-dark);
+      margin: 10px 0 6px; line-height: 1.25;
+    }
+    .form-card-head p { font-size: 0.88rem; color: var(--text-light); }
+    .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    /* override floating-label style from main css */
+    .contact-form-card .form-group { position: relative; margin-bottom: 18px; }
+    .contact-form-card .form-group label {
+      position: static; display: block; font-size: 0.77rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 6px; padding: 0; background: transparent;
+    }
+    .contact-form-card .form-group label .req { color: var(--dark-hot-pink); margin-left: 2px; }
+    .contact-form-card .form-group input,
+    .contact-form-card .form-group select,
+    .contact-form-card .form-group textarea {
+      width: 100%; padding: 12px 14px; border: 2px solid var(--border);
+      border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 0.88rem;
+      color: var(--text-dark); background: var(--off-white);
+      transition: all var(--transition); outline: none; appearance: none;
+    }
+    .contact-form-card .form-group input:focus,
+    .contact-form-card .form-group select:focus,
+    .contact-form-card .form-group textarea:focus {
+      border-color: var(--med-green); background: #fff; box-shadow: 0 0 0 4px rgba(76,156,139,0.1);
+    }
+    .contact-form-card .form-group textarea { min-height: 130px; resize: vertical; }
+    .contact-form-card .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23688a88' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; background-size: 15px; cursor: pointer;
+    }
+
+    /* topic chips */
+    .topic-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .topic-chip {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--off-white); border: 2px solid var(--border); border-radius: 8px;
+      padding: 8px 13px; font-size: 0.78rem; font-weight: 600; color: var(--text-mid);
+      cursor: pointer; user-select: none; transition: all var(--transition);
+    }
+    .topic-chip:hover { border-color: var(--med-green); color: var(--deep-cyan); }
+    .topic-chip.selected { border-color: var(--deep-cyan); background: rgba(0,133,129,0.07); color: var(--deep-cyan); }
+    .chip-check {
+      width: 15px; height: 15px; border-radius: 4px; border: 2px solid currentColor;
+      position: relative; flex-shrink: 0; transition: all var(--transition);
+    }
+    .topic-chip.selected .chip-check { background: var(--deep-cyan); border-color: var(--deep-cyan); }
+    .topic-chip.selected .chip-check::after {
+      content: ''; position: absolute; inset: 1px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolyline points='1.5,5 4,7.5 8.5,2.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    /* submit button */
+    .btn-contact-submit {
+      width: 100%; padding: 15px 28px; border: none; border-radius: var(--radius-sm);
+      font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 700; color: #fff;
+      cursor: pointer; margin-top: 6px;
+      background: linear-gradient(135deg, var(--deep-cyan), var(--med-green));
+      box-shadow: 0 6px 22px rgba(0,133,129,0.32);
+      transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-contact-submit svg {
+      width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .btn-contact-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,133,129,0.38); filter: brightness(1.06); }
+    .btn-contact-submit:active { transform: translateY(0); }
+
+    /* success message */
+    .form-success-msg {
+      display: none; background: rgba(76,156,139,0.08); border: 1.5px solid rgba(76,156,139,0.35);
+      border-radius: var(--radius-md); padding: 22px 20px; text-align: center; margin-top: 18px;
+    }
+    .form-success-msg.show { display: block; }
+    .form-success-msg .success-icon { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+    .form-success-msg h4 { color: var(--med-green); font-size: 1rem; font-weight: 700; }
+    .form-success-msg p  { font-size: 0.84rem; color: var(--text-light); margin-top: 4px; }
+
+    /* ── Sidebar ── */
+    .contact-sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .sidebar-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .sc-header {
+      padding: 18px 20px 14px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sc-header-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,133,129,0.09);
+    }
+    .sc-header-icon svg { width: 16px; height: 16px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; }
+    .sc-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); }
+    .sc-body { padding: 16px 20px; }
+
+    .office-row { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--off-white); }
+    .office-row:last-child { border-bottom: none; }
+    .office-row-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(0,133,129,0.07); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .office-row-icon svg { width: 14px; height: 14px; stroke: var(--deep-cyan); fill: none; stroke-width: 2; }
+    .office-row-lbl { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 2px; }
+    .office-row-val { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); line-height: 1.5; }
+    .office-row-val a { color: var(--deep-cyan); }
+
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid var(--off-white); font-size: 0.83rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day  { color: var(--text-light); font-weight: 500; }
+    .hours-time { color: var(--text-dark); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .badge-open   { background: rgba(76,156,139,0.12); color: #2a7a5c; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+    .badge-closed { background: rgba(228,80,154,0.1); color: var(--dark-hot-pink); font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+
+    .social-contact-links { display: flex; flex-direction: column; gap: 9px; }
+    .scl-item {
+      display: flex; align-items: center; gap: 11px; padding: 10px 12px;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+      transition: all var(--transition); cursor: pointer; text-decoration: none;
+    }
+    .scl-item:hover { border-color: var(--med-green); background: rgba(0,133,129,0.03); }
+    .scl-icon {
+      width: 32px; height: 32px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .scl-icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .si-fb { background: #1877f2; color: #fff; }
+    .si-ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+    .si-yt { background: #ff0000; color: #fff; }
+    .scl-name   { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); line-height: 1; }
+    .scl-handle { font-size: 0.72rem; color: var(--text-light); margin-top: 1px; }
+
+    .sc-map iframe { display: block; width: 100%; height: 190px; border: 0; }
+
+    /* ── FAQ ── */
+    .faq-section { background: #fff; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .faq-item {
+      background: var(--off-white); border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--transition);
+    }
+    .faq-item:hover { border-color: var(--med-green); }
+    .faq-item.open  { border-color: var(--deep-cyan); }
+    .faq-q {
+      padding: 16px 20px; font-size: 0.88rem; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; user-select: none;
+    }
+    .faq-q svg {
+      width: 15px; height: 15px; stroke: var(--text-light); fill: none; stroke-width: 2.5;
+      flex-shrink: 0; transition: transform 0.3s ease, stroke 0.3s ease;
+    }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); stroke: var(--deep-cyan); }
+    .faq-item.open .faq-q     { color: var(--deep-cyan); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+      font-size: 0.84rem; color: var(--text-light); line-height: 1.75; padding: 0 20px;
+    }
+    .faq-item.open .faq-a { max-height: 220px; padding-bottom: 16px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .contact-info-strip  { grid-template-columns: repeat(2, 1fr); }
+      .contact-body-grid   { grid-template-columns: 1fr; }
+      .contact-sidebar     { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    }
+    @media (max-width: 768px) {
+      .contact-info-strip  { grid-template-columns: 1fr 1fr; }
+      .faq-grid            { grid-template-columns: 1fr; }
+      .form-two-col        { grid-template-columns: 1fr; }
+      .contact-form-card   { padding: 28px 22px; }
+      .contact-sidebar     { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .contact-info-strip  { grid-template-columns: 1fr; }
+      .contact-page-hero   { padding: 110px 0 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">XIII</div>
+  <div class="spinner"></div>
+  <div class="loader-text">CARAGA</div>
+  <div class="loader-sub">REGION XIII · PHILIPPINES</div>
+</div>
+
+<!-- BACK TO TOP -->
+<div id="back-top" title="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+</div>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <div class="nav-logo-box">XIII</div>
+        <div>
+          <div class="nav-brand-title">WEBster · Vertex XIII</div>
+          <div class="nav-brand-sub">Region XIII — Caraga</div>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#home"      class="nav-link">Home</a></li>
+        <li><a href="../index.html#about"     class="nav-link">About</a></li>
+        <li><a href="../index.html#history"   class="nav-link">History</a></li>
+        <li class="nav-dropdown">
+          <a href="../index.html#provinces" class="nav-link dropdown-toggle">
+            Provinces <svg class="chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="../provinces/agusan-norte.html"  class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Norte</a></li>
+            <li><a href="../provinces/agusan-sur.html"    class="dropdown-item"><span class="dropdown-dot"></span>Agusan del Sur</a></li>
+            <li><a href="../provinces/surigao-norte.html" class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Norte</a></li>
+            <li><a href="../provinces/surigao-sur.html"   class="dropdown-item"><span class="dropdown-dot"></span>Surigao del Sur</a></li>
+            <li><a href="../provinces/dinagat.html"       class="dropdown-item"><span class="dropdown-dot"></span>Dinagat Islands</a></li>
+          </ul>
+        </li>
+        <li><a href="tourist-spots.html"          class="nav-link">Tourist Spots</a></li>
+        <li><a href="culture-events.html"         class="nav-link">Culture &amp; Events</a></li>
+        <li><a href="delicacies.html"             class="nav-link">Delicacies</a></li>
+        <li><a href="notable-personalities.html"  class="nav-link">Personalities</a></li>
+        <li><a href="contact.html"                class="nav-link active">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html#home"    class="mobile-link" onclick="closeMenu()">Home</a>
+  <a href="../index.html#about"   class="mobile-link" onclick="closeMenu()">About</a>
+  <a href="../index.html#history" class="mobile-link" onclick="closeMenu()">History</a>
+  <div class="mobile-link mobile-parent" id="mobileProvincesToggle">
+    Provinces <svg class="mobile-chevron" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+  </div>
+  <div class="mobile-submenu" id="mobileSubmenu">
+    <a href="../provinces/agusan-norte.html"  class="mobile-sub-link" onclick="closeMenu()">Agusan del Norte</a>
+    <a href="../provinces/agusan-sur.html"    class="mobile-sub-link" onclick="closeMenu()">Agusan del Sur</a>
+    <a href="../provinces/surigao-norte.html" class="mobile-sub-link" onclick="closeMenu()">Surigao del Norte</a>
+    <a href="../provinces/surigao-sur.html"   class="mobile-sub-link" onclick="closeMenu()">Surigao del Sur</a>
+    <a href="../provinces/dinagat.html"       class="mobile-sub-link" onclick="closeMenu()">Dinagat Islands</a>
+  </div>
+  <a href="tourist-spots.html"          class="mobile-link" onclick="closeMenu()">Tourist Spots</a>
+  <a href="culture-events.html"         class="mobile-link" onclick="closeMenu()">Culture &amp; Events</a>
+  <a href="delicacies.html"             class="mobile-link" onclick="closeMenu()">Delicacies</a>
+  <a href="notable-personalities.html"  class="mobile-link" onclick="closeMenu()">Personalities</a>
+  <a href="contact.html"                class="mobile-link" onclick="closeMenu()">Contact</a>
+</div>
+
+
+<!-- ═══════ HERO ═══════ -->
+<section class="contact-page-hero">
+  <div class="container">
+    <div class="contact-breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>›</span>
+      <span>Contact Us</span>
+    </div>
+    <span class="section-label">Get in Touch</span>
+    <h1>Contact Caraga Region XIII</h1>
+    <p>Have questions about the region, tourist spots, or upcoming events? We'd love to hear from you. Reach out and we'll get back to you as soon as possible.</p>
+  </div>
+</section>
+
+
+<!-- ═══════ MAIN CONTACT SECTION ═══════ -->
+<section id="contact" style="background: var(--off-white);">
+  <div class="container">
+
+    <!-- Info cards -->
+    <div class="contact-info-strip fade-up">
+      <div class="cinfo-card">
+        <div class="cinfo-icon ci-teal">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="cinfo-label">Location</div>
+        <div class="cinfo-value">Butuan City<br>Agusan del Norte, Caraga</div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon ci-green">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.08 1.18 2 2 0 012.07 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div class="cinfo-label">Phone</div>
+        <div class="cinfo-value">
+          <a href="tel:+6385-342-5547">(085) 342-5547</a><br>
+          <a href="tel:+6385-342-5548">(085) 342-5548</a>
+        </div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon ci-pink">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="cinfo-label">Email</div>
+        <div class="cinfo-value">
+          <a href="mailto:info@caraga.gov.ph">info@caraga.gov.ph</a><br>
+          <a href="mailto:tourism@caraga.gov.ph">tourism@caraga.gov.ph</a>
+        </div>
+      </div>
+      <div class="cinfo-card">
+        <div class="cinfo-icon ci-mint">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="cinfo-label">Office Hours</div>
+        <div class="cinfo-value">Mon–Fri: 8:00 AM – 5:00 PM<br>Sat–Sun: Closed</div>
+      </div>
+    </div>
+
+    <!-- Body grid -->
+    <div class="contact-body-grid">
+
+      <!-- FORM -->
+      <div class="contact-form-card fade-up">
+        <div class="form-card-head">
+          <span class="section-label">Send a Message</span>
+          <h2>We'd Love to Hear From You</h2>
+          <p>Fill in the form below and our team will respond within 1–2 business days.</p>
+        </div>
+
+        <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+
+          <div class="form-two-col">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" placeholder="e.g. Maria" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" placeholder="e.g. Santos" required>
+            </div>
+          </div>
+
+          <div class="form-two-col">
+            <div class="form-group">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="you@email.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" placeholder="+63 9XX XXX XXXX">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Your Province / City</label>
+            <select id="province">
+              <option value="" disabled selected>Select your location…</option>
+              <optgroup label="Caraga Region XIII">
+                <option>Agusan del Norte</option>
+                <option>Agusan del Sur</option>
+                <option>Surigao del Norte</option>
+                <option>Surigao del Sur</option>
+                <option>Dinagat Islands</option>
+                <option>Butuan City</option>
+                <option>Surigao City</option>
+              </optgroup>
+              <optgroup label="Outside Caraga">
+                <option>Other Philippine Province</option>
+                <option>International Visitor</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Topic of Inquiry</label>
+            <div class="topic-chips">
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Tourist Spots</span>
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Festivals &amp; Events</span>
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Travel &amp; Transport</span>
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Accommodation</span>
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Local Culture</span>
+              <span class="topic-chip" onclick="this.classList.toggle('selected')"><span class="chip-check"></span> Other</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Subject <span class="req">*</span></label>
+            <input type="text" id="subject" placeholder="Brief subject of your message" required>
+          </div>
+
+          <div class="form-group">
+            <label>Message <span class="req">*</span></label>
+            <textarea id="message" placeholder="Write your message here… be as detailed as you'd like." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-contact-submit">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message
+          </button>
+
+        </form>
+
+        <div class="form-success-msg" id="successMsg">
+          <span class="success-icon">✅</span>
+          <h4>Message Sent Successfully!</h4>
+          <p>Thank you for reaching out. Our team will get back to you within 1–2 business days.</p>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="contact-sidebar">
+
+        <!-- Office Info -->
+        <div class="sidebar-card fade-up">
+          <div class="sc-header">
+            <div class="sc-header-icon"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="13" height="12"/><path d="M9 3h10v18H9"/></svg></div>
+            <h3>Regional Office</h3>
+          </div>
+          <div class="sc-body">
+            <div class="office-row">
+              <div class="office-row-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div>
+                <div class="office-row-lbl">Address</div>
+                <div class="office-row-val">J.C. Aquino Ave, Butuan City<br>Agusan del Norte 8600</div>
+              </div>
+            </div>
+            <div class="office-row">
+              <div class="office-row-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.08 1.18 2 2 0 012.07 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+              <div>
+                <div class="office-row-lbl">Telephone</div>
+                <div class="office-row-val"><a href="tel:+6385-342-5547">(085) 342-5547</a></div>
+              </div>
+            </div>
+            <div class="office-row">
+              <div class="office-row-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div>
+                <div class="office-row-lbl">Email</div>
+                <div class="office-row-val"><a href="mailto:info@caraga.gov.ph">info@caraga.gov.ph</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Office Hours -->
+        <div class="sidebar-card fade-up">
+          <div class="sc-header">
+            <div class="sc-header-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <h3>Office Hours</h3>
+          </div>
+          <div class="sc-body">
+            <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">8:00 AM – 5:00 PM <span class="badge-open">Open</span></span></div>
+            <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">8:00 AM – 5:00 PM <span class="badge-open">Open</span></span></div>
+            <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">8:00 AM – 5:00 PM <span class="badge-open">Open</span></span></div>
+            <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">8:00 AM – 5:00 PM <span class="badge-open">Open</span></span></div>
+            <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">8:00 AM – 5:00 PM <span class="badge-open">Open</span></span></div>
+            <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time"><span class="badge-closed">Closed</span></span></div>
+            <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time"><span class="badge-closed">Closed</span></span></div>
+          </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="sidebar-card fade-up">
+          <div class="sc-header">
+            <div class="sc-header-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+            <h3>Follow Us</h3>
+          </div>
+          <div class="sc-body">
+            <div class="social-contact-links">
+              <a href="#" class="scl-item">
+                <div class="scl-icon si-fb"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="white" stroke="none"/></svg></div>
+                <div><div class="scl-name">Facebook</div><div class="scl-handle">@CaragaRegionXIII</div></div>
+              </a>
+              <a href="#" class="scl-item">
+                <div class="scl-icon si-ig">
+                  <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white" stroke-width="2" fill="none"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="white" stroke-width="2" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="3"/></svg>
+                </div>
+                <div><div class="scl-name">Instagram</div><div class="scl-handle">@visitcaraga</div></div>
+              </a>
+              <a href="#" class="scl-item">
+                <div class="scl-icon si-yt">
+                  <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="white" stroke-width="1.5" fill="none"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/></svg>
+                </div>
+                <div><div class="scl-name">YouTube</div><div class="scl-handle">Caraga Region XIII</div></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Map -->
+        <div class="sidebar-card sc-map fade-up">
+          <div class="sc-header">
+            <div class="sc-header-icon"><svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/></svg></div>
+            <h3>Find Us on the Map</h3>
+          </div>
+          <iframe
+            src="https://maps.google.com/maps?q=Butuan+City+Caraga+Philippines&output=embed&z=13"
+            allowfullscreen="" loading="lazy"
+            title="Butuan City — Caraga Regional Center">
+          </iframe>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">FAQ</span>
+      <h2>Frequently Asked Questions</h2>
+      <div class="divider"></div>
+      <p>Quick answers to the most common questions about visiting and contacting Caraga Region XIII.</p>
+    </div>
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How do I get to Caraga Region XIII?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">Caraga is accessible by air through Bancasi Airport in Butuan City and Surigao Airport — both with regular flights from Manila and Cebu. By sea, ferries from Cebu, Manila, and Davao connect to Surigao City and Butuan ports regularly.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is the best time to visit Caraga?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">The dry season from March to June is the best time for beach and outdoor activities. September is ideal for Siargao's international surfing competition at Cloud 9. The Balanghai Festival in Butuan takes place in August and is a must-see cultural event.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is Siargao easy to visit from Butuan?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">Yes. You can fly directly to Siargao (Sayak Airport) from Manila or Cebu. From Surigao City, there are daily fast craft rides taking around 1–2 hours to reach Dapa port on Siargao. The island has plenty of accommodation for all budgets.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are there entrance fees for the Enchanted River?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">Yes, there is a small entrance fee to visit the Enchanted River in Hinatuan, Surigao del Sur. Fees help fund conservation. Visitors must follow rules such as no swimming outside designated hours and no feeding of fish outside the noon ritual.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Who do I contact for tourism permits or events?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">For tourism-related permits, event coordination, or press inquiries, email tourism@caraga.gov.ph or call (085) 342-5547. The Department of Tourism Caraga office handles official permits and accreditation for events and tour operators.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How long does it take to explore all five provinces?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a">To do all five provinces justice, we recommend at least 10–14 days. Siargao alone easily fills 4–5 days. The Enchanted River, Tinuy-an Falls, and Britania Islands spread across Surigao del Sur deserve 3 days, and Agusan Marsh at least 2 days.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ CTA BANNER ═══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-banner fade-up">
+      <div>
+        <h2>Ready to Discover Caraga?</h2>
+        <p>Explore the region's natural wonders, rich history, and vibrant festivals. Your adventure in Region XIII begins here.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tourist-spots.html" class="btn btn-cta">
+          <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          Explore Destinations
+        </a>
+        <a href="../index.html#provinces" class="btn btn-outline" style="color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.4);">
+          View Provinces
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo">XIII</div>
+          <div>
+            <div class="footer-brand-name">Vertex XIII</div>
+            <div class="footer-brand-sub">WEBster ICT Strand</div>
+          </div>
+        </div>
+        <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines. From the surf-kissed shores of Siargao to the mystical Enchanted River — the Land of Promise.</p>
+        <div class="footer-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="../index.html#home"       class="footer-link">Home</a>
+          <a href="../index.html#about"      class="footer-link">About Caraga</a>
+          <a href="../index.html#history"    class="footer-link">History</a>
+          <a href="../index.html#provinces"  class="footer-link">Provinces</a>
+          <a href="tourist-spots.html"       class="footer-link">Tourist Spots</a>
+          <a href="culture-events.html"      class="footer-link">Culture &amp; Events</a>
+          <a href="delicacies.html"          class="footer-link">Delicacies</a>
+          <a href="notable-personalities.html" class="footer-link">Personalities</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Provinces</h4>
+        <div class="footer-links">
+          <a href="../provinces/agusan-norte.html"  class="footer-link">Agusan del Norte</a>
+          <a href="../provinces/agusan-sur.html"    class="footer-link">Agusan del Sur</a>
+          <a href="../provinces/surigao-norte.html" class="footer-link">Surigao del Norte</a>
+          <a href="../provinces/surigao-sur.html"   class="footer-link">Surigao del Sur</a>
+          <a href="../provinces/dinagat.html"       class="footer-link">Dinagat Islands</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>The Team</h4>
+        <div class="footer-team">
+          <div class="team-member"><div class="team-avatar">LR</div><span class="team-name">Laurence</span></div>
+          <div class="team-member"><div class="team-avatar">AN</div><span class="team-name">Andrea</span></div>
+          <div class="team-member"><div class="team-avatar">JN</div><span class="team-name">Jonas</span></div>
+          <div class="team-member"><div class="team-avatar">ZA</div><span class="team-name">Zareena</span></div>
+          <div class="team-member"><div class="team-avatar">KZ</div><span class="team-name">Kriziel</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
+      <div class="footer-made-by">Made with <span>♥</span> for Caraga, Region XIII</div>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy</a>
+        <a href="#" class="footer-bottom-link">Terms</a>
+        <a href="contact.html" class="footer-bottom-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="../js/main.js"></script>
+<script>
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    const item   = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  /* Form submit handler */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const fields = ['firstName','lastName','email','subject','message'];
+    let valid = true;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        valid = false;
+        el.style.borderColor = 'var(--dark-hot-pink)';
+        el.style.boxShadow   = '0 0 0 4px rgba(228,80,154,0.12)';
+        setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 1800);
+      }
+    });
+    if (!valid) return;
+
+    const btn = document.querySelector('.btn-contact-submit');
+    btn.innerHTML = 'Sending…';
+    btn.style.opacity = '0.7';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    }, 900);
+  }
+
+  /* Fade-up on scroll */
+  document.addEventListener('DOMContentLoaded', () => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  });
+</script>
+
+</body>
+</html>

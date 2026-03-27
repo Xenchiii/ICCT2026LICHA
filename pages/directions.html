@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Navigator — Caraga Region XIII</title>
+  <script>(function(){var t=localStorage.getItem('caraga-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-cyan:    #008581;
+      --med-green:    #4C9C8B;
+      --summer-green: #96E4B0;
+      --dark-hot-pink:#E4509A;
+      --bg-main:      #F6FFFE;
+      --bg-card:      #ffffff;
+      --text-dark:    #162928;
+      --text-mid:     #3a5654;
+      --text-light:   #688a88;
+      --border:       #cde8e6;
+      --shadow-sm:    0 2px 14px rgba(0,133,129,0.07);
+      --shadow-md:    0 8px 32px rgba(0,133,129,0.13);
+      --shadow-lg:    0 20px 60px rgba(0,133,129,0.17);
+      --radius-sm:    6px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      --transition:   0.3s ease;
+      --topbar-h:     58px;
+      --panel-w:      375px;
+    }
+    [data-theme="dark"] {
+      --bg-main:    #0e1c1b; --bg-card:    #162928;
+      --text-dark:  #e2f0ee; --text-mid:   #9dc4c0;
+      --text-light: #6da09b; --border:     #1e3a38;
+      --shadow-sm:  0 2px 14px rgba(0,0,0,.35);
+      --shadow-md:  0 8px 32px rgba(0,0,0,.45);
+      --shadow-lg:  0 20px 60px rgba(0,0,0,.55);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-main); color: var(--text-dark);
+      height: 100%; width: 100%; overflow: hidden;
+      transition: background .4s ease, color .4s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ════ TOPBAR ════ */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--topbar-h); z-index: 1100;
+      background: rgba(0,133,129,0.97); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center;
+      justify-content: space-between; padding: 0 16px;
+      box-shadow: 0 4px 20px rgba(0,133,129,0.2);
+    }
+    [data-theme="dark"] .topbar { background: rgba(14,28,27,0.97); }
+    .tb-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .tb-logo {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: rgba(255,255,255,0.14);
+      border: 1.5px solid rgba(150,228,176,0.45);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.72rem; color: #fff;
+    }
+    .tb-title { font-size: 0.88rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .tb-sub   { font-size: 0.6rem; color: var(--summer-green); font-weight: 500; }
+    .tb-right { display: flex; align-items: center; gap: 8px; }
+    .offline-pill {
+      display: none; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 0.62rem; font-weight: 700; color: #fff;
+      background: rgba(228,80,154,0.22); border: 1px solid rgba(228,80,154,0.4);
+    }
+    .offline-pill.show { display: flex; }
+    .off-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dark-hot-pink); flex-shrink: 0; }
+    .tb-back {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.13);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      color: #fff; font-size: 0.75rem; font-weight: 600;
+      text-decoration: none; transition: all var(--transition); white-space: nowrap;
+    }
+    .tb-back:hover { background: rgba(255,255,255,0.22); }
+    .tb-back svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ════ LAYOUT ════ */
+    .app-body {
+      position: fixed; top: var(--topbar-h); left: 0; right: 0; bottom: 0;
+      display: flex;
+    }
+    .nav-panel {
+      width: var(--panel-w); flex-shrink: 0;
+      background: var(--bg-card); border-right: 1.5px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+      transition: background .4s ease; z-index: 10;
+    }
+    .panel-head {
+      padding: 15px 18px 13px;
+      background: linear-gradient(135deg, var(--deep-cyan) 0%, var(--med-green) 100%);
+      flex-shrink: 0;
+    }
+    .ph-row { display: flex; align-items: center; gap: 9px; margin-bottom: 2px; }
+    .panel-head h1 { font-size: 0.95rem; font-weight: 800; color: #fff; }
+    .panel-head p  { font-size: 0.67rem; color: rgba(255,255,255,0.72); }
+    /* CSS Compass */
+    .css-compass { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.55); position: relative; flex-shrink: 0; }
+    .css-compass::before { content:''; position:absolute; top:3px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-bottom:9px solid #fff; }
+    .css-compass::after  { content:''; position:absolute; bottom:3px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:9px solid rgba(255,255,255,0.35); }
+
+    /* OFFLINE NOTICE BANNER */
+    .offline-notice {
+      display: none; background: rgba(0,133,129,0.08);
+      border-bottom: 1.5px solid var(--border);
+      padding: 9px 16px; flex-shrink: 0;
+      align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--deep-cyan); font-weight: 600;
+    }
+    .offline-notice.show { display: flex; }
+    [data-theme="dark"] .offline-notice { background: rgba(0,133,129,0.14); }
+    /* CSS checkmark */
+    .css-check { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--deep-cyan); position: relative; flex-shrink: 0; }
+    .css-check::before { content:''; position:absolute; top:3px; left:4px; width:5px; height:7px; border-right:2px solid var(--deep-cyan); border-bottom:2px solid var(--deep-cyan); transform:rotate(40deg); }
+
+    .panel-body { flex: 1; overflow-y: auto; padding: 15px 15px 24px; }
+    .panel-body::-webkit-scrollbar { width: 4px; }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .map-wrap { flex: 1; position: relative; }
+    #map { width: 100%; height: 100%; }
+
+    /* ════ FORM ════ */
+    .route-form { display: flex; flex-direction: column; gap: 11px; margin-bottom: 14px; }
+    .input-row { display: flex; align-items: flex-end; gap: 9px; }
+    .css-pin { width: 18px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 9px; }
+    .css-pin-head { width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid var(--deep-cyan); position: relative; }
+    .css-pin-head::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:5px; height:5px; border-radius:50%; background:var(--deep-cyan); }
+    .css-pin-head.dest { background:var(--dark-hot-pink); border-color:var(--dark-hot-pink); }
+    .css-pin-head.dest::after { display:none; }
+    .css-pin-tail { width:2px; height:7px; background:var(--deep-cyan); border-radius:1px; }
+    .css-pin-tail.dest { background:var(--dark-hot-pink); }
+    .input-wrap { flex: 1; position: relative; }
+    .inp-label { display:block; font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--deep-cyan); margin-bottom:4px; }
+    .loc-select {
+      width:100%; padding:9px 28px 9px 10px;
+      border:1.5px solid var(--border); border-radius:var(--radius-sm);
+      background:var(--bg-main); color:var(--text-dark);
+      font-family:'Poppins',sans-serif; font-size:0.8rem;
+      cursor:pointer; appearance:none; outline:none;
+      transition:border-color var(--transition), box-shadow var(--transition);
+    }
+    .loc-select:focus { border-color:var(--deep-cyan); box-shadow:0 0 0 3px rgba(0,133,129,0.12); }
+    [data-theme="dark"] .loc-select { background:#0e1c1b; color:#e2f0ee; border-color:#1e3a38; }
+    .css-chev { position:absolute; right:8px; bottom:11px; width:10px; height:6px; pointer-events:none; }
+    .css-chev::before, .css-chev::after { content:''; position:absolute; height:2px; width:7px; border-radius:1px; background:var(--text-light); bottom:0; }
+    .css-chev::before { left:0; transform:rotate(40deg); transform-origin:left bottom; }
+    .css-chev::after  { right:0; transform:rotate(-40deg); transform-origin:right bottom; }
+    .swap-row { display:flex; align-items:center; gap:9px; padding:0 2px; }
+    .swap-dash { flex:1; height:1px; background:repeating-linear-gradient(90deg,var(--border) 0,var(--border) 4px,transparent 4px,transparent 9px); }
+    .swap-btn {
+      display:flex; align-items:center; gap:5px;
+      padding:5px 12px; border-radius:20px;
+      border:1.5px solid var(--border); background:var(--bg-card); color:var(--text-light);
+      font-family:'Poppins',sans-serif; font-size:0.7rem; font-weight:600;
+      cursor:pointer; white-space:nowrap; transition:all var(--transition);
+    }
+    .swap-btn:hover { border-color:var(--deep-cyan); color:var(--deep-cyan); background:rgba(0,133,129,0.05); }
+    [data-theme="dark"] .swap-btn { background:#162928; border-color:#1e3a38; }
+    .css-swap { width:15px; height:13px; position:relative; flex-shrink:0; }
+    .css-swap::before { content:''; position:absolute; top:1px; left:0; right:5px; border-top:1.8px solid currentColor; }
+    .css-swap::after  { content:''; position:absolute; bottom:1px; left:5px; right:0; border-top:1.8px solid currentColor; }
+    .mode-lbl { font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--deep-cyan); margin-bottom:6px; }
+    .travel-modes { display:flex; gap:7px; }
+    .mode-btn {
+      flex:1; padding:8px 4px;
+      border:1.5px solid var(--border); border-radius:var(--radius-sm);
+      background:var(--bg-main); color:var(--text-light);
+      cursor:pointer; font-family:'Poppins',sans-serif;
+      font-size:0.68rem; font-weight:600;
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      transition:all var(--transition);
+    }
+    .mode-btn.active { border-color:var(--deep-cyan); background:rgba(0,133,129,0.08); color:var(--deep-cyan); }
+    .mode-btn:hover:not(.active) { border-color:var(--med-green); color:var(--med-green); }
+    [data-theme="dark"] .mode-btn { background:#0e1c1b; border-color:#1e3a38; color:#6da09b; }
+    [data-theme="dark"] .mode-btn.active { background:rgba(0,133,129,0.15); }
+    .css-ico { width:20px; height:14px; position:relative; flex-shrink:0; }
+    .css-car::before { content:''; position:absolute; bottom:0; left:0; right:0; height:8px; border:2px solid currentColor; border-radius:2px; }
+    .css-car::after  { content:''; position:absolute; bottom:7px; left:3px; right:3px; height:6px; border:2px solid currentColor; border-radius:3px 3px 0 0; border-bottom:none; }
+    .css-bike::before { content:''; position:absolute; left:0; top:2px; width:9px; height:9px; border-radius:50%; border:2px solid currentColor; }
+    .css-bike::after  { content:''; position:absolute; right:0; top:2px; width:9px; height:9px; border-radius:50%; border:2px solid currentColor; }
+    .css-walk::before { content:''; position:absolute; top:0; left:8px; width:5px; height:5px; border-radius:50%; border:2px solid currentColor; }
+    .css-walk::after  { content:''; position:absolute; top:6px; left:4px; right:4px; bottom:0; border:2px solid currentColor; border-radius:2px; }
+    .go-btn {
+      padding:11px; border-radius:var(--radius-sm);
+      background:linear-gradient(135deg,var(--deep-cyan),var(--med-green));
+      color:#fff; border:none; cursor:pointer;
+      font-family:'Poppins',sans-serif; font-size:0.86rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:all var(--transition);
+    }
+    .go-btn:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); filter:brightness(1.07); }
+    .css-play { width:12px; height:13px; clip-path:polygon(12% 0%,100% 50%,12% 100%); background:#fff; flex-shrink:0; }
+    .status-msg { display:none; padding:8px 12px; border-radius:var(--radius-sm); font-size:0.75rem; font-weight:600; line-height:1.5; }
+    .status-msg.show { display:block; }
+    .status-msg.err  { background:rgba(228,80,154,0.07); color:var(--dark-hot-pink); border:1px solid rgba(228,80,154,0.2); }
+    .status-msg.info { background:rgba(0,133,129,0.07); color:var(--deep-cyan); border:1px solid rgba(0,133,129,0.18); }
+    [data-theme="dark"] .status-msg.err  { background:rgba(228,80,154,0.12); }
+    [data-theme="dark"] .status-msg.info { background:rgba(0,133,129,0.14); }
+
+    /* Route summary */
+    .route-bar { display:none; border-radius:var(--radius-md); background:linear-gradient(135deg,var(--deep-cyan),var(--med-green)); padding:13px 14px; margin-bottom:12px; color:#fff; }
+    .route-bar.show { display:flex; align-items:center; }
+    .ri-stat { flex:1; text-align:center; }
+    .ri-val  { font-size:1.1rem; font-weight:800; line-height:1; }
+    .ri-lbl  { font-size:0.58rem; opacity:.78; text-transform:uppercase; letter-spacing:.8px; margin-top:2px; }
+    .ri-sep  { width:1px; height:30px; background:rgba(255,255,255,0.25); }
+
+    /* Mode note */
+    .mode-note {
+      display:none; margin-bottom:10px;
+      padding:7px 11px; border-radius:var(--radius-sm);
+      background:rgba(228,80,154,0.07); border:1px solid rgba(228,80,154,0.2);
+      font-size:0.7rem; color:var(--dark-hot-pink); font-weight:600;
+    }
+    .mode-note.show { display:block; }
+
+    /* Steps */
+    .steps-head { display:none; font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-light); margin-bottom:8px; }
+    .steps-head.show { display:block; }
+    .steps-list { display:flex; flex-direction:column; gap:5px; }
+    .step-item { display:flex; align-items:flex-start; gap:9px; padding:8px 11px; border-radius:var(--radius-sm); background:var(--bg-main); border:1.5px solid var(--border); animation:stepIn .25s ease both; }
+    [data-theme="dark"] .step-item { background:#0e1c1b; }
+    @keyframes stepIn { from{opacity:0;transform:translateX(-7px)} to{opacity:1;transform:translateX(0)} }
+    .step-num { width:19px; height:19px; border-radius:50%; flex-shrink:0; margin-top:1px; background:var(--deep-cyan); color:#fff; font-size:0.6rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .step-num.dest { background:var(--dark-hot-pink); }
+    .step-text { font-size:0.76rem; line-height:1.5; color:var(--text-dark); }
+    .step-dist { font-size:0.67rem; color:var(--text-light); margin-top:1px; }
+    .p-divider { height:4px; margin:14px 0 11px; background:linear-gradient(90deg,var(--deep-cyan),var(--summer-green)); border-radius:2px; opacity:.28; }
+    .lm-lbl { font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-light); margin-bottom:8px; }
+    .lm-chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .lm-chip { padding:4px 10px; border-radius:20px; background:rgba(0,133,129,0.07); color:var(--deep-cyan); font-size:0.7rem; font-weight:600; cursor:pointer; border:1.5px solid rgba(0,133,129,0.16); transition:all var(--transition); display:flex; align-items:center; gap:4px; }
+    .lm-chip:hover { background:var(--deep-cyan); color:#fff; border-color:var(--deep-cyan); }
+    [data-theme="dark"] .lm-chip { background:rgba(0,133,129,0.12); border-color:rgba(0,133,129,0.22); }
+    .lm-dot { width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.5; flex-shrink:0; }
+    .empty-state { display:flex; flex-direction:column; align-items:center; text-align:center; padding:22px 10px; gap:10px; }
+    .empty-ring { width:50px; height:50px; border-radius:50%; border:2px solid var(--border); position:relative; display:flex; align-items:center; justify-content:center; }
+    .empty-ring::before { content:''; position:absolute; top:5px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:11px solid var(--deep-cyan); }
+    .empty-ring::after  { content:''; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:11px solid var(--dark-hot-pink); }
+    .empty-ring-c { width:9px; height:9px; border-radius:50%; background:var(--bg-main); border:2px solid var(--border); position:relative; z-index:1; }
+    .empty-title { font-size:0.86rem; font-weight:700; color:var(--text-dark); }
+    .empty-sub   { font-size:0.74rem; color:var(--text-light); line-height:1.6; max-width:200px; }
+
+    /* Map overlays */
+    .map-badge { position:absolute; top:12px; right:12px; z-index:500; background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius-md); padding:9px 13px; box-shadow:var(--shadow-sm); display:flex; align-items:center; gap:7px; font-size:0.76rem; font-weight:600; color:var(--text-dark); }
+    [data-theme="dark"] .map-badge { background:#162928; border-color:#1e3a38; color:#e2f0ee; }
+    .map-badge-acc { color:var(--deep-cyan); font-weight:800; }
+    .mb-dot { width:8px; height:8px; border-radius:50%; background:linear-gradient(135deg,var(--deep-cyan),var(--med-green)); flex-shrink:0; }
+    .zoom-hint { position:absolute; bottom:12px; right:12px; z-index:500; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:6px 11px; font-size:0.66rem; color:var(--text-light); box-shadow:var(--shadow-sm); display:flex; align-items:center; gap:6px; }
+    [data-theme="dark"] .zoom-hint { background:#162928; border-color:#1e3a38; }
+    .css-mouse { width:11px; height:17px; border-radius:6px; border:1.5px solid var(--text-light); position:relative; flex-shrink:0; }
+    .css-mouse::before { content:''; position:absolute; top:2px; left:50%; transform:translateX(-50%); width:2px; height:4px; border-radius:1px; background:var(--text-light); animation:mscroll 1.8s ease infinite; }
+    @keyframes mscroll { 0%,100%{opacity:1;transform:translateX(-50%) translateY(0)} 70%{opacity:0;transform:translateX(-50%) translateY(4px)} }
+
+    /* ════ MOBILE BOTTOM SHEET ════ */
+    @media (max-width: 768px) {
+      html, body { overflow: hidden; }
+      .app-body { flex-direction: column; }
+      .map-wrap { position:absolute; top:0; left:0; right:0; bottom:0; z-index:1; }
+      .nav-panel {
+        position:absolute; bottom:0; left:0; right:0; width:100%;
+        height:auto; max-height:82vh;
+        border-right:none; border-top:1.5px solid var(--border);
+        border-radius:20px 20px 0 0; z-index:100;
+        transform:translateY(calc(100% - 68px));
+        transition:transform .38s cubic-bezier(0.32,0.72,0,1);
+        box-shadow:0 -8px 40px rgba(0,0,0,0.15);
+      }
+      .nav-panel.open { transform:translateY(0); }
+      .sheet-handle { display:flex; }
+      .panel-head { border-radius:0; }
+      .panel-body { max-height:calc(82vh - 125px); overflow-y:auto; }
+      .map-badge { top:8px; right:8px; padding:7px 10px; font-size:0.7rem; }
+      .zoom-hint { display:none; }
+      .lm-chips { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; }
+      .lm-chips::-webkit-scrollbar { display:none; }
+      .lm-chip { white-space:nowrap; flex-shrink:0; }
+      .offline-notice { display:none !important; } /* shown only in panel body on mobile */
+    }
+    .sheet-handle { display:none; flex-direction:column; align-items:center; padding:10px 0 0; cursor:pointer; flex-shrink:0; background:var(--bg-card); border-radius:20px 20px 0 0; }
+    .handle-bar { width:40px; height:4px; border-radius:2px; background:var(--border); margin-bottom:8px; }
+    .sheet-peek { display:flex; align-items:center; justify-content:space-between; padding:0 18px 12px; width:100%; }
+    .peek-title { font-size:0.82rem; font-weight:700; color:var(--text-dark); }
+    .peek-hint  { font-size:0.67rem; color:var(--text-light); }
+    .css-sheet-arrow { width:20px; height:12px; position:relative; flex-shrink:0; transition:transform .3s; }
+    .css-sheet-arrow::before,.css-sheet-arrow::after { content:''; position:absolute; height:2.5px; width:11px; border-radius:1px; background:var(--text-light); bottom:2px; }
+    .css-sheet-arrow::before { left:0; transform:rotate(-40deg); transform-origin:left bottom; }
+    .css-sheet-arrow::after  { right:0; transform:rotate(40deg); transform-origin:right bottom; }
+    .nav-panel.open .css-sheet-arrow { transform:rotate(180deg); }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="tb-brand">
+    <div class="tb-logo">XIII</div>
+    <div><div class="tb-title">Caraga Navigator</div><div class="tb-sub">Region XIII · Philippines</div></div>
+  </a>
+  <div class="tb-right">
+    <div class="offline-pill" id="offlinePill"><div class="off-dot"></div>Offline Mode</div>
+    <a href="../index.html" class="tb-back"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>Back</a>
+  </div>
+</div>
+
+<div class="app-body">
+
+  <!-- ── PANEL ── -->
+  <div class="nav-panel" id="navPanel">
+
+    <div class="sheet-handle" id="sheetHandle">
+      <div class="handle-bar"></div>
+      <div class="sheet-peek">
+        <div><div class="peek-title">Get Directions</div><div class="peek-hint">Tap to open navigator</div></div>
+        <div class="css-sheet-arrow"></div>
+      </div>
+    </div>
+
+    <div class="panel-head">
+      <div class="ph-row"><div class="css-compass"></div><h1>Get Directions</h1></div>
+      <p>100% offline — no internet needed for navigation</p>
+    </div>
+
+    <!-- Offline ready notice -->
+    <div class="offline-notice" id="offlineNotice">
+      <div class="css-check"></div>
+      All routes pre-loaded — works without internet
+    </div>
+
+    <div class="panel-body">
+
+      <div class="route-form">
+
+        <div class="input-row">
+          <div class="css-pin"><div class="css-pin-head"></div><div class="css-pin-tail"></div></div>
+          <div class="input-wrap">
+            <label class="inp-label" for="fromSel">Starting Point</label>
+            <select class="loc-select" id="fromSel"><option value="">— Choose starting point —</option></select>
+            <div class="css-chev"></div>
+          </div>
+        </div>
+
+        <div class="swap-row">
+          <div class="swap-dash"></div>
+          <button class="swap-btn" onclick="swapLocs()"><div class="css-swap"></div>Swap</button>
+          <div class="swap-dash"></div>
+        </div>
+
+        <div class="input-row">
+          <div class="css-pin"><div class="css-pin-head dest"></div><div class="css-pin-tail dest"></div></div>
+          <div class="input-wrap">
+            <label class="inp-label" for="toSel">Destination</label>
+            <select class="loc-select" id="toSel"><option value="">— Choose destination —</option></select>
+            <div class="css-chev"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="mode-lbl">Travel Mode</div>
+          <div class="travel-modes">
+            <button class="mode-btn active" onclick="setMode('driving',this)"><div class="css-ico css-car"></div>Drive</button>
+            <button class="mode-btn" onclick="setMode('cycling',this)"><div class="css-ico css-bike"></div>Bike</button>
+            <button class="mode-btn" onclick="setMode('walking',this)"><div class="css-ico css-walk"></div>Walk</button>
+          </div>
+        </div>
+
+        <div class="status-msg" id="statusMsg"></div>
+        <button class="go-btn" id="goBtn" onclick="getRoute()">
+          <div class="css-play"></div>Get Directions
+        </button>
+
+      </div>
+
+      <div class="mode-note" id="modeNote"></div>
+
+      <div class="route-bar" id="routeBar">
+        <div class="ri-stat"><div class="ri-val" id="riDist">—</div><div class="ri-lbl">Distance</div></div>
+        <div class="ri-sep"></div>
+        <div class="ri-stat"><div class="ri-val" id="riTime">—</div><div class="ri-lbl">Est. Time</div></div>
+        <div class="ri-sep"></div>
+        <div class="ri-stat"><div class="ri-val" id="riType">—</div><div class="ri-lbl">Route Type</div></div>
+      </div>
+
+      <div class="steps-head" id="stepsHead">Step-by-Step Directions</div>
+      <div class="steps-list" id="stepsList">
+        <div class="empty-state">
+          <div class="empty-ring"><div class="empty-ring-c"></div></div>
+          <div class="empty-title">Ready to Navigate</div>
+          <div class="empty-sub">All routes work offline. Choose a start and destination then tap Get Directions.</div>
+        </div>
+      </div>
+
+      <div class="p-divider"></div>
+      <div class="lm-lbl">Quick Destinations</div>
+      <div class="lm-chips" id="lmChips"></div>
+
+    </div>
+  </div>
+
+  <!-- ── MAP ── -->
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-badge" id="mapBadge"><div class="mb-dot"></div>Caraga <span class="map-badge-acc">Region XIII</span></div>
+    <div class="zoom-hint"><div class="css-mouse"></div>Scroll to zoom · Drag to pan</div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════
+   LOCATION DATA
+══════════════════════════════════════════════════════════ */
+const LOCS = {
+  butuan:       { name:'Butuan City (Regional Center)',     lat:8.9468,  lng:125.5431, cat:'Cities & Towns' },
+  surigao_city: { name:'Surigao City',                      lat:9.7833,  lng:125.5000, cat:'Cities & Towns' },
+  cabadbaran:   { name:'Cabadbaran City (Agusan Norte)',     lat:9.1233,  lng:125.5358, cat:'Cities & Towns' },
+  tandag:       { name:'Tandag City (Surigao Sur Capital)',  lat:9.0742,  lng:126.1983, cat:'Cities & Towns' },
+  prosperidad:  { name:'Prosperidad (Agusan Sur Capital)',   lat:8.6005,  lng:125.9148, cat:'Cities & Towns' },
+  bislig:       { name:'Bislig City (Surigao Sur)',          lat:8.2100,  lng:126.3200, cat:'Cities & Towns' },
+  bayugan:      { name:'Bayugan City (Agusan Sur)',          lat:8.9475,  lng:125.7500, cat:'Cities & Towns' },
+  san_jose:     { name:'San Jose (Dinagat Islands Capital)', lat:10.0025, lng:125.5478, cat:'Cities & Towns' },
+  siargao:      { name:'Siargao Island / Cloud 9',           lat:9.8591,  lng:126.0550, cat:'Tourist Spots' },
+  enchanted:    { name:'Enchanted River (Hinatuan)',          lat:8.3825,  lng:126.3125, cat:'Tourist Spots' },
+  tinuyan:      { name:'Tinuy-an Falls (Bislig)',             lat:8.2003,  lng:126.3678, cat:'Tourist Spots' },
+  britania:     { name:'Britania Islands (San Agustin)',      lat:8.1167,  lng:126.3833, cat:'Tourist Spots' },
+  sugba:        { name:'Sugba Lagoon (Siargao)',              lat:9.9500,  lng:125.9667, cat:'Tourist Spots' },
+  magpupungko:  { name:'Magpupungko Rock Pools (Siargao)',    lat:9.9550,  lng:126.1300, cat:'Tourist Spots' },
+  sohoton:      { name:'Sohoton Cove (Dinagat Islands)',      lat:10.2500, lng:125.5500, cat:'Tourist Spots' },
+  mainit:       { name:'Lake Mainit',                         lat:9.4000,  lng:125.5000, cat:'Tourist Spots' },
+  marsh:        { name:'Agusan Marsh Wildlife Sanctuary',     lat:8.6700,  lng:125.8500, cat:'Tourist Spots' },
+  balanghai:    { name:'Balanghai Heritage Museum (Butuan)',  lat:8.9421,  lng:125.5800, cat:'Tourist Spots' },
+  bxu:          { name:'Bancasi Airport (Butuan)',            lat:8.9516,  lng:125.4788, cat:'Airports' },
+  sul:          { name:'Siargao Airport (Del Carmen)',        lat:9.8591,  lng:126.0140, cat:'Airports' },
+  sug:          { name:'Surigao Airport',                     lat:9.7558,  lng:125.4806, cat:'Airports' },
+};
+
+/* ══════════════════════════════════════════════════════════
+   PRE-COMPUTED ROUTE DATABASE
+   All major Caraga routes stored as embedded data.
+   dist = km by road, steps = turn-by-turn directions,
+   type = 'road' | 'road+ferry' | 'road+boat'
+   Time multipliers applied per mode in JS.
+══════════════════════════════════════════════════════════ */
+const ROUTES = {
+
+  /* ── BUTUAN CITY (hub) ─────────────────────── */
+  'butuan|cabadbaran': { dist:48, type:'road', steps:[
+    { t:'Head north on National Highway (Maharlika Highway) from Butuan City', d:'10 km' },
+    { t:'Pass through Buenavista and Las Nieves', d:'20 km' },
+    { t:'Continue north through Magallanes', d:'12 km' },
+    { t:'Arrive in Cabadbaran City center', d:'6 km' },
+  ]},
+  'butuan|surigao_city': { dist:135, type:'road', steps:[
+    { t:'Head north on National Highway from Butuan City', d:'48 km' },
+    { t:'Pass through Cabadbaran City', d:'0 km' },
+    { t:'Continue north toward Placer and Tubod', d:'40 km' },
+    { t:'Pass through Claver and Gigaquit', d:'30 km' },
+    { t:'Arrive at Surigao City proper', d:'17 km' },
+  ]},
+  'butuan|tandag': { dist:185, type:'road', steps:[
+    { t:'Head east on Agusan–Surigao highway from Butuan', d:'30 km' },
+    { t:'Pass through Bayugan City', d:'20 km' },
+    { t:'Continue through Prosperidad (Agusan del Sur capital)', d:'55 km' },
+    { t:'Cross into Surigao del Sur via San Francisco', d:'30 km' },
+    { t:'Pass through Lianga and Marihatag', d:'30 km' },
+    { t:'Arrive at Tandag City', d:'20 km' },
+  ]},
+  'butuan|prosperidad': { dist:86, type:'road', steps:[
+    { t:'Head south/east on Agusan–Surigao road from Butuan', d:'20 km' },
+    { t:'Pass through Bayugan City', d:'30 km' },
+    { t:'Continue southeast toward Rosario and La Paz', d:'20 km' },
+    { t:'Arrive at Prosperidad town center', d:'16 km' },
+  ]},
+  'butuan|bislig': { dist:230, type:'road', steps:[
+    { t:'Head east from Butuan via Bayugan', d:'56 km' },
+    { t:'Continue through Prosperidad to San Francisco', d:'70 km' },
+    { t:'Head south through Lianga', d:'60 km' },
+    { t:'Pass through Marihatag to Bislig', d:'44 km' },
+  ]},
+  'butuan|bayugan': { dist:56, type:'road', steps:[
+    { t:'Head south on National Highway from Butuan City', d:'15 km' },
+    { t:'Pass through Loreto, Agusan del Norte', d:'20 km' },
+    { t:'Enter Agusan del Sur, continue toward Bayugan', d:'21 km' },
+  ]},
+  'butuan|bxu': { dist:5, type:'road', steps:[
+    { t:'Head west from Butuan City center', d:'3 km' },
+    { t:'Turn onto Airport Road toward Bancasi', d:'2 km' },
+  ]},
+  'butuan|balanghai': { dist:5, type:'road', steps:[
+    { t:'Head east from Butuan City center on Montilla Blvd', d:'3 km' },
+    { t:'Turn toward Libertad Barangay — Balanghai site', d:'2 km' },
+  ]},
+  'butuan|marsh': { dist:95, type:'road', steps:[
+    { t:'Head south from Butuan toward Bayugan', d:'56 km' },
+    { t:'Continue past Bayugan toward San Luis, Agusan del Sur', d:'25 km' },
+    { t:'Turn toward Loreto / Agusan Marsh access road', d:'14 km' },
+  ]},
+  'butuan|mainit': { dist:110, type:'road', steps:[
+    { t:'Head north from Butuan on National Highway', d:'50 km' },
+    { t:'Turn at Jabonga or Kitcharao toward Lake Mainit', d:'35 km' },
+    { t:'Follow the lake road to the shoreline', d:'25 km' },
+  ]},
+
+  /* ── SURIGAO CITY ─────────────────────────── */
+  'surigao_city|cabadbaran': { dist:88, type:'road', steps:[
+    { t:'Head south from Surigao City on National Highway', d:'17 km' },
+    { t:'Pass through Gigaquit and Claver', d:'30 km' },
+    { t:'Continue south through Tubod and Placer', d:'25 km' },
+    { t:'Arrive in Cabadbaran City', d:'16 km' },
+  ]},
+  'surigao_city|siargao': { dist:65, type:'road+ferry', steps:[
+    { t:'Head south from Surigao City to Lipata Port', d:'8 km' },
+    { t:'Take the ferry from Lipata to Dapa Port, Siargao (approx. 1.5–2 hrs)', d:'55 km by sea' },
+    { t:'From Dapa Port, head south toward General Luna', d:'18 km' },
+    { t:'Arrive at Cloud 9 surf area', d:'3 km' },
+  ]},
+  'surigao_city|san_jose': { dist:55, type:'road+ferry', steps:[
+    { t:'Head to Surigao City port / pier', d:'3 km' },
+    { t:'Take the fast craft or ferry to San Jose, Dinagat Islands (approx. 45 min–1 hr)', d:'45 km by sea' },
+    { t:'Arrive at San Jose port and town center', d:'2 km' },
+  ]},
+  'surigao_city|sug': { dist:8, type:'road', steps:[
+    { t:'Head northwest from Surigao City center', d:'5 km' },
+    { t:'Turn onto airport access road', d:'3 km' },
+  ]},
+  'surigao_city|mainit': { dist:65, type:'road', steps:[
+    { t:'Head south from Surigao City on National Highway', d:'20 km' },
+    { t:'Turn off at Tubod or Jabonga toward Lake Mainit', d:'25 km' },
+    { t:'Follow lake access road to the shoreline', d:'20 km' },
+  ]},
+  'surigao_city|sohoton': { dist:70, type:'road+boat', steps:[
+    { t:'Head to Surigao City port', d:'3 km' },
+    { t:'Take ferry to San Jose, Dinagat Islands', d:'45 km by sea' },
+    { t:'Hire a boat from San Jose to Sohoton Cove (~1 hr)', d:'20 km by boat' },
+  ]},
+
+  /* ── SIARGAO ISLAND ───────────────────────── */
+  'siargao|sugba': { dist:30, type:'road+boat', steps:[
+    { t:'Head north from General Luna toward Del Carmen', d:'18 km' },
+    { t:'Arrange a boat from Del Carmen to Sugba Lagoon (~25 min)', d:'12 km by boat' },
+  ]},
+  'siargao|magpupungko': { dist:22, type:'road', steps:[
+    { t:'Head north from General Luna (Cloud 9) along the coast', d:'12 km' },
+    { t:'Pass through Pilar municipality', d:'6 km' },
+    { t:'Turn toward Barangay Pacifico — Magpupungko site', d:'4 km' },
+  ]},
+  'siargao|sul': { dist:20, type:'road', steps:[
+    { t:'Head north from General Luna toward Sayak', d:'15 km' },
+    { t:'Turn left toward Sayak Airport (Del Carmen)', d:'5 km' },
+  ]},
+
+  /* ── TANDAG & SURIGAO DEL SUR ─────────────── */
+  'tandag|enchanted': { dist:75, type:'road', steps:[
+    { t:'Head south from Tandag City on National Highway', d:'20 km' },
+    { t:'Pass through Lanuza and Marihatag', d:'25 km' },
+    { t:'Continue south through Lingig', d:'15 km' },
+    { t:'Arrive at Hinatuan — Enchanted River access road', d:'15 km' },
+  ]},
+  'tandag|bislig': { dist:55, type:'road', steps:[
+    { t:'Head north from Tandag City toward Cantilan', d:'20 km' },
+    { t:'Continue north through Carrascal to Cortes', d:'20 km' },
+    { t:'Turn toward Bislig City center', d:'15 km' },
+  ]},
+  'tandag|tinuyan': { dist:60, type:'road', steps:[
+    { t:'Head north from Tandag City toward Bislig', d:'55 km' },
+    { t:'From Bislig, turn inland toward Tinuy-an Falls', d:'5 km' },
+  ]},
+  'tandag|britania': { dist:90, type:'road', steps:[
+    { t:'Head south from Tandag toward Barobo', d:'30 km' },
+    { t:'Continue south through San Miguel and Lianga', d:'30 km' },
+    { t:'Pass through Cortes to San Agustin', d:'20 km' },
+    { t:'Head to Britania beachfront — hire a boat for island hopping', d:'10 km' },
+  ]},
+
+  /* ── BISLIG ───────────────────────────────── */
+  'bislig|tinuyan': { dist:12, type:'road', steps:[
+    { t:'Head west from Bislig City toward Barangay Burason', d:'8 km' },
+    { t:'Turn toward Tinuy-an Falls entrance road', d:'4 km' },
+  ]},
+  'bislig|enchanted': { dist:45, type:'road', steps:[
+    { t:'Head south from Bislig toward Lingig', d:'25 km' },
+    { t:'Continue south to Hinatuan municipality', d:'15 km' },
+    { t:'Turn to Enchanted River access road', d:'5 km' },
+  ]},
+  'bislig|britania': { dist:35, type:'road', steps:[
+    { t:'Head south from Bislig toward Cortes', d:'20 km' },
+    { t:'Continue south to San Agustin', d:'10 km' },
+    { t:'Head to Britania beachfront', d:'5 km' },
+  ]},
+
+  /* ── PROSPERIDAD / AGUSAN DEL SUR ──────────── */
+  'prosperidad|marsh': { dist:40, type:'road', steps:[
+    { t:'Head north from Prosperidad toward San Luis', d:'20 km' },
+    { t:'Continue through Bunawan toward Loreto', d:'15 km' },
+    { t:'Turn to Agusan Marsh Wildlife Sanctuary entrance', d:'5 km' },
+  ]},
+  'prosperidad|bayugan': { dist:30, type:'road', steps:[
+    { t:'Head north from Prosperidad on provincial road', d:'20 km' },
+    { t:'Enter Bayugan City proper', d:'10 km' },
+  ]},
+
+  /* ── CABADBARAN ───────────────────────────── */
+  'cabadbaran|mainit': { dist:55, type:'road', steps:[
+    { t:'Head north from Cabadbaran on National Highway', d:'20 km' },
+    { t:'Turn inland at Jabonga toward Lake Mainit', d:'20 km' },
+    { t:'Follow lake road to the shoreline', d:'15 km' },
+  ]},
+
+  /* ── SAN JOSE DINAGAT ─────────────────────── */
+  'san_jose|sohoton': { dist:35, type:'road+boat', steps:[
+    { t:'Head north from San Jose toward Cagdianao', d:'20 km' },
+    { t:'Hire a boat to Sohoton Cove (~40 min ride)', d:'15 km by boat' },
+  ]},
+
+  /* ── AIRPORTS ─────────────────────────────── */
+  'bxu|butuan':       { dist:5, type:'road', steps:[{ t:'Head east on Airport Road to Butuan City center', d:'5 km' }]},
+  'sul|siargao':      { dist:20, type:'road', steps:[{ t:'Head south from Sayak Airport toward General Luna / Cloud 9', d:'20 km' }]},
+  'sug|surigao_city': { dist:8, type:'road', steps:[{ t:'Head southeast from airport to Surigao City center', d:'8 km' }]},
+
+  /* ── ENCHANTED RIVER ──────────────────────── */
+  'enchanted|britania': { dist:50, type:'road', steps:[
+    { t:'Head north from Hinatuan toward Lingig', d:'15 km' },
+    { t:'Continue north to Cortes and San Agustin', d:'25 km' },
+    { t:'Arrive at Britania beachfront', d:'10 km' },
+  ]},
+};
+
+/* ══════════════════════════════════════════════════════════
+   ROUTE LOOKUP — bidirectional
+══════════════════════════════════════════════════════════ */
+function getRoute(a, b) {
+  const key1 = `${a}|${b}`;
+  const key2 = `${b}|${a}`;
+  if (ROUTES[key1]) return { ...ROUTES[key1], reversed: false };
+  if (ROUTES[key2]) {
+    /* Reverse the steps for opposite direction */
+    const r = ROUTES[key2];
+    return {
+      ...r,
+      reversed: true,
+      steps: [...r.steps].reverse().map((s, i, arr) => {
+        if (i === 0) return { t: s.t.replace(/^Head/, 'Depart'), d: s.d };
+        return s;
+      }),
+    };
+  }
+  return null;
+}
+
+/* Haversine fallback distance */
+function haversine(a, b) {
+  const R = 6371;
+  const dLat = (b.lat - a.lat) * Math.PI / 180;
+  const dLon = (b.lng - a.lng) * Math.PI / 180;
+  const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
+}
+
+/* Time per mode */
+const SPEEDS = { driving: 55, cycling: 15, walking: 4 };
+const FERRY_SPEED = 30; // km/h for sea portions
+
+function estTime(routeData, mode) {
+  const km = routeData.dist;
+  const spd = SPEEDS[mode];
+  let mins = Math.round(km / spd * 60);
+
+  /* Add ferry wait/boarding time */
+  if (routeData.type === 'road+ferry') mins += 40;
+  if (routeData.type === 'road+boat')  mins += 30;
+
+  /* Cycling and walking can't do ferry — note this */
+  return mins;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAP
+══════════════════════════════════════════════════════════ */
+let map, routeLine = null, fMark = null, tMark = null;
+
+function initMap() {
+  map = L.map('map', { center:[9.2,125.9], zoom:8, zoomControl:true });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom:18, crossOrigin:true,
+  }).addTo(map);
+
+  /* Dot markers for all locations */
+  Object.entries(LOCS).forEach(([id, loc]) => {
+    const isTour = loc.cat === 'Tourist Spots';
+    const col = isTour ? '#008581' : loc.cat === 'Cities & Towns' ? '#4C9C8B' : '#96E4B0';
+    L.circleMarker([loc.lat, loc.lng], {
+      radius: isTour ? 6 : 4, fillColor: col, fillOpacity: .85, color: '#fff', weight: 1.5,
+    }).addTo(map).bindPopup(`
+      <div style="font-family:Poppins,sans-serif;min-width:148px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#008581;margin-bottom:2px">${loc.cat}</div>
+        <div style="font-size:13px;font-weight:700;color:#162928;margin-bottom:6px;line-height:1.3">${loc.name}</div>
+        <button onclick="setDest('${id}')"
+          style="padding:5px 12px;background:#008581;color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;font-family:Poppins,sans-serif;width:100%">
+          Navigate Here
+        </button>
+      </div>`);
+  });
+}
+
+function makeIcon(color, lbl) {
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:28px;height:34px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.25))">
+      <div style="width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${color};border:3px solid #fff;display:flex;align-items:center;justify-content:center">
+        <span style="transform:rotate(45deg);color:#fff;font-weight:800;font-size:11px;font-family:Poppins,sans-serif">${lbl}</span>
+      </div></div>`,
+    iconSize:[28,34], iconAnchor:[14,34], popupAnchor:[0,-36],
+  });
+}
+const ICON_A = makeIcon('#008581','A');
+const ICON_B = makeIcon('#E4509A','B');
+
+/* ══════════════════════════════════════════════════════════
+   SELECTS & CHIPS
+══════════════════════════════════════════════════════════ */
+function buildSelects() {
+  const cats = [...new Set(Object.values(LOCS).map(l=>l.cat))];
+  ['fromSel','toSel'].forEach(id => {
+    const s = document.getElementById(id);
+    cats.forEach(cat => {
+      const og = document.createElement('optgroup'); og.label = cat;
+      Object.entries(LOCS).filter(([,l])=>l.cat===cat).forEach(([id,l])=>og.appendChild(new Option(l.name,id)));
+      s.appendChild(og);
+    });
+  });
+}
+
+function buildChips() {
+  const c = document.getElementById('lmChips');
+  Object.entries(LOCS).filter(([,l])=>l.cat==='Tourist Spots').forEach(([id,loc]) => {
+    const btn = document.createElement('button');
+    btn.className = 'lm-chip';
+    btn.innerHTML = `<div class="lm-dot"></div>${loc.name.split('(')[0].trim()}`;
+    btn.onclick = () => {
+      document.getElementById('toSel').value = id;
+      showStatus('Destination: ' + loc.name.split('(')[0].trim(), 'info');
+    };
+    c.appendChild(btn);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONTROLS
+══════════════════════════════════════════════════════════ */
+let currentMode = 'driving';
+function swapLocs() { const f=document.getElementById('fromSel'),t=document.getElementById('toSel'); [f.value,t.value]=[t.value,f.value]; }
+function setMode(m,btn) { currentMode=m; document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+function setDest(id) { document.getElementById('toSel').value=id; showStatus('Destination set from map','info'); if(window.innerWidth<=768) openSheet(); }
+
+/* ══════════════════════════════════════════════════════════
+   MAIN ROUTING FUNCTION — 100% OFFLINE
+══════════════════════════════════════════════════════════ */
+function getRoute_main() {
+  const fId = document.getElementById('fromSel').value;
+  const tId = document.getElementById('toSel').value;
+  if (!fId || !tId)  { showStatus('Please choose both a start and destination.', 'err'); return; }
+  if (fId === tId)   { showStatus('Start and destination cannot be the same.', 'err'); return; }
+  hideStatus(); hideModeNote();
+
+  const fLoc = LOCS[fId], tLoc = LOCS[tId];
+
+  /* Clear old layers */
+  if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
+  if (fMark)     { map.removeLayer(fMark); fMark = null; }
+  if (tMark)     { map.removeLayer(tMark); tMark = null; }
+
+  /* Place A/B markers */
+  fMark = L.marker([fLoc.lat,fLoc.lng],{icon:ICON_A}).addTo(map)
+    .bindPopup(`<span style="font-family:Poppins,sans-serif;font-size:12px"><b>Start:</b> ${fLoc.name}</span>`);
+  tMark = L.marker([tLoc.lat,tLoc.lng],{icon:ICON_B}).addTo(map)
+    .bindPopup(`<span style="font-family:Poppins,sans-serif;font-size:12px"><b>Destination:</b> ${tLoc.name}</span>`);
+
+  /* Look up pre-computed route */
+  const route = getRoute(fId, tId);
+
+  if (route) {
+    renderPrecomputed(route, fLoc, tLoc);
+  } else {
+    /* Not in DB — calculate straight-line estimate */
+    renderFallback(fLoc, tLoc);
+  }
+}
+
+/* Wrap onclick */
+function getRoute() { getRoute_main(); }
+
+function renderPrecomputed(route, fLoc, tLoc) {
+  /* Draw a curved polyline via midpoint */
+  const midLat = (fLoc.lat + tLoc.lat) / 2 + 0.15;
+  const midLng = (fLoc.lng + tLoc.lng) / 2;
+  const pts = generateCurvedLine(
+    [fLoc.lat, fLoc.lng], [midLat, midLng], [tLoc.lat, tLoc.lng]
+  );
+
+  const lineColor = route.type === 'road' ? '#008581' :
+                    route.type === 'road+ferry' ? '#E4509A' : '#4C9C8B';
+
+  routeLine = L.polyline(pts, {
+    color: lineColor, weight: 5, opacity: .88,
+    dashArray: route.type === 'road' ? null : '12,7',
+  }).addTo(map);
+
+  map.fitBounds(routeLine.getBounds(), { padding: [55,55] });
+
+  const mins = estTime(route, currentMode);
+  const durStr = mins >= 60 ? `${Math.floor(mins/60)}h ${mins%60}m` : `${mins}m`;
+  const typeLabel = route.type === 'road' ? 'Road' :
+                    route.type === 'road+ferry' ? 'Road + Ferry' : 'Road + Boat';
+
+  document.getElementById('riDist').textContent  = route.dist + ' km';
+  document.getElementById('riTime').textContent  = durStr;
+  document.getElementById('riType').textContent  = typeLabel;
+  document.getElementById('routeBar').classList.add('show');
+  document.getElementById('stepsHead').classList.add('show');
+
+  /* Ferry/boat mode warning */
+  if (route.type !== 'road' && (currentMode === 'cycling' || currentMode === 'walking')) {
+    showModeNote(`Note: This route includes a sea crossing (ferry/boat). ${currentMode === 'cycling' ? 'Bikes' : 'Walking'} may not be practical for this stretch.`);
+  }
+
+  const list = document.getElementById('stepsList'); list.innerHTML = '';
+  addStep(list, 0, `Depart from ${fLoc.name.split('(')[0].trim()}`, '', false);
+  route.steps.forEach((s, i) => addStep(list, i+1, s.t, s.d, false));
+  addStep(list, route.steps.length+1, `Arrive at ${tLoc.name.split('(')[0].trim()}`, route.dist+' km total', true);
+
+  updateBadge(`${route.dist} km · ${durStr}`);
+}
+
+function renderFallback(fLoc, tLoc) {
+  /* Straight line estimate with 1.35 road factor */
+  const straightKm = haversine(fLoc, tLoc);
+  const roadKm = (straightKm * 1.35).toFixed(1);
+  const mins = Math.round(roadKm / SPEEDS[currentMode] * 60);
+  const durStr = mins >= 60 ? `${Math.floor(mins/60)}h ${mins%60}m` : `${mins}m`;
+
+  routeLine = L.polyline([[fLoc.lat,fLoc.lng],[tLoc.lat,tLoc.lng]], {
+    color: '#008581', weight: 4, opacity: .7, dashArray: '10,7',
+  }).addTo(map);
+  map.fitBounds(routeLine.getBounds(), { padding:[55,55] });
+
+  document.getElementById('riDist').textContent = `~${roadKm} km`;
+  document.getElementById('riTime').textContent = `~${durStr}`;
+  document.getElementById('riType').textContent = 'Estimate';
+  document.getElementById('routeBar').classList.add('show');
+  document.getElementById('stepsHead').classList.add('show');
+
+  const list = document.getElementById('stepsList'); list.innerHTML = '';
+  addStep(list, 0, `Depart from ${fLoc.name.split('(')[0].trim()}`, '', false);
+  addStep(list, 1, `Head toward ${tLoc.name.split('(')[0].trim()} via nearest road connection`, `~${roadKm} km`, false);
+  addStep(list, 2, `Arrive at ${tLoc.name.split('(')[0].trim()}`, `~${roadKm} km total`, true);
+
+  showStatus('No pre-loaded route found for this pair — showing distance estimate.', 'info');
+  updateBadge(`~${roadKm} km · ~${durStr}`);
+}
+
+/* Generate a smooth curved line with interpolated points */
+function generateCurvedLine(p1, mid, p2, steps=60) {
+  const pts = [];
+  for (let i=0; i<=steps; i++) {
+    const t = i/steps;
+    const lat = (1-t)**2*p1[0] + 2*(1-t)*t*mid[0] + t**2*p2[0];
+    const lng = (1-t)**2*p1[1] + 2*(1-t)*t*mid[1] + t**2*p2[1];
+    pts.push([lat, lng]);
+  }
+  return pts;
+}
+
+function addStep(cont, num, text, dist, isLast) {
+  const div = document.createElement('div');
+  div.className = 'step-item'; div.style.animationDelay = `${num*.04}s`;
+  div.innerHTML = `<div class="step-num${isLast?' dest':''}">${num+1}</div>
+    <div><div class="step-text">${text}</div>${dist?`<div class="step-dist">${dist}</div>`:''}</div>`;
+  cont.appendChild(div);
+}
+
+function showStatus(m,t)  { const e=document.getElementById('statusMsg'); e.textContent=m; e.className=`status-msg ${t} show`; }
+function hideStatus()     { document.getElementById('statusMsg').className='status-msg'; }
+function showModeNote(m)  { const e=document.getElementById('modeNote'); e.textContent=m; e.classList.add('show'); }
+function hideModeNote()   { document.getElementById('modeNote').classList.remove('show'); }
+function updateBadge(txt) { document.getElementById('mapBadge').innerHTML=`<div class="mb-dot"></div>${txt} · <span class="map-badge-acc">${currentMode}</span>`; }
+
+/* ══════════════════════════════════════════════════════════
+   OFFLINE DETECTION
+══════════════════════════════════════════════════════════ */
+function checkOnline() {
+  const pill   = document.getElementById('offlinePill');
+  const notice = document.getElementById('offlineNotice');
+  if (!navigator.onLine) {
+    pill.classList.add('show');
+    notice.classList.add('show');
+  } else {
+    pill.classList.remove('show');
+    notice.classList.add('show'); /* always show "all routes pre-loaded" */
+  }
+}
+window.addEventListener('online',  checkOnline);
+window.addEventListener('offline', checkOnline);
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE BOTTOM SHEET
+══════════════════════════════════════════════════════════ */
+let sheetOpen = false, touchY0 = 0;
+
+function openSheet()   { document.getElementById('navPanel').classList.add('open'); sheetOpen=true; setTimeout(()=>map.invalidateSize(),400); }
+function closeSheet()  { document.getElementById('navPanel').classList.remove('open'); sheetOpen=false; }
+function toggleSheet() { sheetOpen ? closeSheet() : openSheet(); }
+
+function initSheet() {
+  const handle = document.getElementById('sheetHandle');
+  const panel  = document.getElementById('navPanel');
+  if (!handle) return;
+  handle.addEventListener('click', toggleSheet);
+  handle.addEventListener('touchstart', e=>{ touchY0=e.touches[0].clientY; panel.style.transition='none'; }, {passive:true});
+  handle.addEventListener('touchmove',  e=>{ const dy=e.touches[0].clientY-touchY0; if(dy>0&&sheetOpen) panel.style.transform=`translateY(${dy}px)`; }, {passive:true});
+  handle.addEventListener('touchend',   e=>{ panel.style.transition=''; panel.style.transform=''; const dy=e.changedTouches[0].clientY-touchY0; if(dy>80)closeSheet(); else if(dy<-30)openSheet(); });
+}
+
+/* ══════════════════════════════════════════════════════════
+   SERVICE WORKER
+══════════════════════════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./js/sw.js', { scope:'../' })
+    .catch(e => console.warn('SW:', e));
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOOT
+══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  initMap();
+  buildSelects();
+  buildChips();
+  initSheet();
+  checkOnline();
+  window.addEventListener('resize', () => map.invalidateSize());
+});
+</script>
+</body>
+</html>

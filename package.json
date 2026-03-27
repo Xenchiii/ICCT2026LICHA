@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "git": "^0.1.5",
+    "wrangler": "^4.77.0"
+  }
+}

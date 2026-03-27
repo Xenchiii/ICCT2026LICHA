@@ -1,0 +1,160 @@
+
+[data-theme="dark"] .province-hero ~ section div[style*="background:#fff"],
+[data-theme="dark"] .province-hero ~ section div[style*="background: #fff"],
+[data-theme="dark"] .province-hero ~ section div[style*="background:white"],
+[data-theme="dark"] .province-hero ~ section div[style*="background: white"] {
+  background: #162928 !important;
+  color: #e2f0ee !important;
+  border-color: #1e3a38 !important;
+}
+
+[data-theme="dark"] .province-hero ~ section div[style*="background:linear-gradient(135deg,#e8f7f5"],
+[data-theme="dark"] .province-hero ~ section div[style*="background:linear-gradient(135deg,#eef7e8"],
+[data-theme="dark"] .province-hero ~ section div[style*="background:linear-gradient(135deg,#e8f3fa"],
+[data-theme="dark"] .province-hero ~ section div[style*="background:linear-gradient(135deg,#e8f5f0"],
+[data-theme="dark"] .province-hero ~ section div[style*="background:linear-gradient(135deg,#e8f4f8"] {
+  background: #111f1e !important;
+  border-color: #1e3a38 !important;
+}
+
+[data-theme="dark"] .province-hero ~ section div[style*="color:#008581"] {
+  color: #96E4B0 !important;
+}
+
+[data-theme="dark"] .province-hero ~ section div[style*="font-weight:600;font-size:0.9rem"],
+[data-theme="dark"] .province-hero ~ section div[style*="font-weight: 600; font-size: 0.9rem"] {
+  color: #e2f0ee !important;
+}
+
+[data-theme="dark"] .province-hero ~ section div[style*="background:#fff;border-radius:16px"],
+[data-theme="dark"] .province-hero ~ section div[style*="background: #fff; border-radius: 16px"] {
+  background: #162928 !important;
+  border-color: #1e3a38 !important;
+}
+[data-theme="dark"] .province-hero ~ section div[style*="border-radius:16px"] h3 {
+  color: #e2f0ee !important;
+}
+[data-theme="dark"] .province-hero ~ section div[style*="border-radius:16px"] p {
+  color: #9dc4c0 !important;
+}
+
+[data-theme="dark"] section[style*="background:#fff"],
+[data-theme="dark"] section[style*="background: #fff"] {
+  background: #0e1c1b !important;
+}
+
+[data-theme="dark"] section[style*="background:var(--off-white)"] {
+  background: #111f1e !important;
+}
+
+@media (max-width: 768px) {
+
+  .province-hero ~ section > .container > div[style*="grid-template-columns:1fr 1fr"],
+  .province-hero ~ section > .container > div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .province-hero ~ section[style*="linear-gradient"] > .container > div[style*="grid-template-columns:1fr 1fr"],
+  .province-hero ~ section[style*="linear-gradient"] > .container > div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  div[style*="grid-template-columns:1fr 1fr"][style*="gap:14px"],
+  div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 14px"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .province-hero-content {
+    padding: 20px !important;
+  }
+
+  .province-hero {
+    padding-top: 60px;
+  }
+
+  /* Province hero stats wrap on small screens */
+  .province-hero-stats {
+    gap: 12px !important;
+    flex-wrap: wrap;
+  }
+
+  .province-hero-stats > div {
+    min-width: calc(50% - 6px);
+  }
+
+  /* Section padding reduction */
+  .province-hero ~ section {
+    padding: 48px 0 !important;
+  }
+
+  /* Spot cards grid — single column */
+  .province-spots-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Map tabs wrap */
+  .map-tabs {
+    justify-content: flex-start !important;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .map-tabs::-webkit-scrollbar { display: none; }
+
+  .map-tab {
+    flex-shrink: 0;
+  }
+
+  /* Map iframe height */
+  .province-gmap-frame iframe {
+    height: 320px !important;
+  }
+
+  /* Festival section text */
+  .province-hero ~ section[style*="linear-gradient"] h2 {
+    font-size: 1.4rem !important;
+  }
+
+  /* Footer grid */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .province-hero-content h1 {
+    font-size: 2rem !important;
+  }
+
+  .province-hero-content .province-hero-sub {
+    font-size: 0.9rem !important;
+  }
+
+  .ph-stat-num {
+    font-size: 1.1rem !important;
+  }
+
+  /* Info tile grid stays 2 cols even on small screens */
+  div[style*="grid-template-columns:1fr 1fr"][style*="gap:14px"],
+  div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 14px"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .province-hero ~ section {
+    padding: 36px 0 !important;
+  }
+
+  /* Travel guide cards */
+  div[style*="auto-fit"][style*="240px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
