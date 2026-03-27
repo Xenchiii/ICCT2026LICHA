@@ -335,15 +335,24 @@ function switchMap(key, btn) {
 function filterProvinces(category, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.province-card').forEach((card, i) => {
+
+  let visibleIndex = 0;
+  document.querySelectorAll('.province-card').forEach(card => {
     const matches = category === 'all' || card.dataset.category === category;
     if (matches) {
-      card.style.display = '';
-      card.style.animation = 'none';
-      void card.offsetWidth;
-      card.style.animation = `fadeInUp 0.4s ease ${i * 0.05}s both`;
+      card.classList.remove('province-hidden');
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(16px)';
+      const delay = visibleIndex * 70;
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, delay);
+      visibleIndex++;
     } else {
-      card.style.display = 'none';
+      card.classList.add('province-hidden');
+      card.style.opacity = '';
+      card.style.transform = '';
     }
   });
 }
