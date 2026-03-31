@@ -14,7 +14,7 @@
 <body>
 
 <div id="loader">
-  <div class="loader-logo">XIII</div>
+  <div class="loader-logo"><img src="images/logo.svg" alt="XIII Logo"></div>
   <div class="spinner"></div>
   <div class="loader-text">CARAGA</div>
   <div class="loader-sub">REGION XIII · PHILIPPINES</div>
@@ -29,7 +29,7 @@
     <div class="nav-inner">
 
       <a href="index.html" class="nav-brand">
-        <div class="nav-logo-box">XIII</div>
+        <div class="nav-logo-box"><img src="images/logo.svg" alt="XIII Logo"></div>
         <div>
           <div class="nav-brand-title">WEBster · Vertex XIII</div>
           <div class="nav-brand-sub">Region XIII — Caraga</div>
@@ -274,35 +274,37 @@
           Caraga is home to indigenous peoples — the Manobo, Mamanwa, Higaonon, Banwaon, and Surigaonon —
           whose traditions, languages, and deep ecological knowledge continue to shape the region's identity.
         </p>
-        <div class="about-highlights">
-          <div class="highlight-item">
-            <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="13" height="12"/><path d="M9 3h10v18H9"/></svg></div>
-            <div class="highlight-label">Regional Center</div>
-            <div class="highlight-value">Butuan City</div>
-          </div>
-          <div class="highlight-item">
-            <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
-            <div class="highlight-label">Total Area</div>
-            <div class="highlight-value">21,515.23 km²</div>
-          </div>
-          <div class="highlight-item">
-            <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-            <div class="highlight-label">Population</div>
-            <div class="highlight-value">~2.8 Million</div>
-          </div>
-          <div class="highlight-item">
-            <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            <div class="highlight-label">Established</div>
-            <div class="highlight-value">February 23, 1995</div>
-          </div>
-        </div>
-        <a href="#provinces" class="btn btn-primary">
+        <a href="#provinces" class="btn btn-primary" style="margin-top:20px;">
           <svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/></svg>
           Explore the Provinces
         </a>
       </div>
 
     </div>
+
+    <div class="about-highlights fade-up" style="margin-top: 50px;">
+      <div class="highlight-item">
+        <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="13" height="12"/><path d="M9 3h10v18H9"/></svg></div>
+        <div class="highlight-label">Regional Center</div>
+        <div class="highlight-value">Butuan City</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <div class="highlight-label">Total Area</div>
+        <div class="highlight-value">21,515.23 km²</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <div class="highlight-label">Population</div>
+        <div class="highlight-value">~2.8 Million</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="highlight-label">Established</div>
+        <div class="highlight-value">February 23, 1995</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -442,10 +444,9 @@
         <div class="province-img prov-an">
           <img src="images/province-agusan-norte.jpg" alt="Agusan del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-img-label">Agusan del Norte</div>
         </div>
+        <span class="province-tag">Agusan</span>
         <div class="province-body">
-          <span class="province-tag">Agusan</span>
           <h3>Agusan del Norte</h3>
           <p>The political and cultural hub of Caraga. Home to Butuan City — site of the ancient Balanghai boats, National Museum, and the Kahimunan Festival.</p>
           <div class="province-spots-mini">
@@ -465,10 +466,9 @@
         <div class="province-img prov-as">
           <img src="images/province-agusan-sur.jpg" alt="Agusan del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-img-label">Agusan del Sur</div>
         </div>
+        <span class="province-tag">Agusan</span>
         <div class="province-body">
-          <span class="province-tag">Agusan</span>
           <h3>Agusan del Sur</h3>
           <p>The largest province in Caraga and all of Mindanao. Home to the vast Agusan Marsh Wildlife Sanctuary — a Ramsar wetland with floating Manobo communities.</p>
           <div class="province-spots-mini">
@@ -488,10 +488,9 @@
         <div class="province-img prov-sn">
           <img src="images/province-surigao-norte.jpg" alt="Surigao del Norte" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-img-label">Surigao del Norte</div>
         </div>
+        <span class="province-tag">Surigao</span>
         <div class="province-body">
-          <span class="province-tag">Surigao</span>
           <h3>Surigao del Norte</h3>
           <p>A surfer's paradise anchored by world-famous Siargao Island. Home to Cloud 9, Sugba Lagoon, Magpupungko, and Homonhon — where Magellan first touched Philippine soil.</p>
           <div class="province-spots-mini">
@@ -511,10 +510,9 @@
         <div class="province-img prov-ss">
           <img src="images/province-surigao-sur.jpg" alt="Surigao del Sur" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-img-label">Surigao del Sur</div>
         </div>
+        <span class="province-tag">Surigao</span>
         <div class="province-body">
-          <span class="province-tag">Surigao</span>
           <h3>Surigao del Sur</h3>
           <p>Home to the mystical Enchanted River, thundering Tinuy-an Falls, and the 24-island Britania archipelago — making this province one of Caraga's most breathtaking destinations.</p>
           <div class="province-spots-mini">
@@ -534,10 +532,9 @@
         <div class="province-img prov-dn">
           <img src="images/province-dinagat.jpg" alt="Dinagat Islands" class="province-photo" onerror="this.style.display='none'">
           <div class="province-img-overlay"></div>
-          <div class="province-img-label">Dinagat Islands</div>
         </div>
+        <span class="province-tag">Island Province</span>
         <div class="province-body">
-          <span class="province-tag">Island Province</span>
           <h3>Dinagat Islands</h3>
           <p>Caraga's newest and smallest province — a stunning archipelago with Sohoton Cove's cathedral formations, bioluminescent plankton at night, and dramatic volcanic rock islands.</p>
           <div class="province-spots-mini">
@@ -575,8 +572,6 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-siargao.jpg" alt="Siargao Cloud 9" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-siargao"></div>
-            <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
           <div class="spot-body">
@@ -590,8 +585,6 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-enchanted.jpg" alt="Enchanted River" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-enchanted"></div>
-            <div class="spot-overlay"></div>
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
           <div class="spot-body">
@@ -605,8 +598,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-tinuyan.jpg" alt="Tinuy-an Falls" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-tinuyan"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
           <div class="spot-body">
@@ -620,8 +612,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-sugba.jpg" alt="Sugba Lagoon" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg" style="background:linear-gradient(135deg,#003d60,#0077b6)"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
           <div class="spot-body">
@@ -635,8 +626,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-marsh.jpg" alt="Agusan Marsh" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-marsh"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Agusan del Sur</span>
           </div>
           <div class="spot-body">
@@ -650,8 +640,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-britania.jpg" alt="Britania Islands" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-britania"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Surigao del Sur</span>
           </div>
           <div class="spot-body">
@@ -665,8 +654,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-magpupungko.jpg" alt="Magpupungko" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg" style="background:linear-gradient(135deg,#1a4060,#2d7db8)"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Surigao del Norte</span>
           </div>
           <div class="spot-body">
@@ -680,8 +668,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-sohoton.jpg" alt="Sohoton Cove" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg spot-sohoton"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Dinagat Islands</span>
           </div>
           <div class="spot-body">
@@ -695,8 +682,7 @@
         <div class="spot-card">
           <div class="spot-img">
             <img src="images/spot-mainit.jpg" alt="Lake Mainit" class="spot-photo" onerror="this.style.display='none'">
-            <div class="spot-img-bg" style="background:linear-gradient(135deg,#1a3a0f,#2d6b1a)"></div>
-            <div class="spot-overlay"></div>
+            
             <span class="spot-prov-badge">Agusan del Sur / Surigao Norte</span>
           </div>
           <div class="spot-body">
@@ -852,18 +838,14 @@
     <div class="footer-grid">
       <div>
         <div class="footer-logo-row">
-          <div class="footer-logo">XIII</div>
+          <div class="footer-logo"><img src="images/logo.svg" alt="XIII Logo"></div>
           <div>
             <div class="footer-brand-name">Vertex XIII</div>
             <div class="footer-brand-sub">WEBster ICT Strand</div>
           </div>
         </div>
         <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines. From the surf-kissed shores of Siargao to the mystical Enchanted River — the Land of Promise.</p>
-        <div class="footer-social">
-          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
-        </div>
+      
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
@@ -903,8 +885,8 @@
       <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
       <div class="footer-made-by">Made with <span>♥</span> for Caraga, Region XIII</div>
       <div class="footer-bottom-links">
-        <a href="#" class="footer-bottom-link">Privacy</a>
-        <a href="#" class="footer-bottom-link">Terms</a>
+        <a href="pages/privacy.html" class="footer-bottom-link">Privacy</a>
+        <a href="pages/terms.html" class="footer-bottom-link">Terms</a>
         <a href="pages/contact.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>

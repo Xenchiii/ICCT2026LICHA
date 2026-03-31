@@ -1,0 +1,147 @@
+<svg width="480" height="480" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <path id="ta" d="M 165,340 A 175,175 0 0,0 515,340"/>
+  <path id="ba" d="M 145,340 A 195,195 0 0,1 535,340"/>
+  <clipPath id="bc"><circle cx="340" cy="340" r="258"/></clipPath>
+</defs>
+
+<!-- Outer rings -->
+<circle cx="340" cy="340" r="286" fill="none" stroke="#c8980a" stroke-width="0.4" opacity="0.2"/>
+<circle cx="340" cy="340" r="280" fill="none" stroke="#c8980a" stroke-width="0.7" opacity="0.35"/>
+<circle cx="340" cy="340" r="274" fill="none" stroke="#c8980a" stroke-width="2"/>
+
+<!-- Tick marks -->
+  <line x1="340.0" y1="66.0" x2="340.0" y2="82.0" stroke="#c8980a" stroke-width="2.2" stroke-linecap="round" opacity="1.0"/>
+  <line x1="363.9" y1="67.0" x2="363.4" y2="73.0" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="387.6" y1="70.2" x2="386.5" y2="76.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="410.9" y1="75.3" x2="409.4" y2="81.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="433.7" y1="82.5" x2="431.7" y2="88.2" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="455.8" y1="91.7" x2="453.3" y2="97.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="477.0" y1="102.7" x2="471.5" y2="112.2" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="497.2" y1="115.6" x2="493.7" y2="120.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="516.1" y1="130.1" x2="512.3" y2="134.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="533.7" y1="146.3" x2="529.5" y2="150.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="549.9" y1="163.9" x2="545.3" y2="167.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="564.4" y1="182.8" x2="559.5" y2="186.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="577.3" y1="203.0" x2="567.8" y2="208.5" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="588.3" y1="224.2" x2="582.9" y2="226.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="597.5" y1="246.3" x2="591.8" y2="248.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="604.7" y1="269.1" x2="598.9" y2="270.6" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="609.8" y1="292.4" x2="603.9" y2="293.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="613.0" y1="316.1" x2="607.0" y2="316.6" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="614.0" y1="340.0" x2="598.0" y2="340.0" stroke="#c8980a" stroke-width="2.2" stroke-linecap="round" opacity="1.0"/>
+  <line x1="613.0" y1="363.9" x2="607.0" y2="363.4" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="609.8" y1="387.6" x2="603.9" y2="386.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="604.7" y1="410.9" x2="598.9" y2="409.4" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="597.5" y1="433.7" x2="591.8" y2="431.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="588.3" y1="455.8" x2="582.9" y2="453.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="577.3" y1="477.0" x2="567.8" y2="471.5" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="564.4" y1="497.2" x2="559.5" y2="493.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="549.9" y1="516.1" x2="545.3" y2="512.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="533.7" y1="533.7" x2="529.5" y2="529.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="516.1" y1="549.9" x2="512.3" y2="545.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="497.2" y1="564.4" x2="493.7" y2="559.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="477.0" y1="577.3" x2="471.5" y2="567.8" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="455.8" y1="588.3" x2="453.3" y2="582.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="433.7" y1="597.5" x2="431.7" y2="591.8" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="410.9" y1="604.7" x2="409.4" y2="598.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="387.6" y1="609.8" x2="386.5" y2="603.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="363.9" y1="613.0" x2="363.4" y2="607.0" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="340.0" y1="614.0" x2="340.0" y2="598.0" stroke="#c8980a" stroke-width="2.2" stroke-linecap="round" opacity="1.0"/>
+  <line x1="316.1" y1="613.0" x2="316.6" y2="607.0" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="292.4" y1="609.8" x2="293.5" y2="603.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="269.1" y1="604.7" x2="270.6" y2="598.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="246.3" y1="597.5" x2="248.3" y2="591.8" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="224.2" y1="588.3" x2="226.7" y2="582.9" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="203.0" y1="577.3" x2="208.5" y2="567.8" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="182.8" y1="564.4" x2="186.3" y2="559.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="163.9" y1="549.9" x2="167.7" y2="545.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="146.3" y1="533.7" x2="150.5" y2="529.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="130.1" y1="516.1" x2="134.7" y2="512.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="115.6" y1="497.2" x2="120.5" y2="493.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="102.7" y1="477.0" x2="112.2" y2="471.5" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="91.7" y1="455.8" x2="97.1" y2="453.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="82.5" y1="433.7" x2="88.2" y2="431.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="75.3" y1="410.9" x2="81.1" y2="409.4" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="70.2" y1="387.6" x2="76.1" y2="386.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="67.0" y1="363.9" x2="73.0" y2="363.4" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="66.0" y1="340.0" x2="82.0" y2="340.0" stroke="#c8980a" stroke-width="2.2" stroke-linecap="round" opacity="1.0"/>
+  <line x1="67.0" y1="316.1" x2="73.0" y2="316.6" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="70.2" y1="292.4" x2="76.1" y2="293.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="75.3" y1="269.1" x2="81.1" y2="270.6" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="82.5" y1="246.3" x2="88.2" y2="248.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="91.7" y1="224.2" x2="97.1" y2="226.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="102.7" y1="203.0" x2="112.2" y2="208.5" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="115.6" y1="182.8" x2="120.5" y2="186.3" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="130.1" y1="163.9" x2="134.7" y2="167.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="146.3" y1="146.3" x2="150.5" y2="150.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="163.9" y1="130.1" x2="167.7" y2="134.7" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="182.8" y1="115.6" x2="186.3" y2="120.5" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="203.0" y1="102.7" x2="208.5" y2="112.2" stroke="#c8980a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="224.2" y1="91.7" x2="226.7" y2="97.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="246.3" y1="82.5" x2="248.3" y2="88.2" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="269.1" y1="75.3" x2="270.6" y2="81.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="292.4" y1="70.2" x2="293.5" y2="76.1" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+  <line x1="316.1" y1="67.0" x2="316.6" y2="73.0" stroke="#c8980a" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+
+<!-- Cardinal diamonds -->
+<polygon points="340,58 346,67 340,76 334,67" fill="#c8980a"/>
+<polygon points="604,340 613,346 622,340 613,334" fill="#c8980a"/>
+<polygon points="340,604 346,613 340,622 334,613" fill="#c8980a"/>
+<polygon points="58,340 67,346 76,340 67,334" fill="#c8980a"/>
+
+<!-- Main face -->
+<circle cx="340" cy="340" r="260" fill="#041a18"/>
+<circle cx="340" cy="340" r="250" fill="none" stroke="#1e6b5a" stroke-width="1.2" opacity="0.7"/>
+<circle cx="340" cy="340" r="244" fill="none" stroke="#1e6b5a" stroke-width="0.5" opacity="0.35"/>
+
+<!-- Water lines -->
+<g clip-path="url(#bc)">
+  <path d="M 90,460 Q 158,441 226,460 Q 294,479 362,460 Q 430,441 498,460 Q 566,479 600,468" fill="none" stroke="#1e6b5a" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 88,479 Q 160,460 232,479 Q 304,498 376,479 Q 448,460 520,479 Q 574,492 605,486" fill="none" stroke="#1e6b5a" stroke-width="1.1" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 88,498 Q 163,479 238,498 Q 313,517 388,498 Q 463,479 530,498 Q 572,510 600,504" fill="none" stroke="#0d4438" stroke-width="0.9" stroke-linecap="round" opacity="0.45"/>
+  <path d="M 92,517 Q 170,498 248,517 Q 326,536 404,517 Q 482,498 545,517 Q 572,526 598,521" fill="none" stroke="#0d4438" stroke-width="0.7" stroke-linecap="round" opacity="0.35"/>
+</g>
+
+<!-- VERTEX label with flanking lines -->
+<line x1="150" y1="218" x2="232" y2="218" stroke="#c8980a" stroke-width="0.8" opacity="0.5"/>
+<line x1="448" y1="218" x2="530" y2="218" stroke="#c8980a" stroke-width="0.8" opacity="0.5"/>
+<circle cx="150" cy="218" r="2" fill="#c8980a" opacity="0.5"/>
+<circle cx="530" cy="218" r="2" fill="#c8980a" opacity="0.5"/>
+<text x="340" y="218" text-anchor="middle" dominant-baseline="central"
+      font-family="'Poppins',sans-serif" font-size="17" font-weight="700"
+      fill="#c8980a" letter-spacing="11">VERTEX</text>
+
+<!-- Dots below VERTEX -->
+<circle cx="318" cy="232" r="1.8" fill="#c8980a" opacity="0.4"/>
+<circle cx="340" cy="232" r="1.8" fill="#c8980a" opacity="0.4"/>
+<circle cx="362" cy="232" r="1.8" fill="#c8980a" opacity="0.4"/>
+
+<!-- XIII numeral -->
+<text x="340" y="358" text-anchor="middle" dominant-baseline="central"
+      font-family="Georgia,'Times New Roman',serif"
+      font-size="136" font-weight="700" fill="#e8f5f1">XIII</text>
+
+<!-- Divider below XIII -->
+<line x1="165" y1="444" x2="288" y2="444" stroke="#1e6b5a" stroke-width="0.9" opacity="0.7"/>
+<line x1="392" y1="444" x2="515" y2="444" stroke="#1e6b5a" stroke-width="0.9" opacity="0.7"/>
+<circle cx="340" cy="444" r="3.5" fill="#1e6b5a" opacity="0.65"/>
+<line x1="288" y1="444" x2="329" y2="444" stroke="#1e6b5a" stroke-width="0.5" opacity="0.5"/>
+<line x1="351" y1="444" x2="392" y2="444" stroke="#1e6b5a" stroke-width="0.5" opacity="0.5"/>
+
+<!-- Corner star decorations -->
+<g fill="#c8980a" opacity="0.28">
+  <polygon points="463,192 465,196 463,200 461,196"/>
+  <polygon points="459,196 463,194 467,196 463,198"/>
+  <polygon points="217,192 219,196 217,200 215,196"/>
+  <polygon points="213,196 217,194 221,196 217,198"/>
+</g>
+
+<!-- Curved text -->
+<text font-family="'Poppins',sans-serif" font-size="15" font-weight="600" letter-spacing="5" fill="#8dd8b4">
+  <textPath href="#ta" startOffset="50%" text-anchor="middle">CARAGA  ·  REGION  XIII</textPath>
+</text>
+<text font-family="'Poppins',sans-serif" font-size="11.5" font-weight="500" letter-spacing="3" fill="#c8980a" opacity="0.72">
+  <textPath href="#ba" startOffset="50%" text-anchor="middle">LAND OF PROMISE  ·  MINDANAO  PHILIPPINES</textPath>
+</text>
+</svg>
