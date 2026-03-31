@@ -302,7 +302,7 @@ function initCarouselDots() {
   if (!carousel || !carouselDots) return;
   const cards   = carousel.querySelectorAll('.spot-card');
   const perPage = getCardsPerPage();
-  const pages   = Math.ceil(cards.length / perPage);
+  const pages   = Math.ceil(cards.length / perPage); 
   carouselDots.innerHTML = '';
   for (let i = 0; i < pages; i++) {
     const d = document.createElement('button');
@@ -503,3 +503,4 @@ Object.keys(fieldLabels).forEach(id => {
 window.addEventListener('resize', () => {
   initCarouselDots();
 });
+

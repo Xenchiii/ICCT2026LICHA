@@ -1782,6 +1782,7 @@ footer {
   .spot-card { flex: 0 0 calc(100vw - 64px); }
 
   .provinces-grid { grid-template-columns: 1fr; }
+
 }
 
 @media (max-width: 480px) {
