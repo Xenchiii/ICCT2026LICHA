@@ -16,25 +16,20 @@
 
     /* ── Hero ─────────────────────────────── */
     .del-hero {
-      background: linear-gradient(135deg, #3d1500 0%, #7a3200 45%, #b85a00 100%);
-      padding: 130px 0 70px;
-      position: relative; overflow: hidden; text-align: center;
+      position: relative; min-height: 52vh; display: flex; align-items: flex-end; overflow: hidden;
     }
-    .del-hero::before {
-      content: '';
+    .del-hero-bg {
       position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 50%, rgba(255,180,80,0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 30%, rgba(255,120,40,0.07) 0%, transparent 50%);
+      background: linear-gradient(135deg, #003d5b, #006688, #009db5);
+      background-size: cover; background-position: center;
     }
-    .del-hero::after {
-      content: '🍽';
-      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
-      font-size: 9rem; opacity: 0.04; user-select: none; pointer-events: none; line-height: 1;
+    .del-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,30,50,0.5) 60%, transparent 100%);
     }
-    .del-hero .container { position: relative; z-index: 2; }
-    .del-hero h1 { color: #fff; margin-bottom: 14px; }
-    .del-hero p  { color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto 24px; }
+    .del-hero-content { position: relative; z-index: 2; padding: 60px 0 56px; width: 100%; }
+    .del-hero h1 { color: #fff; margin-bottom: 12px; }
+    .del-hero p  { color: rgba(255,255,255,0.85); max-width: 560px; margin-bottom: 24px; }
 
     .del-breadcrumb {
       display: inline-flex; align-items: center; gap: 7px;
@@ -55,22 +50,9 @@
     .del-pill svg  { width: 15px; height: 15px; stroke: #f5c842; fill: none; stroke-width: 2; }
     .del-pill span { color: #fff; font-size: 0.82rem; font-weight: 600; }
 
-    /* ── Filter bar ───────────────────────── */
-    .del-filter-bar {
-      background: #fff; border-bottom: 1.5px solid var(--border);
-      position: sticky; top: 66px; z-index: 100; padding: 14px 0;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
     .del-filters {
-      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
     }
-    .del-filter-btn {
-      padding: 7px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600;
-      border: 2px solid var(--border); background: #fff; color: var(--text-mid);
-      cursor: pointer; transition: all var(--transition); font-family: 'Poppins', sans-serif;
-    }
-    .del-filter-btn:hover,
-    .del-filter-btn.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
 
     /* ── Spotlight / Feature dish ─────────── */
     .del-spotlight {
@@ -80,13 +62,33 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
     .del-spotlight-img-wrap {
-      background: linear-gradient(135deg, #f5c842, #d530bf);
-      border-radius: 22px; padding: 4px; box-shadow: var(--shadow-lg);
+      position: relative;
+      border-radius: 22px; padding: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-xl);
+      z-index: 10;
+    }
+    .del-spotlight-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: conic-gradient(from 45deg, #f5c842, #d530bf, #f5c842, #f5c842);
+      filter: blur(25px);
+      border-radius: 40px;
+      z-index: -1;
+      opacity: 0.4;
+      animation: pulse-glow-del 6s infinite alternate;
+    }
+    @keyframes pulse-glow-del {
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.05); opacity: 0.45; }
     }
     .del-spotlight-img {
-      border-radius: 20px; height: 380px; overflow: hidden;
+      border-radius: 17px; height: 380px; overflow: hidden;
       background: linear-gradient(135deg, #7a3200, #b85a00);
       display: flex; align-items: center; justify-content: center; position: relative;
+      z-index: 2;
     }
     .del-spotlight-img img { width: 100%; height: 100%; object-fit: cover; }
     .del-spotlight-img .ph-icon { opacity: 0.2; }
@@ -123,11 +125,11 @@
 
     .del-card {
       background: #fff; border-radius: var(--radius-lg);
-      border: 1.5px solid var(--border); overflow: hidden;
+      overflow: hidden;
       box-shadow: var(--shadow-sm); transition: all var(--transition);
       display: flex; flex-direction: column;
     }
-    .del-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+    .del-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
     .del-card-img {
       height: 210px; position: relative; overflow: hidden;
@@ -205,16 +207,12 @@
       display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;
     }
     .eat-card {
-      background: var(--off-white); border: 1.5px solid var(--border);
+      background: var(--off-white);
       border-radius: var(--radius-lg); padding: 24px 20px;
       box-shadow: var(--shadow-sm); transition: all var(--transition);
       position: relative; overflow: hidden;
     }
-    .eat-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: linear-gradient(to bottom, var(--deep-cyan), var(--summer-green));
-    }
-    .eat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--med-green); }
+    .eat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .eat-icon {
       width: 48px; height: 48px; border-radius: var(--radius-md);
       background: rgba(0,133,129,0.09); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
@@ -264,7 +262,7 @@
 
 <!-- LOADING SCREEN -->
 <div id="loader">
-  <div class="loader-logo">XIII</div>
+  <div class="loader-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
   <div class="spinner"></div>
   <div class="loader-text">CARAGA</div>
   <div class="loader-sub">REGION XIII · PHILIPPINES</div>
@@ -307,6 +305,7 @@
         <li><a href="delicacies.html"            class="nav-link active">Delicacies</a></li>
         <li><a href="notable-personalities.html" class="nav-link">Personalities</a></li>
         <li><a href="contact.html"               class="nav-link">Contact</a></li>
+        <li><a href="directions.html"            class="nav-link">Navigator</a></li>
       </ul>
       <div class="hamburger" id="hamburger" onclick="toggleMenu()">
         <span></span><span></span><span></span>
@@ -335,34 +334,42 @@
   <a href="delicacies.html"            class="mobile-link" onclick="closeMenu()">Delicacies</a>
   <a href="notable-personalities.html" class="mobile-link" onclick="closeMenu()">Personalities</a>
   <a href="contact.html"               class="mobile-link" onclick="closeMenu()">Contact</a>
+  <a href="directions.html"            class="mobile-link" onclick="closeMenu()">Navigator</a>
 </div>
 
 
 <!-- ═══════ HERO ═══════ -->
 <section class="del-hero">
+  <div class="del-hero-bg" 
+       style="background-image:url('../images/food-panyalam.jpg'); 
+              background-size:cover; 
+              background-position:center;"></div>
+  <div class="del-hero-overlay"></div>
   <div class="container">
-    <div class="del-breadcrumb">
-      <a href="../index.html">Home</a><span>›</span><span>Delicacies</span>
-    </div>
-    <span class="section-label">Taste of Caraga</span>
-    <h1>Delicacies of Region XIII</h1>
-    <p>From the freshest seafood pulled from the Philippine Sea to sticky rice cakes wrapped in banana leaves — Caraga's cuisine is a rich blend of Visayan, indigenous, and coastal Filipino flavours.</p>
-    <div class="del-hero-pills">
-      <div class="del-pill">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        <span>Fresh Seafood Capital</span>
+    <div class="del-hero-content">
+      <div class="del-breadcrumb">
+        <a href="../index.html">Home</a><span>›</span><span>Delicacies</span>
       </div>
-      <div class="del-pill">
-        <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM8 12h8M12 8v8"/></svg>
-        <span>Indigenous Recipes</span>
-      </div>
-      <div class="del-pill">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        <span>Kakanin Traditions</span>
-      </div>
-      <div class="del-pill">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        <span>Centuries-Old Recipes</span>
+      <span class="section-label" style="background:rgba(245,200,66,0.2);">Taste of Caraga</span>
+      <h1>Delicacies of Region XIII</h1>
+      <p>From the freshest seafood pulled from the Philippine Sea to sticky rice cakes wrapped in banana leaves — Caraga's cuisine is a rich blend of Visayan, indigenous, and coastal Filipino flavours.</p>
+      <div class="del-hero-pills">
+        <div class="del-pill">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          <span>Fresh Seafood Capital</span>
+        </div>
+        <div class="del-pill">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM8 12h8M12 8v8"/></svg>
+          <span>Indigenous Recipes</span>
+        </div>
+        <div class="del-pill">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span>Kakanin Traditions</span>
+        </div>
+        <div class="del-pill">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <span>Centuries-Old Recipes</span>
+        </div>
       </div>
     </div>
   </div>
@@ -852,18 +859,14 @@
     <div class="footer-grid">
       <div>
         <div class="footer-logo-row">
-          <div class="footer-logo">XIII</div>
+          <div class="footer-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
           <div>
             <div class="footer-brand-name">Vertex XIII</div>
             <div class="footer-brand-sub">WEBster ICT Strand</div>
           </div>
         </div>
         <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines. From the surf-kissed shores of Siargao to the mystical Enchanted River — the Land of Promise.</p>
-        <div class="footer-social">
-          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
-        </div>
+
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>

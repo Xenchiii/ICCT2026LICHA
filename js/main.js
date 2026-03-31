@@ -113,13 +113,29 @@ const navbar  = document.getElementById('navbar');
 const backTop = document.getElementById('back-top');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
+  const scroll = window.scrollY;
+  if (scroll > 60) {
     navbar?.classList.add('scrolled');
     backTop?.classList.add('visible');
   } else {
     navbar?.classList.remove('scrolled');
     backTop?.classList.remove('visible');
   }
+
+  // Optimize sticky filter bar rounding
+  const filterBars = document.querySelectorAll('[class$="-filter-bar"]');
+  const navHeight = navbar ? navbar.offsetHeight : 80;
+
+  filterBars.forEach(bar => {
+    const rect = bar.getBoundingClientRect();
+    // It's stuck if its top position is roughly at the navbar height
+    if (rect.top <= navHeight + 1) {
+      bar.classList.add('is-stuck');
+    } else {
+      bar.classList.remove('is-stuck');
+    }
+  });
+
   updateActiveNav();
 }, { passive: true });
 
@@ -172,10 +188,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  initLegalNotice();
   injectThemeToggle();
-
   initCarouselDots();
 });
+
+/**
+ * initLegalNotice
+ * Injects a modern, glassmorphic legal consent notice at the bottom-right.
+ * Uses localStorage to remember the user's acceptance.
+ */
+function initLegalNotice() {
+  if (localStorage.getItem('caraga-legal-accepted')) return;
+
+  // Determine path prefix based on where we are
+  const path = window.location.pathname;
+  let prefix = '';
+  if (path.includes('/pages/') || path.includes('/provinces/')) {
+    prefix = path.includes('/provinces/') ? '../pages/' : '';
+  } else {
+    prefix = 'pages/';
+  }
+
+  const notice = document.createElement('div');
+  notice.id = 'legal-notice';
+  notice.innerHTML = `
+    <div class="legal-content">
+      <h3>Privacy & Terms</h3>
+      <p>We value your privacy. By using this site, you agree to our 
+         <a href="${prefix}terms.html">Terms</a> and 
+         <a href="${prefix}privacy.html">Privacy Policy</a>.</p>
+    </div>
+    <button class="legal-btn-accept" id="acceptLegal">I Accept</button>
+  `;
+
+  document.body.appendChild(notice);
+
+  document.getElementById('acceptLegal')?.addEventListener('click', () => {
+    notice.classList.add('notice-hide');
+    localStorage.setItem('caraga-legal-accepted', 'true');
+    setTimeout(() => notice.remove(), 500);
+  });
+}
 
 const navSections = [
   'home', 'about', 'history', 'provinces',
@@ -391,7 +445,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(href);
     if (target) {
       e.preventDefault();
-      const navH = document.getElementById('navbar')?.offsetHeight || 66;
+      const navH = document.getElementById('navbar')?.offsetHeight || 80;
       const top  = target.getBoundingClientRect().top + window.scrollY - navH;
       window.scrollTo({ top, behavior: 'smooth' });
     }

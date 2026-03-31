@@ -17,27 +17,20 @@
 
     /* ── Hero ──────────────────────────────────────── */
     .ce-hero {
-      background: linear-gradient(135deg, #002e20 0%, #005a3c 45%, var(--med-green) 100%);
-      padding: 130px 0 70px;
-      position: relative; overflow: hidden; text-align: center;
+      position: relative; min-height: 52vh; display: flex; align-items: flex-end; overflow: hidden;
     }
-    .ce-hero::before {
-      content: '';
+    .ce-hero-bg {
       position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(150,228,176,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(150,228,176,0.07) 1px, transparent 1px);
-      background-size: 52px 52px;
+      background: linear-gradient(135deg, #003d5b, #006688, #009db5);
+      background-size: cover; background-position: center;
     }
-    .ce-hero::after {
-      content: '文化';
-      position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
-      font-size: 10rem; font-weight: 900; color: rgba(255,255,255,0.03);
-      line-height: 1; user-select: none; pointer-events: none;
+    .ce-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,30,50,0.5) 60%, transparent 100%);
     }
-    .ce-hero .container { position: relative; z-index: 2; }
-    .ce-hero h1 { color: #fff; margin-bottom: 14px; }
-    .ce-hero p  { color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto 24px; }
+    .ce-hero-content { position: relative; z-index: 2; padding: 60px 0 56px; width: 100%; }
+    .ce-hero h1 { color: #fff; margin-bottom: 12px; }
+    .ce-hero p  { color: rgba(255,255,255,0.85); max-width: 560px; margin-bottom: 24px; }
 
     .ce-breadcrumb {
       display: inline-flex; align-items: center; gap: 7px;
@@ -59,24 +52,10 @@
     .ce-stat-pill svg   { width: 15px; height: 15px; stroke: var(--summer-green); fill: none; stroke-width: 2; }
     .ce-stat-pill span  { color: #fff; font-size: 0.82rem; font-weight: 600; }
 
-    /* ── Filter bar ────────────────────────────────── */
-    .ce-filter-bar {
-      background: #fff; border-bottom: 1.5px solid var(--border);
-      position: sticky; top: 66px; z-index: 100; padding: 14px 0;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
     .ce-filters {
-      display: flex; gap: 8px; flex-wrap: wrap;
+      display: flex; gap: 10px; flex-wrap: wrap;
       justify-content: center; align-items: center;
     }
-    .ce-filter-btn {
-      padding: 7px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600;
-      border: 2px solid var(--border); background: #fff; color: var(--text-mid);
-      cursor: pointer; transition: all var(--transition); font-family: 'Poppins', sans-serif;
-    }
-    .ce-filter-btn:hover,
-    .ce-filter-btn.active { background: var(--deep-cyan); color: #fff; border-color: var(--deep-cyan); }
-    .ce-filter-btn.pink-active { background: var(--dark-hot-pink); border-color: var(--dark-hot-pink); color: #fff; }
 
     /* ── FESTIVALS — big feature cards ────────────────── */
     .festivals-section { background: var(--off-white); }
@@ -89,11 +68,11 @@
 
     .festival-card {
       background: #fff; border-radius: var(--radius-lg);
-      border: 1.5px solid var(--border); overflow: hidden;
+      overflow: hidden;
       box-shadow: var(--shadow-sm); transition: all var(--transition);
       display: flex; flex-direction: column;
     }
-    .festival-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+    .festival-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
     .festival-img {
       height: 220px; position: relative; overflow: hidden;
@@ -170,15 +149,34 @@
     .spotlight-inner {
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
-   .spotlight-img-wrap {
-  background: none;
-  border-radius: 22px; padding: 0; box-shadow: var(--shadow-lg);
-  overflow: hidden;
-}
+    .spotlight-img-wrap {
+      position: relative;
+      border-radius: 22px; padding: 4px; 
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-xl);
+      z-index: 10;
+    }
+    .spotlight-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: conic-gradient(from 45deg, #fbbf24, #dc2626, #fbbf24, #fbbf24);
+      filter: blur(25px);
+      border-radius: 40px;
+      z-index: -1;
+      opacity: 0.4;
+      animation: pulse-glow 6s infinite alternate;
+    }
+    @keyframes pulse-glow {
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.05); opacity: 0.45; }
+    }
 .spotlight-img-inner {
-  border-radius: 22px; height: 380px; overflow: hidden;
-  background: linear-gradient(135deg, #004a3a, #007a60);
+  border-radius: 17px; height: 380px; overflow: hidden;
+  background: linear-gradient(135deg, #fbbf24, #dc2626);
   display: flex; align-items: center; justify-content: center; position: relative;
+  z-index: 2;
 }
 .spotlight-img-inner img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -217,15 +215,11 @@
     }
     .indigenous-card {
       background: #fff; border-radius: var(--radius-lg);
-      border: 1.5px solid var(--border); padding: 28px 24px;
+      padding: 28px 24px;
       box-shadow: var(--shadow-sm); transition: all var(--transition);
       position: relative; overflow: hidden;
     }
-    .indigenous-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: linear-gradient(to bottom, var(--deep-cyan), var(--summer-green));
-    }
-    .indigenous-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--med-green); }
+    .indigenous-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .indigenous-icon-box {
       width: 52px; height: 52px; border-radius: var(--radius-md);
       background: rgba(0,133,129,0.08);
@@ -279,10 +273,10 @@
     }
     .art-card {
       background: #fff; border-radius: var(--radius-lg); overflow: hidden;
-      border: 1.5px solid var(--border); box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-sm);
       transition: all var(--transition);
     }
-    .art-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--med-green); }
+    .art-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
     .art-img {
       height: 180px; position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
@@ -343,7 +337,7 @@
 
 <!-- LOADING SCREEN -->
 <div id="loader">
-  <div class="loader-logo">XIII</div>
+  <div class="loader-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
   <div class="spinner"></div>
   <div class="loader-text">CARAGA</div>
   <div class="loader-sub">REGION XIII · PHILIPPINES</div>
@@ -386,6 +380,7 @@
         <li><a href="delicacies.html"             class="nav-link">Delicacies</a></li>
         <li><a href="notable-personalities.html"  class="nav-link">Personalities</a></li>
         <li><a href="contact.html"                class="nav-link">Contact</a></li>
+        <li><a href="directions.html"             class="nav-link">Navigator</a></li>
       </ul>
       <div class="hamburger" id="hamburger" onclick="toggleMenu()">
         <span></span><span></span><span></span>
@@ -414,34 +409,44 @@
   <a href="delicacies.html"             class="mobile-link" onclick="closeMenu()">Delicacies</a>
   <a href="notable-personalities.html"  class="mobile-link" onclick="closeMenu()">Personalities</a>
   <a href="contact.html"                class="mobile-link" onclick="closeMenu()">Contact</a>
+  <a href="directions.html"             class="mobile-link" onclick="closeMenu()">Navigator</a>
 </div>
 
 
 <!-- ═══════ HERO ═══════ -->
 <section class="ce-hero">
+  <div class="ce-hero-bg" 
+       style="background-image:url('../images/festival-kahimunan.jpg'); 
+              background-size:cover; 
+              background-position:center;">
+  </div>
+  <div class="ce-hero-overlay"></div>
   <div class="container">
-    <div class="ce-breadcrumb">
-      <a href="../index.html">Home</a><span>›</span><span>Culture &amp; Events</span>
-    </div>
-    <span class="section-label">Living Heritage</span>
-    <h1>Culture &amp; Events of Caraga</h1>
-    <p>Where ancient Austronesian traditions meet vibrant festivals — Caraga's cultural tapestry spans over 1,700 years of living heritage, celebrated by five proud indigenous peoples.</p>
-    <div class="ce-hero-stats">
-      <div class="ce-stat-pill">
-        <svg viewBox="0 0 24 24"><path d="M3,17 L6,7 L18,7 L21,17 Z"/><path d="M6,7 L8,2 L16,2 L18,7"/><path d="M3,17 C5,15 9,15 12,17 C15,19 19,19 21,17"/></svg>
-        <span>30+ Annual Festivals</span>
+    <div class="ce-hero-content">
+      <div class="ce-breadcrumb">
+        <a href="../index.html">Home</a><span>›</span><span>Culture &amp; Events</span>
       </div>
-      <div class="ce-stat-pill">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <span>5 Indigenous Peoples</span>
-      </div>
-      <div class="ce-stat-pill">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>1,700+ Years of History</span>
-      </div>
-      <div class="ce-stat-pill">
-        <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
-        <span>National Cultural Treasures</span>
+      <span class="section-label" style="background:rgba(150,228,176,0.2);">Living Heritage</span>
+      <h1>Culture &amp; Events of Caraga</h1>
+      <p>Where ancient Austronesian traditions meet vibrant festivals — Caraga's cultural tapestry spans over 1,700 years of living heritage, celebrated by five proud indigenous peoples.</p>
+      
+      <div class="ce-hero-stats">
+        <div class="ce-stat-pill">
+          <svg viewBox="0 0 24 24"><path d="M3,17 L6,7 L18,7 L21,17 Z"/><path d="M6,7 L8,2 L16,2 L18,7"/><path d="M3,17 C5,15 9,15 12,17 C15,19 19,19 21,17"/></svg>
+          <span>30+ Annual Festivals</span>
+        </div>
+        <div class="ce-stat-pill">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <span>5 Indigenous Peoples</span>
+        </div>
+        <div class="ce-stat-pill">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>1,700+ Years of History</span>
+        </div>
+        <div class="ce-stat-pill">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span>National Cultural Treasures</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1043,18 +1048,14 @@
     <div class="footer-grid">
       <div>
         <div class="footer-logo-row">
-          <div class="footer-logo">XIII</div>
+          <div class="footer-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
           <div>
             <div class="footer-brand-name">Vertex XIII</div>
             <div class="footer-brand-sub">WEBster ICT Strand</div>
           </div>
         </div>
         <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines. From the surf-kissed shores of Siargao to the mystical Enchanted River — the Land of Promise.</p>
-        <div class="footer-social">
-          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
-        </div>
+
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
@@ -1094,8 +1095,8 @@
       <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
       <div class="footer-made-by">Made with <span>♥</span> for Caraga, Region XIII</div>
       <div class="footer-bottom-links">
-        <a href="#"            class="footer-bottom-link">Privacy</a>
-        <a href="#"            class="footer-bottom-link">Terms</a>
+        <a href="privacy.html" class="footer-bottom-link">Privacy</a>
+        <a href="terms.html"   class="footer-bottom-link">Terms</a>
         <a href="contact.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>

@@ -77,64 +77,30 @@
     /* ── FILTER BAR ───────────────────────────────────── */
     /* Sticky filter bar that sits just below the hero.
        Sticks to the top of the viewport when scrolled past. */
-    .spots-filter-bar {
-      background: #fff;
-      border-bottom: 1.5px solid var(--border);
-      padding: 0;
-      position: sticky;
-      top: 66px; /* sits just below the fixed navbar */
-      z-index: 90;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    }
 
     /* Inner wrapper for the filter bar — scrollable on mobile
        so all the province buttons are reachable */
     .spots-filter-inner {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 14px 0;
+      gap: 10px;
+      padding: 10px 0;
       overflow-x: auto;
       scrollbar-width: none; /* hide scrollbar on Firefox */
     }
     .spots-filter-inner::-webkit-scrollbar { display: none; }
 
-    /* Individual filter button — each one represents a province
-       (or "All"). Uses data-province to match cards. */
-    .spots-filter-btn {
-      flex-shrink: 0;
-      padding: 8px 18px;
-      border-radius: 50px;
-      border: 1.5px solid var(--border);
-      background: #fff;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .spots-filter-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-    /* Active state — filled green background */
-    .spots-filter-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
-    }
 
     /* Result count badge — "Showing X spots" shown to the right */
     .spots-count-badge {
       margin-left: auto;
       flex-shrink: 0;
       font-size: 0.78rem;
-      color: var(--text-secondary);
-      background: var(--off-white);
-      border: 1.5px solid var(--border);
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 50px;
-      padding: 6px 14px;
+      padding: 5px 14px;
       font-weight: 600;
       white-space: nowrap;
     }
@@ -446,7 +412,7 @@
      the page finishes loading.
 ===================================================== -->
 <div id="loader">
-  <div class="loader-logo">XIII</div>
+  <div class="loader-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
   <div class="spinner"></div>
   <div class="loader-text">CARAGA</div>
   <div class="loader-sub">REGION XIII · PHILIPPINES</div>
@@ -467,7 +433,7 @@
     <div class="nav-inner">
       <!-- Brand / logo — links back to the homepage -->
       <a href="../index.html" class="nav-brand">
-        <div class="nav-logo-box">XIII</div>
+        <div class="nav-logo-box"><img src="../images/logo.svg" alt="XIII Logo"></div>
         <div>
           <div class="nav-brand-title">WEBster · Vertex XIII</div>
           <div class="nav-brand-sub">Region XIII — Caraga</div>
@@ -501,6 +467,7 @@
         <li><a href="delicacies.html"            class="nav-link">Delicacies</a></li>
         <li><a href="notable-personalities.html" class="nav-link">Personalities</a></li>
         <li><a href="contact.html"               class="nav-link">Contact</a></li>
+        <li><a href="directions.html"            class="nav-link">Navigator</a></li>
       </ul>
 
       <!-- Hamburger for mobile — calls toggleMenu() from main.js -->
@@ -538,6 +505,7 @@
   <a href="delicacies.html"            class="mobile-link" onclick="closeMenu()">Delicacies</a>
   <a href="notable-personalities.html" class="mobile-link" onclick="closeMenu()">Personalities</a>
   <a href="contact.html"               class="mobile-link" onclick="closeMenu()">Contact</a>
+  <a href="directions.html"            class="mobile-link" onclick="closeMenu()">Navigator</a>
 </div>
 
 
@@ -1160,18 +1128,14 @@
       <!-- Brand column -->
       <div>
         <div class="footer-logo-row">
-          <div class="footer-logo">XIII</div>
+          <div class="footer-logo"><img src="../images/logo.svg" alt="XIII Logo"></div>
           <div>
             <div class="footer-brand-name">Vertex XIII</div>
             <div class="footer-brand-sub">WEBster ICT Strand</div>
           </div>
         </div>
         <p class="footer-desc">Caraga, or Region XIII, is a land of natural wonder and cultural richness in northeastern Mindanao, Philippines.</p>
-        <div class="footer-social">
-          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="rgba(255,255,255,0.7)" stroke="none"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></div>
-        </div>
+
       </div>
 
       <!-- Quick links column -->
@@ -1219,8 +1183,8 @@
       <div class="footer-copy">© 2025 Vertex XIII · WEBster ICT Strand Competition. All rights reserved.</div>
       <div class="footer-made-by">Made with <span></span> for Caraga, Region XIII</div>
       <div class="footer-bottom-links">
-        <a href="#" class="footer-bottom-link">Privacy</a>
-        <a href="#" class="footer-bottom-link">Terms</a>
+        <a href="privacy.html" class="footer-bottom-link">Privacy</a>
+        <a href="terms.html" class="footer-bottom-link">Terms</a>
         <a href="contact.html" class="footer-bottom-link">Contact</a>
       </div>
     </div>
